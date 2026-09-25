@@ -1,10 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.9.17)  17 SEP 2026 20:14
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.12) (preloaded format=xelatex 2026.9.17)  18 SEP 2026 23:57
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/MyFolder/Kuliah/TA/Proposal/Proposal_Tugas_Akhir/ProposalTA.tex
-(c:/MyFolder/Kuliah/TA/Proposal/Proposal_Tugas_Akhir/ProposalTA.tex
+**./ProposalTA.tex
+(ProposalTA.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
 (ta-sti.cls
@@ -1181,7 +1180,7 @@ Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: twoside 
+* modes: twoside asymmetric 
 * h-part:(L,W,R)=(113.81102pt, 398.3386pt, 85.35826pt)
 * v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
 * \paperwidth=597.50787pt
@@ -1189,7 +1188,7 @@ Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 * \textwidth=398.3386pt
 * \textheight=674.33032pt
 * \oddsidemargin=41.54103pt
-* \evensidemargin=13.08827pt
+* \evensidemargin=41.54103pt
 * \topmargin=-18.78552pt
 * \headheight=12.0pt
 * \headsep=19.8738pt
@@ -1204,7 +1203,7 @@ Package: fr-longtable 2007/11/28 v0.1b (beta) floatrow: additions for longtable
 * \mag=1000
 * \@twocolumnfalse
 * \@twosidetrue
-* \@mparswitchtrue
+* \@mparswitchfalse
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
@@ -1392,7 +1391,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 33--35
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: twoside 
+* modes: twoside asymmetric 
 * h-part:(L,W,R)=(113.81102pt, 398.3386pt, 85.35826pt)
 * v-part:(T,H,B)=(85.35826pt, 674.33032pt, 85.35826pt)
 * \paperwidth=597.50787pt
@@ -1400,7 +1399,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 33--35
 * \textwidth=398.3386pt
 * \textheight=674.33032pt
 * \oddsidemargin=41.54103pt
-* \evensidemargin=13.08827pt
+* \evensidemargin=41.54103pt
 * \topmargin=-18.78552pt
 * \headheight=12.0pt
 * \headsep=19.8738pt
@@ -1415,7 +1414,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 33--35
 * \mag=1000
 * \@twocolumnfalse
 * \@twosidetrue
-* \@mparswitchtrue
+* \@mparswitchfalse
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
@@ -1438,6 +1437,7 @@ ka Menggunak-
 
 ) (8 Daftar Tabel.tex [11
 
+
 ]
 [12
 
@@ -1456,7 +1456,9 @@ Overfull \hbox (58.8302pt too wide) in paragraph at lines 4--4
 \tf@lot=\write7
 \openout7 = `ProposalTA.lot'.
 
-) (9 Daftar Persamaan.tex [13] [14
+) (9 Daftar Persamaan.tex [13
+
+] [14
 
 ] (ProposalTA.equ)
 \tf@equ=\write8
@@ -1494,38 +1496,70 @@ Overfull \hbox (16.93071pt too wide) in alignment at lines 15--104
  [] [] [] 
  []
 
-13 Daftar Simbol.tex:104: ignored error: Infinite glue shrinkage found in box b
-eing split [23]
-13 Daftar Simbol.tex:104: ignored error: Infinite glue shrinkage found in box b
-eing split [24]) [25] [26
+ignored error: Infinite glue shrinkage found in box being split [23]
+ignored error: Infinite glue shrinkage found in box being split [24]) [25]
+[26
 
 ] (Bab I - Pendahuluan.tex
 Bab I.
-
-Underfull \vbox (badness 1292) has occurred while \output is active []
-
- [1
+[1
 
 
-]
-Overfull \hbox (1.58914pt too wide) in paragraph at lines 38--39
-\TU/TimesNewRoman(0)/m/n/12 aktivitas orang yang menggunakan teknologi tersebut
- untuk mendukung
+] [2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3]
+Overfull \hbox (2.61736pt too wide) in paragraph at lines 35--36
+[]\TU/TimesNewRoman(0)/m/n/12 Merancang tahap standardisasi sinyal EEG yang men
+gurangi variasi pola antar-
  []
 
-[2]
-Overfull \hbox (6.8829pt too wide) in paragraph at lines 67--69
-\TU/TimesNewRoman(0)/m/n/12 yang harus dilakukan dalam pelaksanaan tugas akhir,
- sehingga pertanyaan-pertanyaan
+
+Overfull \hbox (3.35828pt too wide) in paragraph at lines 37--38
+\TU/TimesNewRoman(0)/m/n/12 bandingkan performa pada pengujian dalam subjek yan
+g sama (\TU/TimesNewRoman(0)/m/it/12 within-subject\TU/TimesNewRoman(0)/m/n/12 
+). 
  []
 
-[3]
-Overfull \hbox (2.76456pt too wide) in paragraph at lines 104--106
-[]\TU/TimesNewRoman(0)/m/n/12 Secara umum, metodologi pengerjaan tugas akhir me
-liputi tahapan, langkah-langkah,
+
+Overfull \hbox (14.14674pt too wide) in paragraph at lines 50--51
+[]\TU/TimesNewRoman(0)/m/it/12 Pipeline \TU/TimesNewRoman(0)/m/n/12 yang dibang
+un mencakup tahap standardisasi sinyal EEG antar-individu,
  []
 
-[4] [5]) (Bab II - Studi.tex [6]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+Overfull \hbox (15.74962pt too wide) in paragraph at lines 67--68
+[]\TU/TimesNewRoman(0)/m/n/12 Tidak mencakup generalisasi lintas-subjek; model 
+yang dibangun bersifat \TU/TimesNewRoman(0)/m/it/12 subject-
+ []
+
+
+Overfull \hbox (1.65546pt too wide) in paragraph at lines 75--76
+[]\TU/TimesNewRoman(0)/m/n/12 H0a: Tidak ada perbedaan signifikan antara perfor
+ma model regresi-ke-vektor-
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5]
+[6]
+Overfull \hbox (5.46875pt too wide) in paragraph at lines 95--97
+\TU/TimesNewRoman(0)/m/it/12 Pipeline \TU/TimesNewRoman(0)/m/n/12 diimplementas
+ikan di Python, menggunakan MNE-Python untuk pem-
+ []
+
+
+Overfull \hbox (14.95313pt too wide) in paragraph at lines 95--97
+\TU/TimesNewRoman(0)/m/n/12 metaan, model \TU/TimesNewRoman(0)/m/it/12 embeddin
+g pretrained \TU/TimesNewRoman(0)/m/n/12 (BERT/\TU/TimesNewRoman(0)/m/it/12 sen
+tence-transformer\TU/TimesNewRoman(0)/m/n/12 ) untuk meng-
+ []
+
+[7]) (Bab II - Studi.tex [8]
 Bab II.
 
 Overfull \hbox (1.26251pt too wide) in paragraph at lines 5--8
@@ -1533,27 +1567,25 @@ Overfull \hbox (1.26251pt too wide) in paragraph at lines 5--8
 pustaka, landasan teori, dan penelitian-
  []
 
-[7
+[9
 
 
 ]
 File: images/gambar1.png Graphic file (type bmp)
 <images/gambar1.png>
- [8]
+ [10]
 File: images/gambar1.png Graphic file (type bmp)
 <images/gambar1.png>
- [9]
+ [11]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10]
+ [12]
 (tables/tabel1.tex) (tables/longtable1.tex
-tables/longtable1.tex:66: ignored error: Infinite glue shrinkage found in box b
-eing split [11]
-tables/longtable1.tex:66: ignored error: Infinite glue shrinkage found in box b
-eing split [12]) [13]
+ignored error: Infinite glue shrinkage found in box being split [13]
+ignored error: Infinite glue shrinkage found in box being split [14]) [15]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [14]
+ [16]
 (listings/binary-search-python.tex
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 7.
@@ -1568,57 +1600,50 @@ put line 4.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [15]))
-(Bab III - Analisis-Masalah.tex [16] [17] [18
+ [17]))
+(Bab III - Analisis-Masalah.tex [18] [19] [20
 
 ]
 Bab III.
-[19]) (Bab IV - Desain-Konsep-Solusi.tex
+[21]) (Bab IV - Desain-Konsep-Solusi.tex
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [20]
-[21] [22
+ [22]
+[23] [24
 
 ]
 Bab IV.
-) (Bab V - Rencana-Selanjutnya.tex [23] [24
+) (Bab V - Rencana-Selanjutnya.tex [25] [26
 
 ]
 Bab V.
-) [25] [26
+) [27] [28
 
-]
-Overfull \hbox (4.20627pt too wide) in paragraph at lines 61--61
-\TU/TimesNewRoman(0)/m/it/12 Proceedings 20th IEEE Real-Time Systems Symposium 
-(Cat. No.99CB37054)\TU/TimesNewRoman(0)/m/n/12 .
- []
+] [29
 
-(Lampiran-A.tex [27
-
-] [28
-
-]
+] (Lampiran-A.tex [30]
 Lampiran A.
-(listings/binary-search-python.tex [29
+(listings/binary-search-python.tex [31
 
-])) [30] (ProposalTA.aux)
+
+])) [32] (ProposalTA.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
 Package rerunfilecheck Info: File `ProposalTA.out' has not changed.
-(rerunfilecheck)             Checksum: 77F754383F2EEBB0F1F2D68F72BC9E1D;8079.
+(rerunfilecheck)             Checksum: 63EAE4A5F51B63773FC64A0F9F002E53;8046.
 Package logreq Info: Writing requests to 'ProposalTA.run.xml'.
 \openout1 = `ProposalTA.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 33166 strings out of 402987
- 637162 string characters out of 5448524
- 1976733 words of memory out of 5000000
- 61428 multiletter control sequences out of 15000+600000
+ 33199 strings out of 402987
+ 638284 string characters out of 5448524
+ 1977083 words of memory out of 5000000
+ 61462 multiletter control sequences out of 15000+600000
  634673 words of font info for 98 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 90i,12n,141p,2357b,7223s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,12n,141p,1887b,7223s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on ProposalTA.pdf (56 pages).
+Output written on ProposalTA.xdv (58 pages, 597692 bytes).

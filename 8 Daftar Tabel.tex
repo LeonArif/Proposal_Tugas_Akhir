@@ -1,7 +1,6 @@
 \cleardoublepage
-\renewcommand{\cftlottitlefont}{\hfill\large\bfseries}
-\renewcommand{\cftafterlottitle}{\hfill}
-\renewcommand{\listtablename}{DAFTAR TABEL}
-\phantomsection
+\chapter*{DAFTAR TABEL}
+\makeatletter
+\@starttoc{lot}
+\makeatother
 \addcontentsline{toc}{chapter}{DAFTAR TABEL}
-\listoftables

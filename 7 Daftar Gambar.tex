@@ -1,7 +1,6 @@
 \cleardoublepage
-\renewcommand{\cftloftitlefont}{\hfill\large\bfseries}
-\renewcommand{\cftafterloftitle}{\hfill}
-\renewcommand{\listfigurename}{DAFTAR GAMBAR}
-\phantomsection
+\chapter*{DAFTAR GAMBAR}
+\makeatletter
+\@starttoc{lof}
+\makeatother
 \addcontentsline{toc}{chapter}{DAFTAR GAMBAR}
-\listoffigures

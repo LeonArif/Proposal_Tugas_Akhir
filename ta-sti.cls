@@ -156,8 +156,9 @@
 % --- Atur margin halaman untuk single-sided format (satu muka) ---
 \geometry{
       a4paper,
-      inner=4cm,
-      outer=3cm,
+      asymmetric,
+      left=4cm,
+      right=3cm,
       top=3cm,
       bottom=3cm
 }

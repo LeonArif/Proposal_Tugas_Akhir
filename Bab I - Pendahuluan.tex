@@ -1,129 +1,113 @@
 \cleardoublepage % memastikan bab baru dimulai di halaman ganjil (kanan)
 \chapter{PENDAHULUAN}
 \label{chap:pendahuluan}
+
+% NOTE: Bab ini masih draft dan akan terus berubah.
+
 % --- Latar Belakang ---
 \section{Latar Belakang}
-Menurut \textcite{saewong2002}, Subbab ini \autocite{saewong2002} menjelaskan dasar pemikiran, motivasi, kebutuhan, alasan, atau urgensi pemilihan masalah tugas akhir. Subbab ini berisi penjelasan ringkas tentang kondisi atau situasi yang ada saat ini terkait dengan topik yang dibahas. Tujuan utamanya adalah untuk memberikan informasi secukupnya kepada pembaca agar memahami topik yang akan dibahas. Dalam subbab ini, jelaskan hal-hal berikut ini:
-\begin{enumerate}
-\item	Kondisi atau situasi topik yang dibahas beserta permasalahannya, misalnya tentang pengelolaan informasi di fasilitas kesehatan daerah pedesaan saat ini dan masalah yang dihadapi, berdasarkan hasil survei atau wawancara dengan pihak terkait.
-\item	Urgensi atau pentingnya penyelesaian masalah tersebut, misalnya dampak negatif yang ditimbulkan jika masalah tersebut tidak diselesaikan.
-\item	Berbagai solusi yang telah diterapkan maupun solusi yang memungkinkan untuk diterapkan untuk menyelesaikan masalah tersebut, berdasarkan hasil studi literatur, wawancara dengan pihak terkait, atau kunjungan lapangan.
-\item   Kelemahan atau kekurangan dari solusi yang telah diterapkan atau yang memungkinkan untuk diterapkan tersebut, yang menjadi dasar pemikiran dalam merumuskan masalah tugas akhir.
-\end{enumerate}
-Penulisan latar belakang masalah yang baik akan mengantarkan pembaca kepada pemahaman yang jelas tentang topik yang akan dibahas, 
-sehingga pembaca dapat mengikuti pembahasan pada bab atau subbab berikutnya dengan baik. Oleh karena itu, 
-penulis diharapkan melakukan investigasi yang mendalam untuk mengumpulkan fakta-fakta yang relevan dengan topik yang dibahas, 
-baik melalui studi literatur, wawancara dengan pihak terkait, maupun kunjungan lapangan. Hasil studi ini dijelaskan secara \emph{ringkas} di dalam subbab ini.
-Penjelasan hasil studi literatur yang komprehensif dapat dijabarkan di Bab II secara sistematis.
+Kecerdasan buatan berbasis model bahasa besar (\textit{large language model} atau LLM), seperti yang dipakai dalam ChatGPT atau Claude, kini menjadi alat bantu yang dipakai banyak orang untuk berbagai keperluan sehari-hari, mulai dari menulis, mencari informasi, hingga menyelesaikan tugas teknis. Meski demikian, kualitas jawaban yang dihasilkan AI sangat bergantung pada bagaimana penggunanya merumuskan permintaan (\textit{prompt}) dalam bentuk teks. Masalahnya, seseorang yang sebenarnya sudah tahu persis apa yang ia inginkan di kepalanya, belum tentu bisa menuangkannya menjadi kalimat yang tepat. Menurut \textcite{sarkar2025}, meski percakapan antara manusia dan LLM semakin sering terjadi baik untuk keperluan profesional maupun pribadi, banyak pengguna tetap kesulitan mendapatkan jawaban yang membantu dari chatbot, salah satunya karena mereka belum terbiasa menyusun permintaan yang secara tepat menyampaikan maksud mereka. Hal serupa ditemukan \textcite{koyuturk2025}, yang mengamati bahwa meski LLM dirancang agar mudah dipakai dengan sedikit usaha dari pengguna, kenyataannya pengguna tetap sering kesulitan melakukan \textit{prompting} yang efektif sehingga hasil yang didapat menjadi kurang optimal.
 
-Dalam menulis latar belakang, hindari penulisan yang bersifat terlalu umum atau terlalu luas cakupannya sehingga sulit untuk dihubungkan dengan topik yang dibahas dalam tugas akhir,
-seperti:
-\begin{enumerate}
-    \item "Pentingnya teknologi informasi dalam kehidupan manusia."
-    \item "Perkembangan pesat teknologi \emph{artificial intelligence} di era digital."
-    \item "Tantangan dalam pengelolaan data besar (\emph{big data}) di berbagai sektor industri."
-    \item "Peran teknologi informasi dalam meningkatkan kualitas layanan kesehatan."
-\end{enumerate}
-Penulisan yang terlalu umum atau luas cakupannya akan menyulitkan penulis dalam merumuskan masalah, tujuan, metodologi, dan evaluasi tugas akhir.
+Kesulitan ini bukan cuma soal kebiasaan atau keterampilan pengguna, tapi juga soal bagaimana AI itu sendiri bekerja. LLM ternyata sangat peka terhadap perubahan kecil dalam cara sebuah permintaan dirumuskan, bahkan ketika maknanya sebenarnya tetap sama. Menurut \textcite{sclar2024}, sekadar mengubah format penulisan sebuah \textit{prompt} tanpa mengubah maknanya sama sekali bisa membuat perbedaan hasil sampai 76 poin akurasi pada salah satu model yang mereka uji. Artinya, dua orang dengan maksud yang sama persis tapi cara mengetiknya berbeda, bisa mendapat kualitas jawaban AI yang jauh berbeda pula. Gabungan dari dua hal ini, yaitu pengguna yang kesulitan menuangkan maksudnya jadi kata-kata dan AI yang rapuh terhadap variasi kata-kata itu sendiri, membuat proses menyampaikan maksud ke AI lewat teks menjadi titik lemah yang cukup mendasar dalam interaksi manusia dan AI saat ini.
 
-Jika ada referensi yang digunakan dalam penulisan latar belakang, cantumkan referensi tersebut dengan benar menggunakan \texttt{biblatex} sesuai dengan contoh penulisan kutipan dan daftar pustaka yang telah disediakan dalam template ini.
-Sebagai contoh, pada paragraf berikut ini terdapat kutipan dari dua referensi yang berbeda \autocite{laudon2020, pressman2019}. 
-Ada dua format penulisan sitasi yang dapat digunakan, yaitu format naratif dan format parentetik.
-Contoh penulisan kutipan dengan format naratif adalah sebagai berikut:
-\begin{displayquote}
-Menurut \textcite{laudon2020}, sistem informasi adalah kombinasi dari teknologi informasi dan aktivitas orang yang menggunakan teknologi tersebut untuk mendukung operasi dan manajemen organisasi.
-\end{displayquote}
-Contoh penulisan kutipan dengan format parentetik adalah sebagai berikut:
-\begin{displayquote}
-    Sistem informasi merupakan kombinasi dari teknologi informasi dan aktivitas orang yang menggunakan teknologi tersebut untuk mendukung operasi dan manajemen organisasi \autocite{laudon2020}.
-\end{displayquote}
+Masalah ini menjadi semakin penting untuk diselesaikan mengingat ketergantungan manusia terhadap AI terus bertambah dari waktu ke waktu. Jika titik lemah ini dibiarkan, pengguna akan terus menghabiskan waktu untuk mencoba-coba dan memperbaiki ulang \textit{prompt} mereka meski maksudnya sebenarnya sudah jelas sejak awal, dan hasil kerja AI menjadi tidak konsisten meskipun dipakai oleh orang yang sama untuk maksud yang sama. Dalam jangka panjang, hal ini menghambat potensi AI sebagai alat bantu yang benar-benar efisien, karena sebagian usaha pengguna justru habis untuk menerjemahkan pikiran menjadi kata-kata yang tepat, bukan untuk pekerjaan yang sebenarnya ingin diselesaikan.
+
+Beberapa arah solusi sudah mulai dijajaki untuk mengatasi masalah ini. Salah satunya datang dari bidang pemrosesan bahasa, lewat teknik yang disebut \textit{soft prompt}. Alih-alih menyampaikan maksud ke AI lewat kalimat yang harus dirumuskan dengan kata-kata tertentu, teknik ini memungkinkan maksud tersebut disampaikan langsung dalam bentuk deretan angka (vektor) yang bisa langsung dibaca AI tanpa perlu diterjemahkan dulu jadi teks. Menurut \textcite{lester2021}, pendekatan ini terbukti efektif mengarahkan perilaku model bahasa tanpa harus menyusun kalimat kata demi kata, dan hasilnya bisa mendekati atau bahkan menyamai performa model yang dilatih penuh. Pendekatan serupa diperkenalkan \textcite{liliang2021} dengan menambahkan vektor serupa langsung ke lapisan-lapisan internal model.
+
+Di sisi lain, ada riset yang mencoba membaca maksud seseorang langsung dari sinyal otaknya, tanpa orang tersebut perlu mengetik atau berbicara sama sekali. Menurut \textcite{tang2023}, sinyal otak yang direkam secara non-invasif (tanpa operasi atau alat tanam di kepala) dari partisipan yang sedang mendengarkan cerita, bisa direkonstruksi kembali menjadi rangkaian bahasa yang maknanya cukup mirip dengan cerita aslinya. \textcite{pereira2018} menunjukkan hal serupa, bahwa sinyal otak bisa dipetakan ke representasi makna bahasa yang sifatnya umum, tidak terbatas hanya pada kalimat yang sudah pernah dilatihkan sebelumnya. Riset-riset ini menjadi dasar berkembangnya bidang antarmuka otak-komputer (\textit{brain-computer interface} atau BCI), yang mencoba menjembatani pikiran manusia langsung ke sistem komputer. Salah satu arah dalam bidang ini adalah membaca sinyal EEG (rekaman aktivitas listrik otak lewat elektroda di kepala) saat seseorang membayangkan mengucapkan sebuah kata dalam hati, yang dikenal sebagai \textit{imagined speech}, dan beberapa himpunan data publik untuk keperluan ini sudah mulai tersedia.
+
+Meski demikian, masing-masing solusi ini masih punya keterbatasan jika ditinjau untuk kebutuhan menyampaikan maksud pengguna ke AI langsung dari pikiran. Teknik \textit{soft prompt} masih dilatih dari data teks atau contoh tugas tertentu, dan belum dirancang untuk menerima masukan sinyal biologis seperti aktivitas otak manusia secara langsung. Di sisi lain, penelitian membaca sinyal otak seperti milik \textcite{tang2023} berhasil merekonstruksi makna dalam bentuk kalimat penuh, tapi itu dilakukan dari sinyal otak saat seseorang mendengarkan atau membaca bahasa, bukan saat seseorang sengaja membayangkan mengucapkan sesuatu dalam hati untuk berinteraksi dengan AI. Sementara itu, penelitian \textit{imagined speech} yang sudah ada umumnya masih dibangun dengan pendekatan klasifikasi, yaitu tiap sinyal EEG dipetakan ke satu label kata tertentu dari daftar kata yang terbatas, mirip memilih jawaban dari beberapa pilihan ganda. Pendekatan ini punya dua kelemahan mendasar. Pertama, AI hanya bisa mengenali kata yang sudah dilatihkan sebelumnya dan tidak bisa menangkap maksud yang berada di antara dua kata atau gabungan beberapa makna sekaligus. Kedua, tingkat keberhasilannya pun masih terbatas, karena sinyal EEG untuk kata yang sama bisa sangat bervariasi dari satu orang ke orang lain, sehingga model klasifikasi cenderung sulit mencapai akurasi yang tinggi secara konsisten. Kesenjangan inilah yang menjadi dasar pemikiran tugas akhir ini, yaitu perlunya pendekatan yang memetakan sinyal EEG \textit{imagined speech} langsung ke representasi makna yang bersifat berkelanjutan (bukan ke satu label kata yang kaku), sehingga bisa dipakai sebagai masukan langsung untuk AI, sekaligus menghindari masalah kerapuhan LLM terhadap variasi cara penyampaian dalam bentuk teks.
+
 % --- Rumusan Masalah ---
 \section{Rumusan Masalah}
-Subbab ini berisi masalah utama yang dibahas dalam tugas akhir. Perumusan masalah yang baik memiliki struktur sebagai berikut:
 \begin{enumerate}
-\item	Pokok persoalan dari kondisi atau situasi yang ada saat ini. Dengan kata lain, jelaskan kelemahan atau kekurangan dari kondisi, situasi, atau solusi yang dijelaskan pada latar belakang. Ini merupakan pokok rumusan masalah.
-\item	Elaborasi lebih lanjut urgensi penyelesaian masalah tersebut (mengapa penting untuk diselesaikan dan akibat yang dapat terjadi jika tidak diselesaikan).
-\item	Usulan singkat terkait dengan solusi yang ditawarkan untuk menyelesaikan persoalan.
-Penting untuk diperhatikan bahwa persoalan yang dideskripsikan pada subbab ini akan dipertanggungjawabkan di bab Evaluasi (apakah terselesaikan atau tidak).
+    \item Bagaimana sinyal EEG yang direkam saat seseorang membayangkan mengucapkan sebuah kata dapat dipetakan menjadi vektor makna yang bersifat berkelanjutan, sehingga mampu merepresentasikan makna campuran atau makna yang berada di antara beberapa kata?
+    \item Bagaimana variasi pola sinyal EEG antar-individu untuk kata yang sama diatasi, sehingga pemetaan ke vektor makna tetap konsisten meski dilakukan lintas subjek yang berbeda?
+    \item Sejauh mana vektor makna hasil pemetaan sinyal EEG tersebut dapat digunakan secara langsung sebagai konteks bagi LLM, tanpa perlu dikonversi lebih dulu ke bentuk teks?
 \end{enumerate}
-Hindari penulisan masalah yang terlalu umum atau terlalu luas cakupannya sehingga sulit untuk diselesaikan dalam jangka waktu pelaksanaan tugas akhir, 
-seperti:
-\begin{enumerate}
-    \item "Bagaimana cara meningkatkan kualitas layanan kesehatan di Indonesia?"
-    \item "Bagaimana cara mengoptimalkan penggunaan energi di perkotaan?"
-    \item "Bagaimana cara mengurangi kemacetan lalu lintas di kota besar?"
-    \item "Bagaimana cara membangun sistem irigasi sawah menggunakan \emph{AI}?"
-\end{enumerate}
-Rumusan masalah yang baik dan spesifik akan memudahkan penulis dalam menentukan tujuan, metodologi, dan evaluasi tugas akhir.
-
-Selain itu, hindari menuliskan pertanyaan yang merupakan sebuah keniscayaan yang harus dijawab atau dikerjakan 
-dalam pelaksanaan tugas akhir, seperti:
-\begin{enumerate}
-    \item "Bagaimana cara melakukan analisis kebutuhan sistem informasi rumah sakit?"
-    \item "Bagaimana cara merancang basis data untuk aplikasi X?"
-    \item "Bagaimana cara mengimplementasikan \textit{large language model} untuk deteksi penyakit Y?"
-    \item "Bagaimana cara menguji sistem penyiraman tanaman berbasis IoT yang akan dibuat?"
-\end{enumerate}
-Kegiatan analisis, perancangan, implementasi, dan pengujian merupakan tahapan yang harus dilakukan dalam pelaksanaan tugas akhir,
-sehingga pertanyaan-pertanyaan tersebut tidak perlu dimasukkan ke dalam rumusan masalah.
 
 % --- Tujuan ---
 \section{Tujuan}
-Tuliskan \textbf{tujuan utama} dan/atau tujuan detail yang akan dicapai dalam pelaksanaan tugas akhir. 
-Fokuskan isi subbab ini pada hasil akhir yang ingin diperoleh setelah tugas akhir diselesaikan 
-terkait dengan penyelesaian persoalan pada rumusan masalah. 
-Penting untuk diperhatikan bahwa tujuan yang dideskripsikan pada subbab ini akan dipertanggungjawabkan 
-di akhir pelaksanaan tugas akhir. Oleh karena itu, tuliskan juga \emph{kriteria keberhasilan} tugas akhir ini.
-
-% --- Batasan Masalah ---
-\section{Ruang Lingkup, Asumsi, dan Batasan Masalah}
-Tuliskan ruang lingkup, asumsi, dan batasan-batasan yang diambil dalam pelaksanaan tugas akhir. Batasan ini dapat dihindari (bersifat opsional, tidak perlu ada) jika topik atau judul tugas akhir dibuat cukup spesifik.
-
-\section{Hipotugas akhir}
-Tuliskan hipotugas akhir yang akan diuji dalam pelaksanaan tugas akhir. 
-Hipotugas akhir ini merupakan pernyataan yang dapat diuji kebenarannya melalui proses pelaksanaan tugas akhir, 
-terutama pada tahap evaluasi. Hipotugas akhir yang baik memiliki karakteristik sebagai berikut:
 \begin{enumerate}
-    \item Spesifik: Hipotugas akhir harus jelas dan spesifik, sehingga dapat diuji dengan cara yang terukur.
-    \item Terukur: Hipotugas akhir harus dapat diuji dengan data atau informasi yang dapat diukur, sehingga dapat dinilai kebenarannya.
-    \item Relevan: Hipotugas akhir harus relevan dengan topik tugas akhir dan dapat memberikan kontribusi yang signifikan terhadap penyelesaian masalah yang dibahas.
-    \item Dapat diuji: Hipotugas akhir harus dapat diuji melalui proses pelaksanaan tugas akhir, terutama pada tahap evaluasi, sehingga dapat dinilai kebenarannya.
+    \item Mengembangkan model yang memetakan sinyal EEG \textit{imagined speech} ke representasi vektor makna berkelanjutan, sehingga mampu merepresentasikan makna campuran atau makna yang berada di antara beberapa kata, tidak terbatas pada satu label kata tetap.
+
+    Kriteria keberhasilan: model regresi-ke-\textit{embedding} ini, diukur lewat kemiripan kosinus (\textit{cosine similarity}) terhadap vektor target, secara konsisten mengungguli \textit{baseline classifier} diskrit pada \textit{dataset} uji yang sama.
+    \item Merancang tahap standardisasi sinyal EEG yang mengurangi variasi pola antar-individu untuk kata yang sama, sehingga model pemetaan tetap dapat diandalkan ketika diuji pada subjek yang berbeda dari data latihnya.
+
+    Kriteria keberhasilan: performa model pada pengujian lintas-subjek (\textit{cross-subject}), setelah standardisasi diterapkan, tidak menurun secara signifikan dibandingkan performa pada pengujian dalam subjek yang sama (\textit{within-subject}).
+    \item Menguji apakah vektor makna hasil pemetaan sinyal EEG dapat digunakan langsung sebagai konteks (\textit{soft-prompt}) bagi LLM tanpa perlu dikonversi ke bentuk teks lebih dulu.
+
+    Kriteria keberhasilan: LLM yang diberi vektor tersebut sebagai konteks menghasilkan \textit{output} yang relevan dengan maksud kata yang dibayangkan, dinilai secara kualitatif dan/atau dibandingkan dengan \textit{baseline} (LLM tanpa konteks vektor).
 \end{enumerate}
 
-Hipotugas akhir diperoleh dari premis-premis yang ada pada latar belakang dan rumusan masalah. 
-Oleh karena itu, tuliskan dulu premis-premis yang menentukan hipotugas akhir tersebut sebelum menuliskan hipotugas akhirnya.
+% --- Ruang Lingkup, Asumsi, dan Batasan Masalah ---
+\section{Ruang Lingkup, Asumsi, dan Batasan Masalah}
 
+\subsection*{Ruang Lingkup}
+\begin{enumerate}
+    \item Sinyal EEG yang diproses adalah sinyal saat subjek membayangkan mengucapkan satu kata dalam hati (\textit{imagined speech} tingkat kata), bukan kalimat penuh atau pikiran bebas.
+    \item Kata yang dibayangkan berasal dari himpunan kata terbatas pada \textit{dataset} EEG \textit{imagined speech} publik berbahasa Inggris yang digunakan (seperti FEIS, IIT Roorkee, atau Six Phonetically Distributed Words), bukan kosakata bebas/tak terbatas.
+    \item \textit{Pipeline} yang dibangun mencakup tahap standardisasi sinyal EEG antar-individu, pemetaan sinyal ke vektor makna berkelanjutan, dan pengujian vektor tersebut sebagai konteks (\textit{soft-prompt}) bagi LLM.
+    \item Model dilatih dan diuji pada subjek yang sama (\textit{subject-dependent}), tidak mencakup generalisasi ke subjek baru yang belum pernah dilihat model sebelumnya (\textit{cross-subject}).
+    \item Evaluasi performa dilakukan secara relatif, membandingkan model regresi-ke-\textit{embedding} ini terhadap \textit{baseline classifier} diskrit dari penelitian \textit{imagined speech} sebelumnya, bukan menargetkan angka akurasi absolut tertentu.
+\end{enumerate}
 
+\subsection*{Asumsi}
+\begin{enumerate}
+    \item Sinyal EEG non-invasif yang direkam saat \textit{imagined speech} mengandung informasi yang cukup untuk dipetakan ke ruang makna, sebagaimana ditunjukkan pada sinyal otak saat mendengarkan/membaca bahasa oleh penelitian sebelumnya.
+    \item Partisipan pada \textit{dataset} yang digunakan mengikuti protokol perekaman dengan cukup konsisten, sehingga sinyal \textit{imagined speech} yang terekam benar-benar mencerminkan upaya membayangkan kata target, bukan aktivitas otak lain yang tidak berhubungan.
+    \item Vektor makna yang diambil dari \textit{embedding} model bahasa (misalnya BERT atau \textit{sentence-transformer}) cukup merepresentasikan makna kata target untuk keperluan pemetaan ini.
+    \item Perangkat keras dan pustaka perangkat lunak (EEG \textit{headset}, MNE-Python, scikit-learn/PyTorch, dsb.) yang digunakan berfungsi sesuai spesifikasi dan tidak menjadi sumber galat signifikan pada sinyal yang direkam.
+\end{enumerate}
+
+\subsection*{Batasan Masalah}
+\begin{enumerate}
+    \item Tidak mencakup \textit{decoding} kalimat penuh atau pikiran bebas (\textit{free-form}), hanya kata individual dari daftar kata \textit{dataset} yang digunakan.
+    \item Tidak mencakup \textit{decoding} konsep visual; mekanisme yang dipetakan murni \textit{imagined speech} (kata yang diucapkan dalam hati), bukan bayangan visual dari suatu konsep.
+    \item Tidak mencakup generalisasi lintas-subjek; model yang dibangun bersifat \textit{subject-dependent}, dilatih dan diuji pada data subjek yang sama.
+    \item Tidak menjamin performa yang melebihi atau setara sistem berbasis sinyal invasif (misalnya elektroda yang ditanam), karena sistem ini dibatasi pada sinyal EEG non-invasif yang direkam dari permukaan kulit kepala.
+    \item Pilihan arsitektur teknis secara spesifik (mis. jenis \textit{encoder} EEG, penggunaan \textit{sparse autoencoder} dan \textit{adapter}) masih dapat disesuaikan pada tahap pelaksanaan sesuai hasil eksperimen awal, sehingga detail arsitektur akhir dapat berbeda dari yang direncanakan di proposal ini.
+\end{enumerate}
+
+% --- Hipotesis ---
+\section{Hipotesis}
+\begin{itemize}
+    \item H0a: Tidak ada perbedaan signifikan antara performa model regresi-ke-vektor-makna dan model klasifikasi diskrit dalam menangkap makna kata \textit{imagined speech}.
+    \item H1a: Model regresi-ke-vektor-makna menghasilkan performa yang signifikan lebih baik dibanding model klasifikasi diskrit dalam menangkap makna kata \textit{imagined speech}.
+    \item H0b: Tidak ada perbedaan signifikan pada performa model pemetaan sinyal-ke-vektor-makna antara data yang distandardisasi (RCT) dan data mentah tanpa standardisasi, pada pengujian \textit{subject-dependent}.
+    \item H1b: Performa model pemetaan sinyal-ke-vektor-makna pada data yang distandardisasi (RCT) signifikan lebih baik dibanding data mentah tanpa standardisasi, pada pengujian \textit{subject-dependent}.
+    \item H0c: Tidak ada perbedaan signifikan pada relevansi \textit{output} LLM antara kondisi diberi konteks vektor makna hasil pemetaan EEG dan kondisi tanpa konteks vektor (\textit{baseline}).
+    \item H1c: \textit{Output} LLM yang diberi konteks vektor makna hasil pemetaan EEG signifikan lebih relevan dibanding kondisi tanpa konteks vektor.
+\end{itemize}
 
 % --- Metodologi Pengerjaan TA ---
 \section{Metodologi}
-Tuliskan semua tahapan spesifik yang akan dilalui selama pelaksanaan tugas akhir. 
-Ada beberapa pendekatan metodologi yang dapat digunakan dalam pelaksanaan tugas akhir sesuai dengan topik yang dibahas, 
-misalnya Design Science Research Methodology (DSRM), Design Research Methodology (DRM), Cross-Industry Standard Process for Data Mining (CRISP-DM), dan sebagainya.
-
-Secara umum,  metodologi pengerjaan tugas akhir meliputi tahapan, langkah-langkah, atau tata cara melakukan:
+Tugas akhir ini menggunakan pendekatan yang diadaptasi dari CRISP-DM (\textit{Cross-Industry Standard Process for Data Mining}), karena inti pekerjaannya berupa alur pengolahan data sinyal menjadi model prediktif yang dievaluasi secara empiris, bukan perancangan sistem informasi konvensional. Tahapan yang dilalui adalah sebagai berikut.
 \begin{enumerate}
-\item	Investigasi pengumpulan fakta di latar belakang untuk merumuskan masalah.
-\item	Pencarian, pengelompokan, dan penapisan literatur atau sumber informasi untuk mengumpulkan informasi yang relevan tentang topik yang diangkat, termasuk teori (konsep atau teori apa saja yang perlu dicari), hal-hal yang telah dicapai oleh orang lain (cara mencari dan kata kuncinya), dan berbagai informasi pendukung, untuk mencari solusi terhadap masalah yang dibahas. Gunakan metodologi yang tepat dalam menggali informasi dan dokumentasikan prosesnya (termasuk rekaman wawancara atau survei) di dalam Lampiran, termasuk tautan ke video atau foto. Hasil penggalian informasi ini akan dijelaskan secara komprehensif di Bab II Studi Literatur.
-\item   Analisis kebutuhan berdasarkan hasil investigasi dan studi literatur. Jelaskan metode yang digunakan untuk melakukan analisis kebutuhan, misalnya wawancara, survei, observasi, atau studi kasus. Hasil analisis kebutuhan ini akan dijelaskan secara rinci di bab berikutnya.
-\item   Perancangan solusi berdasarkan hasil analisis kebutuhan. Jelaskan metode atau tahapan perancangan yang digunakan, dengan abstraksi yang bertahap dari generik ke spesifik, misalnya dengan pendekatan \textit{C4 model}. Selain itu, gunakan alat bantu penggambaran diagram yang tepat, misalnya menggunakan diagram UML, SySML, ERD, atau yang lainnya. 
-\item   Jika ada implementasi terhadap hasil rancangan, jelaskan teknologi dan alat bantu yang digunakan untuk mengimplementasikan rancangan. 
-\item   Evaluasi terhadap solusi yang telah diimplementasikan. Jelaskan metode pengujian, metrik evaluasi, atau studi kasus yang digunakan untuk menilai keberhasilan solusi. 
-\item   Penarikan kesimpulan dan saran berdasarkan hasil pelaksanaan tugas akhir berdasarkan hasil evaluasi.   
-\vfill % memaksa konten di atas untuk berada di bagian atas halaman dan menyisakan ruang kosong di bawah konten ini akibat berakhirnya section ini
+    \item \textbf{Investigasi dan perumusan masalah}\\
+    Mengumpulkan fakta terkait kesulitan verbalisasi maksud pengguna ke AI dan kerapuhan LLM terhadap variasi \textit{prompt} teks (sudah dijabarkan di Latar Belakang), untuk menetapkan rumusan masalah, tujuan, dan hipotesis tugas akhir.
+    \item \textbf{Studi literatur}\\
+    Mengumpulkan dan menapis literatur dari tiga kategori: (a) landasan teori \textit{decoding} sinyal otak menjadi representasi makna bahasa, (b) teknik penyampaian konteks ke LLM dalam bentuk vektor berkelanjutan (\textit{soft-prompt}/\textit{prompt tuning}), dan (c) penelitian serta himpunan data EEG \textit{imagined speech} yang sudah ada. Pencarian dilakukan lewat basis data akademik seperti Google Scholar dan arXiv, menggunakan kata kunci yang mencakup ketiga kategori tersebut. Hasil penelusuran ini dijelaskan secara komprehensif di Bab II Studi Literatur.
+    \item \textbf{Analisis kebutuhan}\\
+    Berdasarkan studi literatur, ditentukan kebutuhan teknis meliputi: pemilihan \textit{dataset} EEG \textit{imagined speech} berbahasa Inggris yang akan dipakai (FEIS dan/atau \textit{dataset} lain sejenis), pemilihan model \textit{embedding} kata sebagai target vektor makna (mis. BERT atau \textit{sentence-transformer}), serta kebutuhan teknik standardisasi sinyal untuk mengatasi variasi antar-individu.
+    \item \textbf{Perancangan solusi}\\
+    Merancang arsitektur \textit{pipeline} dari level umum ke spesifik: (a) tahap \textit{preprocessing} dan standardisasi sinyal EEG menggunakan \textit{Riemannian Centering Transformation} (RCT), (b) tahap pemetaan sinyal terstandardisasi ke vektor makna berkelanjutan menggunakan model regresi atau \textit{encoder} ringan, dengan opsi lapisan \textit{sparse autoencoder} dan \textit{adapter} untuk menyesuaikan dimensi vektor ke ruang input LLM, dan (c) tahap injeksi vektor tersebut sebagai konteks (\textit{soft-prompt}) ke LLM. Arsitektur ini digambarkan dalam diagram alur, dan detail tiap komponen dapat disesuaikan pada tahap implementasi sesuai hasil eksperimen awal.
+    \item \textbf{Implementasi}\\
+    \textit{Pipeline} diimplementasikan di Python, menggunakan MNE-Python untuk pemrosesan sinyal EEG, PyTorch dan/atau scikit-learn untuk pelatihan model pemetaan, model \textit{embedding pretrained} (BERT/\textit{sentence-transformer}) untuk menghasilkan vektor target, dan API LLM untuk pengujian injeksi konteks vektor.
+    \item \textbf{Evaluasi}\\
+    Model diuji lewat tiga skema pengujian yang berpadanan dengan H1a-c: (a) perbandingan performa model regresi-ke-vektor terhadap \textit{baseline classifier} diskrit menggunakan \textit{cosine similarity}, (b) perbandingan performa model dengan dan tanpa standardisasi RCT pada pengujian \textit{subject-dependent}, dan (c) penilaian relevansi \textit{output} LLM ketika diberi konteks vektor dibanding tanpa konteks vektor. Signifikansi tiap perbandingan diuji dengan \textit{paired t-test} atau \textit{Wilcoxon signed-rank test}, tergantung distribusi skornya.
+    \item \textbf{Penarikan kesimpulan dan saran}\\
+    Hasil evaluasi dirangkum untuk menjawab tiga rumusan masalah dan menguji tiga hipotesis, diikuti saran untuk pengembangan lebih lanjut, misalnya perluasan ke pengujian \textit{cross-subject} atau \textit{decoding} kalimat penuh.
+    \vfill % memaksa konten di atas untuk berada di bagian atas halaman dan menyisakan ruang kosong di bawah konten ini akibat berakhirnya section ini
 \end{enumerate}
 
 % --- Sistematika Penulisan ---
 \section{Sistematika Penulisan}
-Tuliskan gambaran umum isi dari setiap bab yang ada dalam laporan tugas akhir. Sistematika penulisan ini memberikan panduan bagi pembaca tentang struktur dan alur pembahasan dalam laporan tugas akhir. Berikut adalah contoh sistematika penulisan yang dapat diikuti:
+Laporan tugas akhir ini disusun dalam tujuh bab dengan sistematika sebagai berikut.
 \begin{enumerate}
-\item	Bab I Pendahuluan: Berisi latar belakang, rumusan masalah, tujuan, batasan masalah, metodologi, dan sistematika penulisan laporan tugas akhir       .
-\item	Bab II Studi Literatur: Berisi kajian pustaka yang relevan dengan topik tugas akhir, termasuk teori-teori, konsep-konsep, dan hasil-hasil penelitian sebelumnya yang                mendukung pelaksanaan tugas akhir.
-\item	Bab III Analisis dan Desain: Berisi penjelasan tentang analisis masalah dan kebutuhan pengguna serta berbagai alternatif solusinya.
-\item   Bab IV Perancangan: Berisi penjelasan tentang perancangan solusi yang diusulkan, misalnya arsitektur sistem, desain basis data, antarmuka pengguna, dan sebagainya.
-\item	Bab V Implementasi: Berisi penjelasan tentang proses implementasi solusi yang diusulkan, termasuk langkah-langkah yang diambil, teknologi yang digunakan, dan hasil yang diperoleh.
-\item	Bab VI Evaluasi: Berisi analisis dan evaluasi terhadap solusi yang diimplementasikan, termasuk metode pengujian, hal-hal yang disiapkan sebelum pengujian, hasil pengujian, dan penilaian kinerja.                  
-\item   Bab VII Kesimpulan dan Saran: Berisi kesimpulan dari hasil pelaksanaan tugas akhir dan saran untuk pengembangan lebih lanjut.
-\item   Daftar Pustaka: Berisi daftar referensi yang digunakan dalam penyusunan laporan tugas akhir.
-\item   Lampiran: Berisi dokumen-dokumen pendukung seperti kode program, data lengkap hasil pengujian, rekaman wawancara, dan lain-lain. 
+    \item \textbf{Bab I Pendahuluan} berisi latar belakang mengenai kesulitan verbalisasi maksud pengguna ke AI dan kerapuhan LLM terhadap variasi \textit{prompt} teks, rumusan masalah, tujuan, ruang lingkup dan batasan, hipotesis, metodologi, serta sistematika penulisan proposal ini.
+    \item \textbf{Bab II Studi Literatur} berisi kajian pustaka mengenai landasan \textit{decoding} sinyal otak menjadi representasi makna bahasa, teknik penyampaian konteks ke LLM dalam bentuk vektor berkelanjutan (\textit{soft-prompt}), dan penelitian \textit{imagined speech} sebelumnya yang menjadi dasar pendekatan tugas akhir ini.
+    \item \textbf{Bab III Analisis Masalah} berisi analisis kondisi pendekatan \textit{imagined speech} saat ini, analisis kebutuhan teknis untuk memetakan sinyal EEG ke vektor makna (termasuk pemilihan sumber data, model \textit{embedding} target, dan teknik standardisasi sinyal antar-individu), serta analisis pemilihan solusi dari beberapa alternatif pendekatan yang dipertimbangkan.
+    \item \textbf{Bab IV Desain Konsep Solusi} berisi ilustrasi rancangan konsep \textit{pipeline} secara umum, mulai dari standardisasi sinyal EEG, pemetaan sinyal ke vektor makna berkelanjutan, hingga integrasi vektor tersebut sebagai konteks bagi LLM, beserta perbandingannya dengan pendekatan klasifikasi diskrit yang digunakan penelitian sebelumnya.
+    \item \textbf{Bab V Rencana Selanjutnya} berisi rencana implementasi (alat, bahan, dan lingkungan yang dibutuhkan), rencana desain pengujian dan evaluasi terhadap ketiga hipotesis yang diajukan, serta analisis risiko dan mitigasinya.
 \end{enumerate}
