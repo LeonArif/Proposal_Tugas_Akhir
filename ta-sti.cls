@@ -53,6 +53,11 @@
 ]{biblatex}
 \DeclareLanguageMapping{indonesian}{english-apa}
 
+% --- sitasi penulis kelompok selalu memakai singkatan (shortauthor), mis. (ASHA, t.t.) ---
+\makeatletter
+\def\cbx@apa@ifnamesaved{\@firstoftwo}
+\makeatother
+
 % --- Terjemahan istilah daftar pustaka ke Bahasa Indonesia ---
 \DefineBibliographyStrings{english}{
   and          = {dan},
@@ -74,7 +79,8 @@
   available    = {tersedia di},
   retrieved    = {diakses dari},
   from         = {dari},
-  with         = {dengan}
+  with         = {dengan},
+  nodate       = {t.t.}
 }
 
 % --- ubah format sitasi menjadi (Author Year) ---
@@ -156,9 +162,8 @@
 % --- Atur margin halaman untuk single-sided format (satu muka) ---
 \geometry{
       a4paper,
-      asymmetric,
-      left=4cm,
-      right=3cm,
+      inner=4cm,
+      outer=3cm,
       top=3cm,
       bottom=3cm
 }
