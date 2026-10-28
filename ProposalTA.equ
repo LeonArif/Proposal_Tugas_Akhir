@@ -1,3 +1,8 @@
-\contentsline {myequations}{\numberline {II.1}Persamaan Pertama}{17}{equation.2.1}%
-\contentsline {myequations}{\numberline {II.3}Persamaan Kedua}{18}{equation.2.3}%
-\contentsline {myequations}{\numberline {II.4}Persamaan Ketiga}{18}{equation.2.4}%
+\contentsline {myequations}{\numberline {II.1}Matriks kovarians spasial}{17}{equation.2.1}%
+\contentsline {myequations}{\numberline {II.2}Rata-rata Riemann}{18}{equation.2.2}%
+\contentsline {myequations}{\numberline {II.3}Pemusatan matriks kovarians}{18}{equation.2.3}%
+\contentsline {myequations}{\numberline {II.4}\textit {Cosine similarity}}{19}{equation.2.4}%
+\contentsline {myequations}{\numberline {II.5}Pelatihan model pemetaan sinyal ke vektor makna}{21}{equation.2.5}%
+\contentsline {myequations}{\numberline {II.6}Fungsi galat \textit {sparse autoencoder}}{22}{equation.2.6}%
+\contentsline {myequations}{\numberline {II.7}Reparameterisasi \textit {low-rank} pada LoRA}{25}{equation.2.7}%
+\contentsline {myequations}{\numberline {II.8}\textit {Balanced accuracy}}{26}{equation.2.8}%

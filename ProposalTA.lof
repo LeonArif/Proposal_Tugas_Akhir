@@ -1,9 +1,13 @@
 \babel@toc {indonesian}{}\relax 
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {II.1}{\ignorespaces Contoh peletakan gambar di bagian atas halaman}}{12}{figure.caption.12}%
-\contentsline {figure}{\numberline {II.2}{\ignorespaces Contoh peletakan gambar dengan judul yang panjang sehingga ditulis dalam beberapa baris dengan menggunakan gambar yang sama dengan Gambar~\ref {fig:jaringan} dengan hanya memodifikasi ukuran gambarnya saja}}{13}{figure.caption.13}%
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {II.1}{\ignorespaces Alur kerja BCI, mulai dari perekaman data, pemrosesan sinyal, hingga aplikasi, beserta tantangan yang menjadi fokus penelitian ini \blx@tocontentsinit {0}\parencite [diadaptasi dari][lisensi CC BY]{jeong2022}}}{12}{figure.caption.12}%
+\contentsline {figure}{\numberline {II.2}{\ignorespaces Sistem internasional 10-20 dilihat dari kiri (A) dan atas kepala (B) \blx@tocontentsinit {0}\parencite [sumber:][]{malmivuo1995}}}{16}{figure.caption.15}%
+\contentsline {figure}{\numberline {II.3}{\ignorespaces Alur MEKT: penyelarasan pusat data pada \textit {manifold} Riemann, pemetaan ke \textit {tangent space}, lalu pembelajaran subruang \blx@tocontentsinit {0}\parencite [sumber:][]{zhang2020}}}{18}{figure.caption.16}%
+\contentsline {figure}{\numberline {II.4}{\ignorespaces Ilustrasi ruang semantik dua dimensi, dengan kata-kata yang maknanya berdekatan membentuk kelompok \blx@tocontentsinit {0}\parencite [sumber:][]{pereira2018}}}{20}{figure.caption.17}%
+\contentsline {figure}{\numberline {II.5}{\ignorespaces Arsitektur SBERT saat menghitung kemiripan dua kalimat \blx@tocontentsinit {0}\parencite [diadaptasi dari][]{reimers2019}}}{21}{figure.caption.18}%
+\contentsline {figure}{\numberline {II.6}{\ignorespaces Ilustrasi struktur \textit {sparse autoencoder}, dengan unit yang aktif ditandai warna oranye}}{23}{figure.caption.19}%
+\contentsline {figure}{\numberline {II.7}{\ignorespaces Perbandingan \textit {prompt} biasa dan dua bentuk \textit {soft prompt} (diadaptasi dari \blx@tocontentsinit {0}\citeauthor {lester2021}, \blx@tocontentsinit {0}\citeyear {lester2021}; \blx@tocontentsinit {0}\citeauthor {mokady2021}, \blx@tocontentsinit {0}\citeyear {mokady2021})}}{24}{figure.caption.20}%
+\contentsline {figure}{\numberline {II.8}{\ignorespaces Reparameterisasi LoRA: bobot \textit {pretrained} dibekukan dan hanya matriks A dan B yang dilatih \blx@tocontentsinit {0}\parencite [sumber:][]{hu2021}}}{25}{figure.caption.21}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }

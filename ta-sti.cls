@@ -44,6 +44,7 @@
 
 \setmainfont{Times New Roman} % set main font to Times New Roman
 \onehalfspacing % spasi 1.5
+\raggedbottom % cegah spasi vertikal melebar saat gambar atau tabel dipindah ke halaman berikutnya
 
 % --- Bibliography menggunakan BibLaTeX dengan gaya APA ---
 \RequirePackage[
@@ -61,7 +62,7 @@
 % --- Terjemahan istilah daftar pustaka ke Bahasa Indonesia ---
 \DefineBibliographyStrings{english}{
   and          = {dan},
-  andothers    = {dkk.},
+  andothers    = {dkk\adddot},
   editor       = {penyunting},
   editors      = {penyunting},
   translator   = {penerjemah},

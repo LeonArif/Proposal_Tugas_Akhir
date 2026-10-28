@@ -15,90 +15,64 @@
 \begin{longtable}{@{} l >{\raggedright\arraybackslash}p{6.5cm} c @{}}
 \multicolumn{1}{l}{\textbf{Notasi}} & \multicolumn{1}{l}{\textbf{Deskripsi}} & \multicolumn{1}{l}{\parbox[c]{3.5cm}{\raggedright \textbf{Pemakaian pertama kali}}} \\
 
+% \multicolumn{2}{l}{\textbf{Huruf Yunani}} \\
 
+$\alpha$ & Kekuatan penalti agar sedikit angka yang aktif pada \textit{sparse autoencoder} & 22 \\
+$\delta_R$ & Jarak Riemann antara dua matriks kovarians & 18 \\
+$\theta$ & Parameter model pemetaan sinyal ke vektor makna & 21 \\
+$\hat{\theta}$ & Parameter terbaik hasil pelatihan & 21 \\
+$\Delta W$ & Perubahan bobot LLM pada LoRA & 25 \\[1ex]
 
-% \multicolumn{2}{l}{\textbf{Huruf Yunani (Parameter Model)}} \\
+% \multicolumn{2}{l}{\textbf{Operator dan Relasi Matematis}} \\
 
-$\alpha$ & Koefisien bobot untuk \textit{loss function}, tingkat signifikansi statistik & 75 \\
-$\beta$ & Koefisien bobot untuk \textit{Binary Cross-Entropy loss} & 75 \\
-$\lambda$ & Koefisien bobot untuk CTC \textit{loss}, parameter regularisasi & 75 \\
-$\theta$ & Parameter model \textit{neural network} & 75 \\
-$\sigma$ & Deviasi standar & 75 \\
-$\mu$ & Rata-rata (\textit{mean}) & 75 \\
-$\epsilon$ & \textit{Token blank}/kosong dalam CTC, konstanta kecil untuk stabilitas numerik & 75 \\
-$\Delta$ & Delta (selisih/perubahan nilai) & 75 \\
-$\pi$ & \textit{Alignment path} dalam CTC & 75 \\
-$\pi_t$ & \textit{Token} pada \textit{timestep} $t$ dalam \textit{alignment path} & 76 \\[1ex]
+$\sim$ & Sekitar (nilai perkiraan) & 13 \\
+$\sum$ & Operator penjumlahan & 18 \\
+$\arg\min$ & Argumen yang meminimalkan fungsi & 18 \\
+$\succ 0$ & Matriks bersifat positif definit & 18 \\
+$\top$ & Transpos matriks & 17 \\
+$\cdot$ & Hasil kali titik (\textit{dot product}) dua vektor & 19 \\
+$\lVert \cdot \rVert$, $\lVert \cdot \rVert_2$ & Norma vektor (panjang vektor) & 19 \\
+$\lVert \cdot \rVert_1$ & Norma $\ell_1$, yaitu jumlah nilai mutlak setiap angka vektor & 22 \\
+$\in$ & Anggota himpunan & 25 \\
+$\mathbb{R}$ & Himpunan bilangan real & 25 \\
+$\ll$ & Jauh lebih kecil daripada & 25 \\
+$\cos(\mathbf{a}, \mathbf{b})$ & \textit{Cosine similarity} antara vektor $\mathbf{a}$ dan $\mathbf{b}$ & 19 \\[1ex]
 
-% \multicolumn{2}{l}{\textbf{Operator Matematis}} \\
+% \multicolumn{2}{l}{\textbf{Sinyal EEG dan Matriks Kovarians}} \\
 
-$\nabla$ atau $\partial$ & Operator gradien atau turunan parsial & 75 \\
-$\sum$ & Operator penjumlahan & 75 \\
-$\prod$ & Operator perkalian & 75 \\
-$\int$ & Operator integral & 75 \\
-argmax & Argumen yang memaksimalkan fungsi & 76 \\
-$\sim$ & Terdistribusi menurut & 75 \\
-$\to$ & Menuju atau konvergen ke & 75 \\[1ex]
+$N$ & Jumlah \textit{channel} EEG & 17 \\
+$T$ & Jumlah titik waktu dalam satu percobaan & 17 \\
+$X_i$ & Sinyal EEG percobaan ke-$i$ berukuran $N \times T$ & 17 \\
+$C_i$ & Matriks kovarians spasial percobaan ke-$i$ berukuran $N \times N$ & 17 \\
+$\bar{C}$ & Rata-rata Riemann dari matriks kovarians satu subjek & 18 \\
+$\tilde{C}_i$ & Matriks kovarians percobaan ke-$i$ setelah dipusatkan (RCT) & 18 \\
+$M$ & Jumlah percobaan & 18 \\[1ex]
 
-% \multicolumn{2}{l}{\textbf{Fungsi \textit{Loss} dan Kerugian}} \\
+% \multicolumn{2}{l}{\textbf{Vektor Makna dan Model}} \\
 
-$\mathcal{L}$ & Fungsi \textit{loss} (kerugian) & 75 \\
-$\mathcal{L}_{total}$ & Total \textit{loss function} & 75 \\
-$\mathcal{L}_{adversarial}$ atau $\mathcal{L}_{adv}$ & \textit{Adversarial loss} & 75 \\
-$\mathcal{L}_{reconstruction}$ & \textit{Reconstruction loss} & 75 \\
-$\mathcal{L}_{L1}$ & L1 \textit{loss} (\textit{Mean Absolute Error}) & 75 \\
-$\mathcal{L}_{L2}$ & L2 \textit{loss} (\textit{Mean Squared Error}) & 75 \\
-$\mathcal{L}_{CTC}$ & CTC (\textit{Connectionist Temporal Classification}) \textit{loss} & 75 \\
-$\mathcal{L}_{perceptual}$ & \textit{Perceptual loss} & 75 \\
-$\mathcal{L}_{pixel}$ & \textit{Pixel-wise loss} & 75 \\
-$\mathcal{L}_{BCE}$ & \textit{Binary Cross-Entropy loss} & 75 \\
-$\mathcal{L}_{GAN}$ & GAN \textit{loss} & 75 \\
-$\mathcal{L}_{cycle}$ & \textit{Cycle consistency loss} & 75 \\[1ex]
+$\mathbf{a}$, $\mathbf{b}$ & Dua vektor yang dibandingkan kedekatannya & 19 \\
+$\mathbf{x}_i$ & Fitur sinyal pada percobaan ke-$i$ & 21 \\
+$\mathbf{y}_i$ & Vektor makna target pada percobaan ke-$i$ & 21 \\
+$f_{\theta}$ & Model pemetaan dengan parameter $\theta$ & 21 \\
+$\mathbf{x}$ & Vektor masukan \textit{sparse autoencoder} & 22 \\
+$\hat{\mathbf{x}}$ & Hasil rekonstruksi vektor masukan & 22 \\
+$\mathbf{f}$ & Angka-angka pada lapisan tengah \textit{sparse autoencoder} & 22 \\
+$\mathcal{L}$ & Fungsi galat \textit{sparse autoencoder} & 22 \\[1ex]
 
-% \multicolumn{2}{l}{\textbf{Variabel Model dan Komponen GAN}} \\
+% \multicolumn{2}{l}{\textbf{LoRA}} \\
 
-$G$ & \textit{Generator} dalam GAN & 75 \\
-$D$ & \textit{Discriminator} dalam GAN & 75 \\
-$G(z)$ & \textit{Output} dari \textit{generator} dengan \textit{input} $z$ & 75 \\
-$D(x)$ & \textit{Output} dari \textit{discriminator} dengan \textit{input} $x$ & 75 \\
-$G_{A \to B}$ & \textit{Generator} dari domain $A$ ke $B$ & 75 \\
-$G_{B \to A}$ & \textit{Generator} dari domain $B$ ke $A$ & 75 \\
-$V(D, G)$ & Fungsi nilai (\textit{value function}) dalam GAN & 75 \\
-$x$ & Sampel data asli, \textit{input} citra & 75 \\
-$y$ & Label atau \textit{ground truth}, kondisi dalam \textit{conditional GAN} & 75 \\
-$z$ & \textit{Noise vector} atau representasi laten \\[1ex]
+$W$ & Bobot LLM setelah disesuaikan dengan LoRA & 25 \\
+$W_0$ & Bobot LLM yang dibekukan & 25 \\
+$B$, $A$ & Dua matriks kecil yang dilatih pada LoRA & 25 \\
+$d$, $k$ & Ukuran baris dan kolom bobot $W_0$ & 25 \\
+$r$ & Peringkat (\textit{rank}) matriks $B$ dan $A$ & 25 \\[1ex]
 
-% \multicolumn{2}{l}{\textbf{Distribusi Probabilitas}} \\
+% \multicolumn{2}{l}{\textbf{Metrik Evaluasi dan Uji Statistik}} \\
 
-$\mathbb{E}$ & Ekspektasi atau nilai harapan & 75 \\
-$p_{data}$ & Distribusi data asli & 75 \\
-$p_z$ & Distribusi \textit{prior} (\textit{noise}) & 75 \\
-$p(y|x)$ & Probabilitas bersyarat \textit{output} $y$ \textit{given input} $x$ & 75 \\
-$p_t(\pi_t|x)$ & Probabilitas \textit{token} pada \textit{timestep} $t$ \\[1ex]
-
-% \multicolumn{2}{l}{\textbf{Fungsi dan Transformasi CTC}} \\
-
-$\mathcal{B}$ & Fungsi penciutan (\textit{collapse function}) dalam CTC & 75 \\
-$\mathcal{B}^{-1}$ & Fungsi invers penciutan dalam CTC & 75 \\
-$T$ & Jumlah \textit{timestep} atau panjang \textit{sequence} \\[1ex]
-
-% \multicolumn{2}{l}{\textbf{Metrik Jarak dan Norma}} \\
-
-$|x - G(y)|_1$ & L1 \textit{distance} antara \textit{ground truth} dan \textit{generated image} & 75 \\
-$|x - G(y)|_2$ & L2 \textit{distance} antara \textit{ground truth} dan \textit{generated image} & 75 \\
-$N \times N$ & Ukuran \textit{patch} dalam PatchGAN \\[1ex]
-
-% \multicolumn{2}{l}{\textbf{Statistik dan Analisis}} \\
-
-$d$ & Cohen's $d$ (\textit{effect size}) & 75 \\
-$n$ & Jumlah sampel & 75 \\
-$p$ & \textit{p-value} (nilai probabilitas statistik) & 75 \\
-$r$ & Koefisien korelasi & 75 \\
-$R^2$ & Koefisien determinasi \\[1ex]
-
-% \multicolumn{2}{l}{\textbf{Notasi Kompleksitas Komputasi}} \\
-
-$O(n)$ & Notasi Big-O untuk kompleksitas linear & 75 \\
-$O(n^2)$ & Notasi Big-O untuk kompleksitas kuadratik & 75 \\
+$C$ & Jumlah kata pada perhitungan \textit{balanced accuracy} (pada $\arg\min$ di Persamaan II.2, matriks kandidat rata-rata) & 25 \\
+$TP_i$ & Jumlah percobaan kata ke-$i$ yang ditebak benar & 25 \\
+$FN_i$ & Jumlah percobaan kata ke-$i$ yang ditebak sebagai kata lain & 25 \\
+B-Acc & \textit{Balanced accuracy} & 26 \\
+$p$ & Nilai $p$ (nilai probabilitas uji statistik) & 26 \\
 
 \end{longtable}

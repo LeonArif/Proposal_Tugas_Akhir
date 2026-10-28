@@ -25,30 +25,40 @@
 \contentsline {section}{\numberline {I.6}Metodologi}{6}{section.1.6}%
 \contentsline {section}{\numberline {I.7}Sistematika Penulisan}{8}{section.1.7}%
 \contentsline {chapter}{\numberline {II}STUDI LITERATUR}{11}{chapter.2}%
-\contentsline {section}{\numberline {II.1}Tentang Studi Literatur}{11}{section.2.1}%
-\contentsline {section}{\numberline {II.2}Format Penulisan Gambar, Tabel, Rumus, dan Kode Program}{12}{section.2.2}%
-\contentsline {subsection}{\numberline {II.2.1}Penulisan Gambar}{12}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {II.2.2}Penulisan Tabel}{14}{subsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {II.2.2.1}Penulisan Tabel Pendek}{14}{subsubsection.2.2.2.1}%
-\contentsline {subsubsection}{\numberline {II.2.2.2}Mengimpor Tabel dari Berkas Eksternal}{15}{subsubsection.2.2.2.2}%
-\contentsline {subsubsection}{\numberline {II.2.2.3}Tabel yang Sangat Panjang}{15}{subsubsection.2.2.2.3}%
-\contentsline {subsection}{\numberline {II.2.3}Penulisan Rumus atau Persamaan Matematika Menggunakan {\LaTeX } dan Penomorannya}{17}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {II.2.4}Penulisan Kode Program, \textit {Script} atau \textit {Pseudocode}}{19}{subsection.2.2.4}%
-\contentsline {subsection}{\numberline {II.2.5}Penulisan Algoritma}{19}{subsection.2.2.5}%
-\contentsline {chapter}{\numberline {III}ANALISIS MASALAH}{23}{chapter.3}%
-\contentsline {section}{\numberline {III.1}Analisis Kondisi Saat Ini}{23}{section.3.1}%
-\contentsline {section}{\numberline {III.2}Analisis Kebutuhan}{23}{section.3.2}%
-\contentsline {subsection}{\numberline {III.2.1}Identifikasi Masalah Pengguna}{23}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {III.2.2}Kebutuhan Fungsional}{23}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {III.2.3}Kebutuhan Nonfungsional}{24}{subsection.3.2.3}%
-\contentsline {section}{\numberline {III.3}Analisis Pemilihan Solusi}{24}{section.3.3}%
-\contentsline {subsection}{\numberline {III.3.1}Alternatif Solusi}{24}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {III.3.2}Analisis Penentuan Solusi}{24}{subsection.3.3.2}%
-\contentsline {chapter}{\numberline {IV}DESAIN KONSEP SOLUSI}{27}{chapter.4}%
-\contentsline {chapter}{\numberline {V}RENCANA SELANJUTNYA}{29}{chapter.5}%
-\contentsline {chapter}{DAFTAR PUSTAKA}{31}{chapter*.20}%
+\contentsline {section}{\numberline {II.1}\textit {Brain-Computer Interface} (BCI)}{11}{section.2.1}%
+\contentsline {subsection}{\numberline {II.1.1}Alur Kerja BCI}{11}{subsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {II.1.1.1}Perekaman Sinyal Otak}{12}{subsubsection.2.1.1.1}%
+\contentsline {subsubsection}{\numberline {II.1.1.2}Pemrosesan Sinyal}{14}{subsubsection.2.1.1.2}%
+\contentsline {subsubsection}{\numberline {II.1.1.3}Tantangan BCI}{14}{subsubsection.2.1.1.3}%
+\contentsline {subsubsection}{\numberline {II.1.1.4}Aplikasi BCI}{15}{subsubsection.2.1.1.4}%
+\contentsline {subsection}{\numberline {II.1.2}\textit {Imagined Speech}}{15}{subsection.2.1.2}%
+\contentsline {section}{\numberline {II.2}EEG}{16}{section.2.2}%
+\contentsline {subsection}{\numberline {II.2.1}Cara Kerja EEG}{16}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {II.2.2}\textit {Dataset} EEG \textit {Imagined Speech}}{17}{subsection.2.2.2}%
+\contentsline {section}{\numberline {II.3}Penyeragaman Sinyal Antar Subjek dengan RCT}{17}{section.2.3}%
+\contentsline {section}{\numberline {II.4}Vektor Makna dan Pemetaan EEG ke Vektor}{19}{section.2.4}%
+\contentsline {subsection}{\numberline {II.4.1}Vektor Makna}{19}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {II.4.2}Model \textit {Sentence Embedding}}{20}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {II.4.3}Pemetaan Sinyal Otak ke Vektor Makna}{21}{subsection.2.4.3}%
+\contentsline {section}{\numberline {II.5}\textit {Sparse Autoencoder} (SAE)}{22}{section.2.5}%
+\contentsline {section}{\numberline {II.6}\textit {Large Language Model} (LLM)}{23}{section.2.6}%
+\contentsline {section}{\numberline {II.7}\textit {Soft Prompt}}{23}{section.2.7}%
+\contentsline {section}{\numberline {II.8}\textit {Adapter}}{24}{section.2.8}%
+\contentsline {section}{\numberline {II.9}\textit {Low-Rank Adaptation} (LoRA)}{25}{section.2.9}%
+\contentsline {section}{\numberline {II.10}Metrik Evaluasi dan Uji Statistik}{25}{section.2.10}%
+\contentsline {section}{\numberline {II.11}Penelitian Terkait}{26}{section.2.11}%
+\contentsline {chapter}{\numberline {III}ANALISIS MASALAH}{29}{chapter.3}%
+\contentsline {section}{\numberline {III.1}Analisis Kondisi Saat Ini}{29}{section.3.1}%
+\contentsline {section}{\numberline {III.2}Analisis Kebutuhan}{30}{section.3.2}%
+\contentsline {subsection}{\numberline {III.2.1}Identifikasi Masalah Pengguna}{30}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {III.2.2}Kebutuhan Fungsional}{31}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {III.2.3}Kebutuhan Nonfungsional}{32}{subsection.3.2.3}%
+\contentsline {section}{\numberline {III.3}Analisis Pemilihan Solusi}{32}{section.3.3}%
+\contentsline {subsection}{\numberline {III.3.1}Alternatif Solusi}{32}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {III.3.2}Analisis Penentuan Solusi}{33}{subsection.3.3.2}%
+\contentsline {chapter}{DAFTAR PUSTAKA}{35}{chapter*.27}%
 \renewcommand {\cftchappresnum }{}
 \settowidth {\cftchapnumwidth }{A\hskip 1em\relax }
-\contentsline {chapter}{Lampiran \numberline {A}\textit {SOURCE CODE}}{33}{appendix.1.A}%
-\contentsline {section}{\numberline {A.1}Perangkat Lunak untuk Akuisisi Data dari Sensor Ultrasonik}{33}{section.1.A.1}%
-\contentsline {section}{\numberline {A.2}Perangkat Lunak untuk Pengolahan Data Akuisisi dan Visualisasi Hasil Pengukuran Jarak}{34}{section.1.A.2}%
+\contentsline {chapter}{Lampiran \numberline {A}\textit {SOURCE CODE}}{39}{appendix.1.A}%
+\contentsline {section}{\numberline {A.1}Perangkat Lunak untuk Akuisisi Data dari Sensor Ultrasonik}{39}{section.1.A.1}%
+\contentsline {section}{\numberline {A.2}Perangkat Lunak untuk Pengolahan Data Akuisisi dan Visualisasi Hasil Pengukuran Jarak}{40}{section.1.A.2}%

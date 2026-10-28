@@ -1,24 +1,168 @@
-% ============================================================================================
-% BAB III ANALISIS MASALAH
-% Pembagian subbab tidak rigid dan dapat bervariasi. Bab ini minimal berisi analisis kebutuhan
-% fungsional dan nonfungsional, analisis berbagai alternatif solusi yang dapat ditawarkan, dan
-% metode pemilihan solusi yang diusulkan.
-% ============================================================================================
+\cleardoublepage % memastikan bab baru dimulai di halaman ganjil (kanan)
 \chapter{ANALISIS MASALAH}
 \label{chap:analisis-masalah}
-\section{Analisis Kondisi Saat Ini}
-Menurut \textcite{laudon2020}, gambarkan terlebih dahulu model konseptual sistem yang ada saat ini. Model konseptual ini berisi berbagai komponen atau subsitem dan interaksi antarsubsistem tersebut. Setelah itu, berikan penjelasan tentang masalah yang ada pada sistem tersebut. Paragraf berikut berisi contoh penjabaran masalah sistem informasi fasilitas kesehatan untuk pasien \autocite{pressman2019}. 
-\section{Analisis Kebutuhan}
-\lipsum[4]
-\subsection{Identifikasi Masalah Pengguna}
-\lipsum[5]
-\subsection{Kebutuhan Fungsional}
-\lipsum[6]
-\subsection{Kebutuhan Nonfungsional}
-\lipsum[7]
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X} % kolom rata kiri dengan lebar fleksibel
 
+% ============================================================================================
+% III.1 Analisis Kondisi Saat Ini
+% ============================================================================================
+\section{Analisis Kondisi Saat Ini}
+\label{sec:kondisi-saat-ini}
+BCI adalah bidang yang masih berkembang.
+Tujuan jangka pendeknya adalah menyediakan kemampuan komunikasi bagi penyandang disabilitas berat \parencite{nicolasalonso2012}, dan kebutuhan membaca sinyal otak juga muncul di bidang lain, misalnya deteksi \textit{microsleep} yang menjadi salah satu tantangan pada kompetisi BCI 2020 \parencite{jeong2022}.
+Alat perekam sinyal otak sudah tersedia dalam berbagai jenis, tetapi tidak semuanya cocok untuk pemakaian sehari-hari.
+ECoG memerlukan operasi, fMRI dan MEG tidak dapat dipindahkan \parencite{nicolasalonso2012}, dan fMRI serta fNIRS merekam lewat perubahan aliran darah sehingga lambat \parencite{frey2014}.
+
+Di antara alat tersebut, EEG paling praktis karena tidak memerlukan operasi, dapat dibawa, dan menangkap perubahan sinyal dengan cepat \parencite{nicolasalonso2012}.
+Pembacaan EEG sudah cukup memadai untuk tugas sederhana, misalnya tugas dengan dua pilihan yang sering melaporkan akurasi di atas 80 persen \parencite{duhair2026}.
+Namun untuk \textit{imagined speech} dengan banyak pilihan kata, hasilnya masih beragam \parencite{duhair2026}, dan teknik non-invasif lebih sulit melampaui ambang akurasi sekitar 70 persen yang dianggap layak untuk penerapan nyata \parencite{lopezbernal2022}.
+
+Di sisi lain, jumlah orang yang kehilangan kemampuan berbicara cukup besar.
+Prevalensi stroke di Indonesia tahun 2018 sekitar 2,1 juta orang \parencite{riskesdas2018}, hingga 40 persen penderita stroke mengalami afasia \parencite{cochrane2025}, dan ALS serta stroke batang otak juga membuat penderitanya sulit berkomunikasi \parencite{wolpaw2002}.
+Dengan jumlah penderita sebesar ini, alat bantu komunikasi harus dapat disediakan dalam jumlah banyak, sehingga alat yang ringan dan tidak memerlukan operasi seperti EEG lebih sesuai dibandingkan alat yang mahal dan berukuran besar.
+
+Model konseptual sistem \textit{imagined speech} berbasis EEG yang ada saat ini terdiri atas empat komponen yang bekerja berurutan, yaitu perekaman EEG saat pengguna membayangkan sebuah kata, pra-pemrosesan sinyal, ekstraksi fitur, dan klasifikasi yang memilih satu kata dari daftar kata yang sudah ditentukan \parencite{lopezbernal2022}.
+Keluaran sistem berupa satu label kata, dan keberhasilannya dinilai benar atau salah.
+
+Sistem tersebut memiliki tiga masalah.
+Pertama, akurasinya masih rendah karena sinyal EEG saat \textit{imagined speech} memiliki rasio sinyal terhadap gangguan yang rendah, bervariasi antar orang, dan data yang tersedia terbatas \parencite{lopezbernal2022,duhair2026}.
+Kedua, penilaian benar atau salah menganggap tebakan yang maknanya dekat sama salahnya dengan tebakan yang jauh.
+Ketiga, keluarannya berhenti pada satu label kata, sehingga belum berupa teks utuh yang dapat dipahami langsung oleh orang di sekitar pengguna.
+
+% ============================================================================================
+% III.2 Analisis Kebutuhan
+% ============================================================================================
+\section{Analisis Kebutuhan}
+Berdasarkan kondisi tersebut, dibutuhkan alat yang dapat menerjemahkan pikiran seseorang menjadi kata atau bahasa yang dapat dimengerti orang lain, dengan cara menerima sinyal otak pengguna lalu menerjemahkannya.
+Alat ini ditujukan bagi orang yang tidak dapat berbicara, sehingga harus dapat dipakai tanpa operasi dan harus bisa menerjemahkannya dengan cepat karena digunakan untuk komunikasi.
+
+\subsection{Identifikasi Masalah Pengguna}
+Masalah pengguna diidentifikasi dari studi literatur dan analisis situasi, belum dari wawancara langsung dengan pasien atau tenaga medis.
+Masalah tersebut ditunjukkan pada Tabel~\ref{tab:masalah-pengguna}.
+
+\begin{table}[H]
+  \centering
+  \caption{Identifikasi masalah pengguna}
+  \label{tab:masalah-pengguna}
+  \begin{tabularx}{\textwidth}{| l | Y | Y |}
+    \hline
+    ID & Masalah pengguna & Penjelasan \\
+    \hline
+    M01 & Pesan mendesak perlu disampaikan cepat dan spontan & Contohnya pasien di rumah sakit yang ingin meminta ke toilet. Alat bantu komunikasi yang ada hanya mencapai sekitar 5 sampai 15 kata per menit pada pemilihan langsung \parencite{higginbotham2009}, dan sistem harus merespons cepat agar pesan tersampaikan tepat waktu. \\
+    \hline
+    M02 & Alat harus mudah digunakan & Pengguna memerlukan alat tanpa langkah yang rumit. \\
+    \hline
+    M03 & Jalur otot terganggu, sehingga alat tidak boleh bergantung pada gerakan & Penderita ALS dan stroke batang otak kesulitan berkomunikasi lewat otot, sehingga BCI dipandang sebagai jalur komunikasi non-otot bagi mereka \parencite{wolpaw2002}. \\
+    \hline
+    M04 & Akurasi pembacaan masih kurang baik & Hasil pengenalan banyak kata sangat beragam \parencite{duhair2026}, dan teknik non-invasif lebih sulit melampaui ambang akurasi sekitar 70 persen \parencite{lopezbernal2022}. \\
+    \hline
+    M05 & Keluaran satu kata sulit dipahami orang di sekitar pengguna & Sistem yang ada hanya mengeluarkan satu label kata, sehingga belum berupa teks utuh yang dapat dipahami langsung, seperti diuraikan pada Subbab~\ref{sec:kondisi-saat-ini}. \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\subsection{Kebutuhan Fungsional}
+Kebutuhan fungsional sistem ditunjukkan pada Tabel~\ref{tab:kebutuhan-fungsional}.
+
+\begin{table}[H]
+  \centering
+  \caption{Kebutuhan fungsional}
+  \label{tab:kebutuhan-fungsional}
+  \begin{tabularx}{\textwidth}{| l | Y | l |}
+    \hline
+    ID & Kebutuhan fungsional & Menjawab \\
+    \hline
+    F01 & Sistem dapat menerima sinyal EEG saat pengguna membayangkan kata atau frasa. & M04 \\
+    \hline
+    F02 & Sistem dapat membersihkan dan menyeragamkan sinyal EEG antar orang dengan RCT. & M04 \\
+    \hline
+    F03 & Sistem dapat memetakan sinyal EEG menjadi vektor makna. & M04 \\
+    \hline
+    F04 & Sistem dapat memisahkan makna yang tercampur pada vektor makna dengan SAE. & M05 \\
+    \hline
+    F05 & Sistem dapat memberikan vektor makna kepada LLM sebagai \textit{soft prompt}. & M05 \\
+    \hline
+    F06 & Sistem dapat menghasilkan teks yang sesuai dengan maksud pengguna. & M04, M05 \\
+    \hline
+    F07 & Hasil sistem dapat dinilai, yaitu lewat akurasi pengenalan kata dan penilaian kesesuaian teks oleh penilai manusia. & M04 \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+\subsection{Kebutuhan Nonfungsional}
+Kebutuhan nonfungsional sistem ditunjukkan pada Tabel~\ref{tab:kebutuhan-nonfungsional}.
+
+\begin{table}[H]
+  \centering
+  \caption{Kebutuhan nonfungsional}
+  \label{tab:kebutuhan-nonfungsional}
+  \begin{tabularx}{\textwidth}{| l | Y | l |}
+    \hline
+    ID & Kebutuhan nonfungsional & Menjawab \\
+    \hline
+    NF01 & Sistem dapat dipakai kapan saja dan di mana saja, sehingga perekamannya harus non-invasif dan portabel. & M01, M03 \\
+    \hline
+    NF02 & Sistem menghasilkan teks dengan cepat. & M01 \\
+    \hline
+    NF03 & Sistem mudah digunakan dan dapat dipelajari dengan beberapa tahapan saja. & M02 \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+% ============================================================================================
+% III.3 Analisis Pemilihan Solusi
+% ============================================================================================
 \section{Analisis Pemilihan Solusi}
 \subsection{Alternatif Solusi}
-\lipsum[8]
+Terdapat beberapa alternatif solusi yang dipertimbangkan.
+\begin{enumerate}
+  \item \textbf{Alat bantu komunikasi (\textit{augmentative and alternative communication} atau AAC)}.
+  Pengguna memilih huruf atau kata lewat gerakan.
+  Kecepatannya sekitar 5 sampai 15 kata per menit pada pemilihan langsung dan 2 sampai 7 kata per menit pada pemindaian, atau 15 sampai 25 kali lebih lambat daripada ucapan \parencite{higginbotham2009}.
+  Kelambatan ini disebut membatasi kesempatan pendidikan dan pekerjaan penggunanya \parencite{higginbotham2009}.
+  \item \textbf{BCI invasif}.
+  Teknik invasif seperti ECoG rata-rata menghasilkan akurasi yang lebih tinggi dan lebih mudah melampaui ambang 70 persen \parencite{lopezbernal2022}, tetapi memerlukan operasi \parencite{nicolasalonso2012}.
+  \item \textbf{BCI dengan fMRI, MEG, atau fNIRS}.
+  fMRI, MEG, atau fNIRS memiliki ketelitian yang lebih baik dibandingkan EEG yaitu sekitar 1 mm untuk fMRI dan 5 mm untuk MEG dan fNIRS, tetapi fMRI dan MEG tidak dapat dipindahkan, sedangkan fMRI dan fNIRS lambat karena merekam lewat perubahan aliran darah \parencite{nicolasalonso2012,frey2014}.
+  \item \textbf{EEG dengan klasifikasi ke label kata}.
+  Ini pendekatan yang umum pada \textit{imagined speech} \parencite{lopezbernal2022}.
+  Keluarannya satu label kata dan penilaiannya benar atau salah.
+  \item \textbf{EEG dengan pemetaan ke vektor makna dan LLM}.
+  Pengguna membayangkan sebuah kata atau frasa, dan sinyal otaknya direkam dengan perangkat EEG portabel, misalnya Emotiv EPOC.
+  Sinyal EEG diseragamkan dengan RCT, lalu model regresi yang sudah dilatih memetakannya ke vektor makna yang menyerupai keluaran model \textit{sentence embedding}.
+  Makna yang tercampur pada vektor tersebut dipisahkan dengan \textit{Sparse Autoencoder} (SAE).
+  Vektor hasil pemisahan diterjemahkan oleh \textit{adapter}, dengan LoRA sebagai cadangan, menjadi \textit{soft prompt} bagi LLM, dan LLM menghasilkan teks.
+\end{enumerate}
+
+Pada alternatif kelima terdapat tiga pilihan rancangan yang dipertimbangkan.
+Pertama, vektor dapat diubah dulu menjadi teks sebelum diberikan ke LLM, atau diberikan langsung sebagai \textit{soft prompt}.
+Kedua, LLM dapat disesuaikan dengan LoRA, atau cukup dibantu \textit{adapter}.
+Ketiga, sinyal dapat diproses dengan atau tanpa RCT.
+
 \subsection{Analisis Penentuan Solusi}
-\lipsum[9]
+Penentuan solusi dilakukan dengan menyaring alternatif memakai tiga syarat wajib yang diturunkan dari kebutuhan, yaitu dapat dipakai tanpa operasi dan portabel (NF01), tidak bergantung pada otot (M03), dan menghasilkan keluaran berupa teks utuh (F06).
+Hasil penyaringan ditunjukkan pada Tabel~\ref{tab:penyaringan-solusi}.
+
+\begin{table}[H]
+  \centering
+  \caption{Penyaringan alternatif solusi}
+  \label{tab:penyaringan-solusi}
+  \begin{tabularx}{\textwidth}{| Y | Y | Y | Y | Y |}
+    \hline
+    Alternatif & Tanpa operasi dan portabel & Tidak bergantung pada otot & Keluaran berupa teks utuh & Hasil \\
+    \hline
+    1. AAC & Terpenuhi & Tidak & Terpenuhi & Gugur \\
+    \hline
+    2. BCI invasif & Tidak & Terpenuhi & Tidak dinilai & Gugur \\
+    \hline
+    3. fMRI, MEG, fNIRS & Tidak (fNIRS portabel tetapi lambat) & Terpenuhi & Tidak dinilai & Gugur \\
+    \hline
+    4. EEG dan klasifikasi & Terpenuhi & Terpenuhi & Tidak & Tidak dipilih sebagai solusi, dipertahankan sebagai pembanding \\
+    \hline
+    5. EEG, vektor makna, dan LLM & Terpenuhi & Terpenuhi & Terpenuhi & Dipilih \\
+    \hline
+  \end{tabularx}
+\end{table}
+
+Alternatif 5 dipilih karena satu-satunya yang memenuhi ketiga syarat.
+Alternatif 4 tetap dipakai sebagai pembanding pada evaluasi (Hipotesis 2).
