@@ -496,7 +496,7 @@ Pada GPT-3 175B, LoRA mengurangi jumlah parameter yang dilatih sebanyak 10.000 k
 % ============================================================================================
 % II.10 Metrik evaluasi
 % ============================================================================================
-\section{Metrik Evaluasi}
+\section{Metrik Evaluasi dan Uji Statistik}
 \label{sec:metrik}
 \subsection{\textit{Balanced Accuracy}}
 \label{sec:bacc}
@@ -510,7 +510,7 @@ Pada persamaan tersebut, $V$ adalah jumlah kata, $TP_i$ adalah jumlah percobaan 
 \eqcaption{\textit{Balanced accuracy}}
 
 Pada keluaran LLM, kata yang ditebak adalah kata yang dituliskan LLM, dan percobaan dinyatakan benar bila kata tersebut sama dengan label asli.
-Pada pembanding berupa model klasifikasi, kata yang ditebak adalah kata yang dipilih model dari daftar kata target (Subbab~\ref{sec:imagined-speech}).
+Pada pembanding berupa model klasifikasi, kata yang ditebak adalah kata yang dipilih model dari daftar kata target.
 Pada pembanding berupa pencarian kata terdekat, kata yang ditebak dipilih dari kata dengan \textit{cosine similarity} (Persamaan~\ref{eq:cosine}) tertinggi terhadap vektor prediksi.
 Dengan cara ini, keluaran LLM, model klasifikasi, dan pencarian kata terdekat dapat dibandingkan memakai \textit{balanced accuracy} yang sama.
 
@@ -540,6 +540,18 @@ BERTScore \textit{recall} dipilih karena masukan yang ingin dikenali berupa satu
 Kata tambahan pada keluaran menurunkan \textit{precision} dan F1 tetapi tidak \textit{recall}, sehingga \textit{recall} sesuai untuk label pendek dengan keluaran yang lebih panjang.
 Keluaran yang memuat kata berdekatan makna dapat tetap memperoleh skor yang cukup tinggi, karena kecocokan dihitung dengan kemiripan vektor \textit{token}.
 BERTScore juga sudah dipakai pada \textit{decoding} otak ke teks \parencite{mishra2025,yang2026cliplm}.
+
+\subsection{Uji Statistik}
+\label{sec:uji-statistik}
+Uji statistik dipakai untuk memastikan bahwa selisih performa yang teramati bukan sekadar kebetulan.
+Hasil uji dinyatakan dengan nilai $p$, yaitu peluang mendapatkan selisih sebesar yang teramati atau lebih besar bila sebenarnya tidak ada perbedaan.
+Perbedaan dianggap signifikan bila nilai $p$ kurang dari taraf signifikansi yang ditetapkan.
+Uji satu arah hanya menanyakan apakah hasilnya lebih tinggi, sedangkan uji dua arah menanyakan apakah ada perbedaan, baik naik maupun turun.
+
+Uji proporsi membandingkan persentase percobaan benar yang teramati dengan persentase yang diharapkan bila hanya menebak, sehingga dipakai untuk membandingkan performa dengan tingkat tebakan acak.
+Uji Wilcoxon \textit{signed-rank} membandingkan dua cara pada subjek-subjek yang sama dengan melihat selisih hasilnya dan peringkat selisih tersebut, tanpa mengandaikan bahwa selisihnya tersebar normal \parencite{wilcoxon1945}.
+Setiap subjek memberikan satu pasangan hasil, yaitu hasilnya dengan kedua cara yang dibandingkan.
+Pada uji dua arah yang dihitung secara eksak dan tanpa nilai kembar, $n$ pasangan menghasilkan nilai $p$ terkecil sebesar $2/2^{n}$.
 
 % ============================================================================================
 % II.11 Penelitian terkait

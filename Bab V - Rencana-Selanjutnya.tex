@@ -147,16 +147,16 @@ Sebagai analisis tambahan dilaporkan performa per kata dan matriks kebingungan (
 Setiap hipotesis diuji dengan taraf signifikansi 0,05.
 Hipotesis 1 membandingkan performa model dengan tingkat tebakan acak menggunakan uji proporsi satu arah.
 Percobaan uji dari semua subjek digabung untuk uji ini, dan karena percobaan dari subjek yang sama tidak sepenuhnya saling bebas, performa setiap subjek juga dilaporkan.
-Hipotesis 2 membandingkan performa dengan RCT (K2) dan tanpa RCT (K1) pada pengujian lintas subjek menggunakan uji Wilcoxon berpasangan dua arah.
+Hipotesis 2 membandingkan performa dengan dan tanpa RCT, keduanya tanpa SAE, pada pengujian lintas subjek menggunakan uji Wilcoxon berpasangan dua arah.
 Setiap subjek uji memberikan satu pasangan performa, yaitu performanya dengan dan tanpa RCT, sehingga dengan 10 subjek terdapat 10 pasangan.
 Selain nilai $p$, dilaporkan selisih median performa kedua cara agar besar perbedaannya terlihat.
 
 Perbandingan dengan pendekatan klasifikasi dinilai sesuai ukuran keberhasilan ketiga pada Subbab~\ref{sec:tujuan}.
-Model klasifikasi pembanding (Subbab~\ref{sec:rancangan-llm}) dilatih pada data latih yang sama dan dinilai dengan \textit{balanced accuracy} pada data uji dan pembagian data yang sama dengan keluaran LLM.
+Model klasifikasi pembanding dilatih pada data latih yang sama dan dinilai dengan \textit{balanced accuracy} pada data uji dan pembagian data yang sama dengan keluaran LLM.
 Setiap subjek uji memberikan satu pasangan performa, yaitu performa keluaran LLM dan performa model klasifikasi, yang diuji dengan uji Wilcoxon berpasangan dua arah dengan 10 pasangan.
 Pencarian kata terdekat dinilai dengan cara yang sama dan dilaporkan sebagai pembanding tambahan.
 Hasil juga dilaporkan berdampingan dengan metode klasifikasi pada penelitian terdahulu, dengan catatan bahwa data dan tugasnya berbeda sehingga perbandingan ini hanya bersifat rujukan.
-Skor BERTScore \textit{recall} keluaran berupa deretan kata dilaporkan berdampingan dengan BERTScore Thought2Text sebesar 0,88 sampai 0,89 \parencite{mishra2025}, dengan catatan yang sama (Subbab~\ref{sec:perbandingan}).
+Skor BERTScore \textit{recall} keluaran berupa deretan kata dilaporkan berdampingan dengan BERTScore Thought2Text sebesar 0,88 sampai 0,89 \parencite{mishra2025}, dengan catatan yang sama.
 
 Hipotesis 1 diuji pada konfigurasi dengan performa validasi tertinggi, sedangkan semua konfigurasi tetap dilaporkan.
 Pengaruh SAE dilaporkan secara deskriptif karena tidak menjadi hipotesis.

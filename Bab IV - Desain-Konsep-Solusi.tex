@@ -33,14 +33,14 @@ Garis putus-putus menunjukkan jalur yang hanya dijalankan pada kondisi tertentu.
 
 RCT dan SAE dapat dilewati.
 Bila dilewati, masukan tahap tersebut langsung diteruskan ke tahap berikutnya.
-Dengan cara ini, pengaruh RCT dan SAE dapat diuji satu per satu dari rancangan yang sama, yaitu dengan menjalankannya dengan dan tanpa masing-masing komponen (konfigurasi K1 sampai K4 pada Tabel~\ref{tab:konfigurasi}).
+Dengan cara ini, pengaruh RCT dan SAE dapat diuji satu per satu dari rancangan yang sama, yaitu dengan menjalankannya dengan dan tanpa masing-masing komponen.
 
 % ============================================================================================
 % IV.2 Perbandingan
 % ============================================================================================
 \section{Perbandingan dengan Eksperimen yang Ada Saat Ini}
 \label{sec:perbandingan}
-Sebagai pembanding dipakai Thought2Text \parencite[lihat Subbab~\ref{sec:penelitian-terkait} dan Gambar~\ref{fig:thought2text}]{mishra2025}, karena alurnya dekat dengan rancangan ini di antara penelitian yang ditelaah.
+Sebagai pembanding dipakai Thought2Text \parencite[lihat Subbab~\ref{sec:penelitian-terkait}]{mishra2025}, karena alurnya dekat dengan rancangan ini di antara penelitian yang ditelaah.
 Keduanya mengubah sinyal EEG menjadi vektor, menerjemahkan vektor itu ke ruang masukan LLM, lalu membiarkan LLM menuliskan teks.
 Perbedaannya dengan rancangan ini dirangkum pada Tabel~\ref{tab:perbandingan}.
 
@@ -113,7 +113,7 @@ Pembagian data latih, validasi, dan uji mengikuti skema per subjek dan lintas su
   \label{fig:rancangan-prapemrosesan}
 \end{figure}
 
-Sinyal EEG disaring frekuensinya dan dibersihkan dari \textit{noise} (Subbab~\ref{sec:pemrosesan-sinyal}), dan langkah yang sama dijalankan pada sinyal EEG baru pada kotak \textit{Preprocess} di alur utama.
+Sinyal EEG disaring frekuensinya dan dibersihkan dari \textit{noise}, dan langkah yang sama dijalankan pada sinyal EEG baru pada kotak \textit{Preprocess} di alur utama.
 Dengan demikian, sinyal saat pelatihan dan saat pengujian melewati perlakuan yang sama.
 Gambar~\ref{fig:rancangan-prapemrosesan} menunjukkan langkah yang berkaitan dengan label teks dan dengan penyamaan antar rekaman.
 
@@ -222,6 +222,6 @@ Keluaran LLM berupa teks, yaitu kata, frasa, atau deretan kata yang dituliskan.
 Pada pengujian, keluaran berupa kata dinilai dengan \textit{balanced accuracy} terhadap label asli, dan keluaran berupa deretan kata dinilai dengan BERTScore \textit{recall} (lihat Subbab~\ref{sec:metrik}).
 
 Sebagai pembanding, dijalankan dua metode pada data uji dan pembagian data yang sama.
-Pembanding pertama adalah model klasifikasi yang memilih satu kata dari daftar kata target, memakai fitur masukan yang sama dengan model regresi (Subbab~\ref{sec:rancangan-pelatihan}).
-Pembanding kedua adalah pencarian kata terdekat, yaitu vektor hasil \textit{Model Embedding} dicocokkan dengan vektor semua kata kandidat memakai \textit{cosine similarity} (Persamaan~\ref{eq:cosine}), dan kata dengan nilai tertinggi menjadi tebakan.
-Kedua pembanding tidak melewati SAE, \textit{adapter}, dan LLM, dan dinilai dengan \textit{balanced accuracy} yang sama (Subbab~\ref{sec:bacc}).
+Pembanding pertama adalah model klasifikasi yang memilih satu kata dari daftar kata target, memakai fitur masukan yang sama dengan model regresi.
+Pembanding kedua adalah pencarian kata terdekat, yaitu vektor hasil \textit{Model Embedding} dicocokkan dengan vektor semua kata kandidat memakai \textit{cosine similarity} seperti pada Persamaan~\ref{eq:cosine}, dan kata dengan nilai tertinggi menjadi tebakan.
+Kedua pembanding tidak melewati SAE, \textit{adapter}, dan LLM, dan dinilai dengan \textit{balanced accuracy} yang sama.
