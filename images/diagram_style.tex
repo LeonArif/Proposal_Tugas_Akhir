@@ -1,0 +1,55 @@
+% Gaya bersama untuk diagram alur yang digambar dengan TikZ (Gambar II.10 dan Gambar IV.2 sampai IV.6).
+% Bentuk dan warna mengikuti diagram rancangan pada Gambar IV.1: data (jajar genjang hijau),
+% proses (persegi panjang merah muda), model (segi enam ungu), pelatihan (kapsul ungu kebiruan),
+% dan keputusan (belah ketupat biru).
+% Dimuat sekali pada preamble ProposalTA.tex. Membutuhkan pustaka TikZ shapes.misc, arrows.meta,
+% fit, backgrounds, dan calc.
+\definecolor{dgData}{HTML}{C3F7C8}
+\definecolor{dgProc}{HTML}{FFD6F5}
+\definecolor{dgModel}{HTML}{F4D9FF}
+\definecolor{dgTrain}{HTML}{DEDEFF}
+\definecolor{dgDec}{HTML}{6DB1FF}
+\definecolor{dgBox}{HTML}{F2F3F5}
+\definecolor{dgLine}{HTML}{3B4350}
+\tikzset{
+  % pengaturan dasar tiap gambar. linespread 1 agar spasi 1,5 dokumen tidak masuk ke dalam node
+  dgbase/.style={font=\scriptsize\linespread{1}\selectfont, >={Stealth[length=1.6mm,width=1.4mm]}},
+  dgline/.style={draw=dgLine, line width=0.4pt},
+  dgarr/.style={dgline, ->},
+  dgdash/.style={dgline, ->, dashed},
+  % data: jajar genjang
+  dgdata/.style={rectangle, draw=none, minimum width=2.3cm, minimum height=1.15cm, text width=1.55cm,
+    align=center, inner sep=0pt,
+    path picture={\draw[dgline, fill=dgData, rounded corners=1pt]
+      (path picture bounding box.south west) --
+      ($(path picture bounding box.south east)-(0.28,0)$) --
+      (path picture bounding box.north east) --
+      ($(path picture bounding box.north west)+(0.28,0)$) -- cycle;}},
+  % proses: persegi panjang
+  dgproc/.style={dgline, fill=dgProc, rounded corners=1.2pt, minimum width=2.0cm, text width=1.8cm,
+    align=center, minimum height=1.15cm, inner sep=0pt},
+  % model: segi enam
+  dgmodel/.style={rectangle, draw=none, minimum width=2.3cm, minimum height=1.2cm, text width=1.5cm,
+    align=center, inner sep=0pt,
+    path picture={\draw[dgline, fill=dgModel, rounded corners=1pt]
+      ($(path picture bounding box.south west)+(0.34,0)$) --
+      ($(path picture bounding box.south east)-(0.34,0)$) --
+      (path picture bounding box.east) --
+      ($(path picture bounding box.north east)-(0.34,0)$) --
+      ($(path picture bounding box.north west)+(0.34,0)$) --
+      (path picture bounding box.west) -- cycle;}},
+  % pelatihan: kapsul
+  dgtrain/.style={dgline, fill=dgTrain, rounded rectangle, rounded rectangle arc length=180,
+    minimum width=2.4cm, text width=1.9cm, align=center, minimum height=1.0cm, inner sep=0pt},
+  % keputusan: belah ketupat
+  dgdec/.style={rectangle, draw=none, minimum width=1.8cm, minimum height=1.2cm, text width=0.9cm,
+    align=center, inner sep=0pt,
+    path picture={\draw[dgline, fill=dgDec, rounded corners=1pt]
+      (path picture bounding box.west) -- (path picture bounding box.north) --
+      (path picture bounding box.east) -- (path picture bounding box.south) -- cycle;}},
+  % kotak pengelompok dan labelnya
+  dggroup/.style={draw=dgLine, line width=0.4pt, fill=dgBox, rounded corners=2pt, inner xsep=7pt, inner ysep=7pt},
+  dgtab/.style={fill=dgLine, text=white, rounded corners=1.5pt, inner sep=2.5pt, anchor=south west},
+  % teks tebal kecil pada garis
+  dglabel/.style={font=\tiny\bfseries\linespread{1}\selectfont, inner sep=1pt},
+}

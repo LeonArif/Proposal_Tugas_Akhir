@@ -1,6 +1,11 @@
 % !TeX root = ProposalTA.tex
 \documentclass{ta-sti} % This automatically loads the class and all formatting
 
+% TikZ untuk diagram alur yang digambar ulang (Gambar~\ref{fig:thought2text} dan Gambar IV.2 sampai IV.6)
+\usepackage{tikz}
+\usetikzlibrary{shapes.misc,arrows.meta,fit,backgrounds,calc}
+\input{images/diagram_style.tex} % bentuk dan warna diagram alur
+
 \addbibresource{daftar-pustaka.bib}
 
 \begin{document}
@@ -48,10 +53,10 @@
 
 \input{Bab I - Pendahuluan.tex}
 \input{Bab II - Studi.tex}
-% Bab III-V belum ditulis. Instruksi templatenya dipindahkan ke peraturan.md.
+% Instruksi template Bab II-V ada di peraturan.md.
 \input{Bab III - Analisis-Masalah.tex}
-%\input{Bab IV - Desain-Konsep-Solusi.tex}
-%\input{Bab V - Rencana-Selanjutnya.tex}
+\input{Bab IV - Desain-Konsep-Solusi.tex}
+\input{Bab V - Rencana-Selanjutnya.tex}
 
 % ... [Rest of your mainmatter inputs] ...
 

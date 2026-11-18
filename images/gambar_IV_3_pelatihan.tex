@@ -1,0 +1,12 @@
+% Tahap pelatihan model embedding (kotak Training pada Gambar IV.1), digambar ulang dengan label yang sama.
+% Gaya bentuk dan warna ada di diagram_style.tex.
+\begin{tikzpicture}[dgbase]
+\hyphenpenalty=10000 \exhyphenpenalty=10000 % jangan memenggal kata di dalam node
+\node[dgdata, minimum width=2.8cm, text width=2.0cm] (dts) at (0,0) {Dataset bersih (EEG $\to$ Vektor \textit{embedding})};
+\node[dgproc, minimum width=2.6cm, text width=2.3cm] (reg) at (4.6,0) {Regression Model};
+\node[dgtrain] (trn) at (8.9,0) {Training};
+
+\draw[dgarr] (dts) -- (reg);
+\draw[dgarr] (reg) -- (trn);
+\draw[dgarr] (trn.south) -- ++(0,-0.9) node[below, font=\tiny\linespread{1}\selectfont, align=center] {ke \textit{Model Embedding}\\(alur utama)};
+\end{tikzpicture}

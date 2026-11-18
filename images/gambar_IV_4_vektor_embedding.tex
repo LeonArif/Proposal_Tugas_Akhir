@@ -1,0 +1,21 @@
+% Tahap pembentukan vektor embedding dan masukan ke SAE (kotak Vektor Embedding dan Sparse Autoencoder
+% pada Gambar IV.1), digambar ulang dengan label yang sama. Gaya ada di diagram_style.tex.
+\begin{tikzpicture}[dgbase]
+\hyphenpenalty=10000 \exhyphenpenalty=10000 % jangan memenggal kata di dalam node
+\node[dgproc, minimum width=2.4cm, text width=2.15cm] (rct) at (0,0) {Riemannian Centering Transformation};
+\node[dgmodel, minimum width=2.4cm] (mdl) at (3.4,0) {Model Embedding};
+\node[dgdata, minimum width=2.2cm, text width=1.5cm] (vec) at (6.5,0) {Vektor Embedding};
+\node[dgproc, minimum width=2.4cm, text width=2.1cm] (sae) at (9.6,0) {Sparse Autoencoder};
+
+\begin{scope}[on background layer]
+  \node[dggroup, fit=(rct)(mdl)(vec)] (grp) {};
+\end{scope}
+\node[dgtab] at (grp.north west) {Vektor Embedding};
+
+\draw[dgarr] (rct) -- (mdl);
+\draw[dgarr] (mdl) -- (vec);
+\draw[dgarr] (vec) -- (sae);
+\draw[dgarr] ($(grp.west)+(-0.9,0)$) -- (grp.west) node[pos=0, above, font=\tiny\linespread{1}\selectfont, align=center, xshift=0.4cm, yshift=0.05cm] {dari\\\textit{Preprocess}};
+\draw[dgarr] ($(mdl.north)+(0,1.2)$) -- (mdl.north) node[pos=0, right, font=\tiny\linespread{1}\selectfont, xshift=0.05cm] {dari \textit{Training}};
+\draw[dgarr] (sae.east) -- ++(0.8,0) node[pos=1, above, font=\tiny\linespread{1}\selectfont, xshift=-0.2cm] {ke \textit{Adapter}};
+\end{tikzpicture}

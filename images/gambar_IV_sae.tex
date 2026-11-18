@@ -1,0 +1,20 @@
+% Tahap sparse autoencoder (kotak SAE Training dan Sparse Autoencoder pada Gambar IV.1), digambar ulang
+% dengan label yang sama. Gaya bentuk dan warna ada di diagram_style.tex.
+\begin{tikzpicture}[dgbase]
+\hyphenpenalty=10000 \exhyphenpenalty=10000 % jangan memenggal kata di dalam node
+\node[dgdata, minimum width=2.2cm, text width=1.5cm] (txt) at (0,0) {Teks kata atau frasa};
+\node[dgproc, minimum width=2.4cm, text width=2.1cm] (emb) at (3.3,0) {\textit{Sentence embedding}};
+\node[dgtrain] (trn) at (6.4,0) {\textit{Training}};
+\node[dgproc, minimum width=2.4cm, text width=2.1cm] (sae) at (9.8,0) {Sparse Autoencoder};
+
+\begin{scope}[on background layer]
+  \node[dggroup, fit=(txt)(emb)(trn)] (grp) {};
+\end{scope}
+\node[dgtab] at (grp.north west) {SAE Training};
+
+\draw[dgarr] (txt) -- (emb);
+\draw[dgarr] (emb) -- (trn);
+\draw[dgarr] (trn) -- (sae);
+\draw[dgarr] ($(sae.north)+(0,1.2)$) -- (sae.north) node[pos=0, above, font=\tiny\linespread{1}\selectfont, align=center] {dari \textit{Vektor Embedding}};
+\draw[dgarr] (sae.east) -- ++(0.8,0) node[pos=1, above, font=\tiny\linespread{1}\selectfont, xshift=-0.2cm] {ke \textit{Adapter}};
+\end{tikzpicture}

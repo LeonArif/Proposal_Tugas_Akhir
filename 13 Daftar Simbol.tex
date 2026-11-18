@@ -12,30 +12,34 @@
 
 
 
+% Halaman "pemakaian pertama kali" diisi dari ProposalTA.pdf (halaman persamaan atau kalimat
+% tempat simbol pertama kali dipakai). Isi ulang bila isi bab berubah.
 \begin{longtable}{@{} l >{\raggedright\arraybackslash}p{6.5cm} c @{}}
 \multicolumn{1}{l}{\textbf{Notasi}} & \multicolumn{1}{l}{\textbf{Deskripsi}} & \multicolumn{1}{l}{\parbox[c]{3.5cm}{\raggedright \textbf{Pemakaian pertama kali}}} \\
 
 % \multicolumn{2}{l}{\textbf{Huruf Yunani}} \\
 
-$\alpha$ & Kekuatan penalti agar sedikit angka yang aktif pada \textit{sparse autoencoder} & 22 \\
-$\delta_R$ & Jarak Riemann antara dua matriks kovarians & 18 \\
+$\alpha$ & Kekuatan penalti agar sedikit angka yang aktif pada \textit{sparse autoencoder} & 21 \\
+$\delta_R$ & Jarak Riemann antara dua matriks kovarians & 17 \\
 $\theta$ & Parameter model pemetaan sinyal ke vektor makna & 21 \\
 $\hat{\theta}$ & Parameter terbaik hasil pelatihan & 21 \\
-$\Delta W$ & Perubahan bobot LLM pada LoRA & 25 \\[1ex]
+$\Delta W$ & Perubahan bobot LLM pada LoRA & 27 \\[1ex]
 
 % \multicolumn{2}{l}{\textbf{Operator dan Relasi Matematis}} \\
 
-$\sim$ & Sekitar (nilai perkiraan) & 13 \\
-$\sum$ & Operator penjumlahan & 18 \\
-$\arg\min$ & Argumen yang meminimalkan fungsi & 18 \\
-$\succ 0$ & Matriks bersifat positif definit & 18 \\
+$\sim$ & Sekitar (nilai perkiraan) & 11 \\
+$\sum$ & Operator penjumlahan & 17 \\
+$\arg\min$ & Argumen yang meminimalkan fungsi & 17 \\
+$\max$ & Nilai terbesar dari sekumpulan angka & 29 \\
+$\succ 0$ & Matriks bersifat positif definit & 17 \\
 $\top$ & Transpos matriks & 17 \\
 $\cdot$ & Hasil kali titik (\textit{dot product}) dua vektor & 19 \\
 $\lVert \cdot \rVert$, $\lVert \cdot \rVert_2$ & Norma vektor (panjang vektor) & 19 \\
-$\lVert \cdot \rVert_1$ & Norma $\ell_1$, yaitu jumlah nilai mutlak setiap angka vektor & 22 \\
-$\in$ & Anggota himpunan & 25 \\
-$\mathbb{R}$ & Himpunan bilangan real & 25 \\
-$\ll$ & Jauh lebih kecil daripada & 25 \\
+$\lVert \cdot \rVert_1$ & Norma $\ell_1$, yaitu jumlah nilai mutlak setiap angka vektor & 21 \\
+$|x|$ & Jumlah anggota himpunan $x$ & 29 \\
+$\in$ & Anggota himpunan & 27 \\
+$\mathbb{R}$ & Himpunan bilangan real & 27 \\
+$\ll$ & Jauh lebih kecil daripada & 27 \\
 $\cos(\mathbf{a}, \mathbf{b})$ & \textit{Cosine similarity} antara vektor $\mathbf{a}$ dan $\mathbf{b}$ & 19 \\[1ex]
 
 % \multicolumn{2}{l}{\textbf{Sinyal EEG dan Matriks Kovarians}} \\
@@ -44,9 +48,9 @@ $N$ & Jumlah \textit{channel} EEG & 17 \\
 $T$ & Jumlah titik waktu dalam satu percobaan & 17 \\
 $X_i$ & Sinyal EEG percobaan ke-$i$ berukuran $N \times T$ & 17 \\
 $C_i$ & Matriks kovarians spasial percobaan ke-$i$ berukuran $N \times N$ & 17 \\
-$\bar{C}$ & Rata-rata Riemann dari matriks kovarians satu subjek & 18 \\
-$\tilde{C}_i$ & Matriks kovarians percobaan ke-$i$ setelah dipusatkan (RCT) & 18 \\
-$M$ & Jumlah percobaan & 18 \\[1ex]
+$\bar{C}$ & Rata-rata Riemann dari matriks kovarians satu subjek & 17 \\
+$\tilde{C}_i$ & Matriks kovarians percobaan ke-$i$ setelah dipusatkan (RCT) & 17 \\
+$M$ & Jumlah percobaan & 17 \\[1ex]
 
 % \multicolumn{2}{l}{\textbf{Vektor Makna dan Model}} \\
 
@@ -54,25 +58,28 @@ $\mathbf{a}$, $\mathbf{b}$ & Dua vektor yang dibandingkan kedekatannya & 19 \\
 $\mathbf{x}_i$ & Fitur sinyal pada percobaan ke-$i$ & 21 \\
 $\mathbf{y}_i$ & Vektor makna target pada percobaan ke-$i$ & 21 \\
 $f_{\theta}$ & Model pemetaan dengan parameter $\theta$ & 21 \\
-$\mathbf{x}$ & Vektor masukan \textit{sparse autoencoder} & 22 \\
-$\hat{\mathbf{x}}$ & Hasil rekonstruksi vektor masukan & 22 \\
-$\mathbf{f}$ & Angka-angka pada lapisan tengah \textit{sparse autoencoder} & 22 \\
-$\mathcal{L}$ & Fungsi galat \textit{sparse autoencoder} & 22 \\[1ex]
+$\mathbf{x}$ & Vektor masukan \textit{sparse autoencoder} & 21 \\
+$\hat{\mathbf{x}}$ & Hasil rekonstruksi vektor masukan & 21 \\
+$\mathbf{f}$ & Angka-angka pada lapisan tengah \textit{sparse autoencoder} & 21 \\
+$\mathcal{L}$ & Fungsi galat \textit{sparse autoencoder} & 21 \\[1ex]
 
-% \multicolumn{2}{l}{\textbf{LoRA}} \\
+% \multicolumn{2}{l}{\textbf{Adapter dan LoRA}} \\
 
-$W$ & Bobot LLM setelah disesuaikan dengan LoRA & 25 \\
-$W_0$ & Bobot LLM yang dibekukan & 25 \\
-$B$, $A$ & Dua matriks kecil yang dilatih pada LoRA & 25 \\
-$d$, $k$ & Ukuran baris dan kolom bobot $W_0$ & 25 \\
-$r$ & Peringkat (\textit{rank}) matriks $B$ dan $A$ & 25 \\[1ex]
+$K$ & Jumlah vektor keluaran \textit{adapter} yang diletakkan di depan masukan LLM & 27 \\
+$W$ & Bobot LLM setelah disesuaikan dengan LoRA & 27 \\
+$W_0$ & Bobot LLM yang dibekukan & 27 \\
+$B$, $A$ & Dua matriks kecil yang dilatih pada LoRA & 27 \\
+$d$, $k$ & Ukuran baris dan kolom bobot $W_0$ & 27 \\
+$r$ & Peringkat (\textit{rank}) matriks $B$ dan $A$ & 27 \\[1ex]
 
 % \multicolumn{2}{l}{\textbf{Metrik Evaluasi dan Uji Statistik}} \\
 
-$C$ & Jumlah kata pada perhitungan \textit{balanced accuracy} (pada $\arg\min$ di Persamaan II.2, matriks kandidat rata-rata) & 25 \\
-$TP_i$ & Jumlah percobaan kata ke-$i$ yang ditebak benar & 25 \\
-$FN_i$ & Jumlah percobaan kata ke-$i$ yang ditebak sebagai kata lain & 25 \\
-B-Acc & \textit{Balanced accuracy} & 26 \\
-$p$ & Nilai $p$ (nilai probabilitas uji statistik) & 26 \\
+$V$ & Jumlah kata pada perhitungan \textit{balanced accuracy} & 28 \\
+$TP_i$ & Jumlah percobaan kata ke-$i$ yang ditebak benar & 28 \\
+$FN_i$ & Jumlah percobaan kata ke-$i$ yang ditebak sebagai kata lain & 28 \\
+B-Acc & \textit{Balanced accuracy} & 28 \\
+$R_{\text{BERT}}$ & BERTScore \textit{recall} & 29 \\
+$x$, $\hat{x}$ & \textit{Token} teks acuan dan \textit{token} teks kandidat pada BERTScore & 29 \\
+$p$ & Nilai $p$ (nilai probabilitas uji statistik) & 50 \\
 
 \end{longtable}

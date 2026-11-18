@@ -1,0 +1,30 @@
+% Tahap adapter, LLM, dan keluaran (kotak Adapter, LLM (+ LoRA), dan Output LLM Response pada Gambar IV.1),
+% digambar ulang dengan label yang sama. Gaya ada di diagram_style.tex.
+\begin{tikzpicture}[dgbase]
+\hyphenpenalty=10000 \exhyphenpenalty=10000 % jangan memenggal kata di dalam node
+\node[dgdec] (task) at (0,0) {Task?};
+\node[dgdata, minimum width=2.2cm, text width=1.7cm] (kata)   at (2.9,1.35)  {Data Kata};
+\node[dgdata, minimum width=2.2cm, text width=1.7cm] (kalimat) at (2.9,-1.35) {Data Kalimat};
+\node[dgproc, minimum width=1.8cm, text width=1.5cm] (adp) at (5.5,0) {Adapter};
+\node[dgmodel, minimum width=2.5cm, text width=2.0cm] (llm) at (8.5,0) {LLM (+ LoRA)};
+\node[dgdata, minimum width=2.1cm, text width=1.4cm] (out) at (10.95,0) {Output LLM Response};
+
+\begin{scope}[on background layer]
+  \node[dggroup, fit=(task)(kata)(kalimat)(adp)] (grp) {};
+\end{scope}
+\node[dgtab] at (grp.north west) {Adapter};
+
+% keputusan Task?
+\draw[dgline] (task.east) -- ++(0.45,0) coordinate (pc);
+\draw[dgarr] (pc) |- (kata.west) node[pos=0.25, left, dglabel] {Klasifikasi};
+\draw[dgarr] (pc) |- (kalimat.west) node[pos=0.25, left, dglabel] {Sequence};
+% data pelatihan adapter (garis putus-putus)
+\draw[dgline, dashed] (kata.east) -| ($(adp.west)+(-0.4,0)$) coordinate (pj);
+\draw[dgline, dashed] (kalimat.east) -| (pj);
+\draw[dgdash] (pj) -- (adp.west);
+% ke LLM dan keluaran
+\draw[dgarr] (adp.east) -- (llm.west);
+\draw[dgarr] (llm.east) -- (out.west);
+% masukan dari SAE
+\draw[dgarr] ($(grp.west)+(-0.7,0)$) -- (grp.west) node[pos=0, above, font=\tiny\linespread{1}\selectfont, xshift=0.25cm] {dari \textit{SAE}};
+\end{tikzpicture}

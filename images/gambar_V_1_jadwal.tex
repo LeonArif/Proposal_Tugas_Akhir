@@ -1,0 +1,38 @@
+% Perkiraan jadwal pelaksanaan (Februari sampai Juni 2027), digambar sebagai diagram batang.
+% Angka mulai dan selesai dihitung dalam satuan bulan sejak 1 Februari 2027 (0 = 1 Februari, 5 = akhir Juni).
+% Jadwal ini perkiraan awal dan dapat digeser. Gaya warna ada di diagram_style.tex.
+\begin{tikzpicture}[dgbase]
+\def\labw{4.4}  % lebar kolom nama langkah (cm)
+\def\mw{1.8}    % lebar satu bulan (cm)
+\def\rh{0.62}   % tinggi satu baris (cm)
+
+% ----- kepala bulan -----
+\foreach \b/\nama in {0/Feb 2027, 1/Mar 2027, 2/Apr 2027, 3/Mei 2027, 4/Jun 2027} {
+  \node[anchor=base, minimum width=\mw cm, inner sep=1pt, font=\scriptsize\bfseries\linespread{1}\selectfont]
+    at ({\labw+\b*\mw+\mw/2}, 0.4) {\nama};
+}
+\node[anchor=base west, font=\scriptsize\bfseries\linespread{1}\selectfont, inner sep=1pt] at (0,0.4) {Langkah};
+
+% ----- garis bantu bulan -----
+\foreach \b in {0,...,5} {
+  \draw[dgLine!35, line width=0.3pt] ({\labw+\b*\mw},0.25) -- ({\labw+\b*\mw},{-8*\rh-0.31});
+}
+\draw[dgline] (0,0.25) -- ({\labw+5*\mw},0.25);
+
+% ----- baris langkah: nama / mulai / selesai / warna -----
+\foreach \nama/\s/\e/\w [count=\i from 0] in {
+  {1. Persiapan perekaman}/0/1/dgProc,
+  {2. Perekaman data}/1/2/dgProc,
+  {3. Prapemrosesan}/1.75/2.25/dgProc,
+  {4. Model \textit{embedding} dan RCT}/2/2.75/dgProc,
+  {5. SAE}/1/1.75/dgProc,
+  {6. \textit{Adapter}, LLM, dan LoRA}/2.5/3.75/dgProc,
+  {7. Pembanding}/2.75/3.25/dgProc,
+  {8. Evaluasi}/3.5/4.5/dgTrain,
+  {9. Penulisan laporan}/4/5/dgTrain} {
+  \node[anchor=west, text width={\labw cm-0.2cm}, align=left, inner sep=0pt] at (0.05,{-\i*\rh-0.31}) {\nama};
+  \draw[dgline, fill=\w, rounded corners=1pt]
+    ({\labw+\s*\mw},{-\i*\rh-0.31+0.2}) rectangle ({\labw+\e*\mw},{-\i*\rh-0.31-0.2});
+  \draw[dgLine!35, line width=0.3pt] (0,{-\i*\rh-0.31-0.31}) -- ({\labw+5*\mw},{-\i*\rh-0.31-0.31});
+}
+\end{tikzpicture}

@@ -2,184 +2,164 @@
 \chapter{PENDAHULUAN}
 \label{chap:pendahuluan}
 
+% Isi bab ini mengikuti Proposal_TA_Konten.docx (revisi 18 November 2026) tanpa perubahan isi.
+% Satu-satunya penyesuaian: sitasi Namdari dkk. (2026) dan Adeika dan Osuagwu (2026) dihapus
+% karena kedua sumber itu tidak ada di Bab II.
+
 % --- Latar Belakang ---
 \section{Latar Belakang}
-Kemampuan berkomunikasi dapat hilang akibat berbagai gangguan saraf, salah satunya afasia, yaitu gangguan berbahasa akibat kerusakan jaringan bahasa di otak yang dapat disebabkan oleh stroke, cedera otak traumatis, tumor otak, operasi otak, infeksi otak, maupun penyakit saraf degeneratif seperti demensia \parencite{asha}.
-Di antara penyebab tersebut, stroke merupakan penyebab yang paling umum \parencite{asha}.
-Secara nasional, prevalensi stroke di Indonesia tahun 2018 berdasarkan diagnosis dokter pada penduduk berumur 15 tahun ke atas adalah 10,9 per mil, atau diperkirakan sekitar 2.120.362 orang \parencite{riskesdas2018}.
-Setelah stroke, hingga 40\% penderita mengalami afasia, dan pada sekitar 60\% penyintas kondisi ini menjadi menetap \parencite{cochrane2025}.
+\label{sec:latar-belakang}
+Kemampuan berkomunikasi dapat hilang akibat gangguan saraf dan otot berat, misalnya \textit{amyotrophic lateral sclerosis} atau ALS dan stroke batang otak.
+Penderita kondisi ini dapat kehilangan kemampuan mengartikulasikan ucapan walaupun fungsi kognitifnya tetap utuh \parencite[lihat Subbab~\ref{sec:bci}]{moses2021,he2026}.
+Pada ALS, sekitar 80 sampai 95 persen penderita pada suatu tahap penyakitnya tidak lagi dapat memenuhi kebutuhan komunikasi sehari-hari dengan ucapan alami \parencite{beukelman2011}, dan alat bantu komunikasi yang bergantung pada sisa gerakan otot menjadi tidak andal seiring perkembangan penyakit \parencite{canny2023}.
+Kondisi ini mendorong berkembangnya antarmuka otak-komputer, yaitu \textit{brain-computer interface} atau singkatnya BCI, yang mengubah sinyal otak menjadi keluaran yang menyampaikan maksud penggunanya tanpa melalui otot \parencite[lihat Subbab~\ref{sec:bci}]{shih2012}.
 
-Selain afasia, gangguan saraf dan otot berat seperti \textit{amyotrophic lateral sclerosis} (ALS) dan stroke batang otak juga membuat penderitanya kesulitan berkomunikasi \parencite{wolpaw2002}.
-Penderita kondisi-kondisi ini bisa saja tahu apa yang ingin disampaikan, tetapi kesulitan mengeluarkannya lewat ucapan maupun tulisan.
-Kondisi ini mendorong berkembangnya antarmuka otak-komputer (\textit{brain-computer interface} atau BCI), yaitu jalur baru untuk mengirim pesan dan perintah dari otak ke dunia luar tanpa melalui otot \parencite{wolpaw2002}.
-BCI bekerja dengan mengubah sinyal otak menjadi keluaran yang menyampaikan maksud penggunanya \parencite{wolpaw2004}.
-
-Sinyal otak untuk BCI dapat direkam dengan beberapa cara.
-Elektrokortikografi (ECoG) memerlukan operasi untuk menempatkan elektroda di permukaan otak, sedangkan fMRI dan MEG menggunakan alat berukuran besar yang tidak dapat dipindahkan \parencite{nicolasalonso2012}.
-Elektroensefalografi (EEG) merekam aktivitas listrik otak melalui elektroda di kulit kepala, sehingga tidak memerlukan operasi, dapat dibawa, dan mampu menangkap perubahan sinyal dalam hitungan sekitar 0,05 detik \parencite{nicolasalonso2012}.
-Dibandingkan alat perekam otak lainnya, EEG dinilai memberikan kompromi terbaik antara ketelitian, kepraktisan, dan biaya \parencite{frey2014}, sehingga paling memungkinkan untuk dipakai sehari-hari di samping pasien.
+Sinyal otak dapat direkam dengan beberapa cara, yaitu elektrokortikografi atau ECoG yang memerlukan operasi, serta \textit{functional magnetic resonance imaging} atau fMRI dan magnetoensefalografi atau MEG yang alatnya berukuran besar dan tidak dapat dipindahkan \parencite[lihat Subbab~\ref{sec:alur-bci}]{nicolasalonso2012}.
+Elektroensefalografi atau EEG merekam aktivitas listrik otak dari kulit kepala tanpa operasi dan dapat dibawa, walaupun ketelitian lokasinya lebih rendah daripada metode lain \parencite{nicolasalonso2012}.
+Pada saat ketelitian, kepraktisan, dan biaya dipertimbangkan bersamaan, EEG dinilai memberikan \textit{value} terbaik \parencite{frey2014}, sehingga paling memungkinkan dipakai sehari-hari di samping pasien.
 
 Salah satu pemanfaatan EEG dalam BCI adalah \textit{imagined speech}, yaitu membaca sinyal otak saat seseorang membayangkan mengucapkan sebuah kata dalam hati tanpa menggerakkan mulut.
-Sinyal ini dapat dimanfaatkan sebagai jalur komunikasi baru bagi orang yang tidak mampu berbicara akibat disabilitas motorik atau penyakit saraf \parencite{lopezbernal2022}.
-Pendekatan yang paling umum digunakan adalah klasifikasi, yaitu model dilatih untuk memilih satu kata dari sekumpulan kecil kata yang sudah ditentukan sebelumnya \parencite{lopezbernal2022}.
+Sinyal ini dapat dimanfaatkan sebagai jalur komunikasi baru bagi orang yang tidak mampu berbicara akibat disabilitas motorik atau penyakit saraf \parencite[lihat Subbab~\ref{sec:imagined-speech}]{lopezbernal2022}.
 
-Di sisi lain, penelitian \textit{decoding} sinyal otak mulai bergeser dari menebak kata menjadi menangkap makna.
-\textcite{tang2023} memperkenalkan \textit{decoder} yang merekonstruksi bahasa dari representasi makna di otak, dan mampu menghasilkan rangkaian kata yang maknanya sesuai dengan ucapan yang dibayangkan seseorang.
-Pendekatan ini memanfaatkan model bahasa yang merepresentasikan makna kata sebagai deretan angka (vektor), sehingga kata-kata yang maknanya berdekatan juga memiliki vektor yang berdekatan.
-Representasi makna dalam bentuk vektor juga dapat dibaca langsung oleh model bahasa besar (\textit{large language model} atau LLM), yaitu model AI yang mampu memahami dan menyusun kalimat.
-\textcite{lester2021} menunjukkan bahwa LLM dapat diarahkan dengan memberikan deretan vektor sebagai masukan, yang disebut \textit{soft prompt}, tanpa harus menuliskannya dalam bentuk kalimat.
-Dengan cara ini, LLM dapat menjalankan tugas tertentu dengan performa yang mendekati model yang dilatih ulang secara penuh, padahal model bahasanya sendiri tidak diubah.
+Pada \textit{imagined speech}, kata yang didekode umumnya dipilih dari daftar kata yang sudah ditentukan, baik langsung oleh model klasifikasi dari sinyal \parencite{lopezbernal2022} maupun lewat vektor makna, yaitu sinyal dipetakan ke deretan angka yang berdekatan untuk kata yang maknanya berdekatan, lalu dipilih kata dari daftar yang vektornya terdekat \parencite[lihat Subbab~\ref{sec:vektor-makna}]{pereira2018}.
+Alternatifnya adalah membiarkan model bahasa menghasilkan teks yang dicocokkan dengan makna sinyal \parencite{tang2023}, atau memberikan vektor makna kepada model bahasa besar atau \textit{large language model} (LLM), yaitu model yang mampu memahami dan menyusun kalimat, sehingga LLM yang menuliskan katanya.
+LLM dapat diarahkan hanya dengan deretan vektor sebagai masukan yang disebut \textit{soft prompt} tanpa mengubah model bahasanya \parencite[lihat Subbab~\ref{sec:soft-prompt}]{lester2021}, dan arah ini sudah dicoba pada sinyal EEG \parencite{mishra2025}.
 
-Untuk sinyal EEG dari orang yang berbeda, telah dikembangkan teknik penyeragaman sinyal berbasis geometri Riemann, yaitu menggeser pola sinyal setiap orang ke titik acuan yang sama sehingga sinyal dari orang yang berbeda lebih mudah dibandingkan.
-Caranya, pola rata-rata sinyal setiap orang dihitung terlebih dahulu, lalu setiap rekaman orang tersebut disesuaikan terhadap pola rata-ratanya sendiri.
-\textcite{zanini2018} menunjukkan bahwa teknik ini membantu model BCI tetap bekerja pada orang yang berbeda.
+Pemilihan dari daftar kata membatasi keluaran pada kata yang sudah ditentukan.
+LLM dipilih karena dapat menuliskan kata atau frasa langsung dari vektor yang diterimanya, dan dapat dihubungkan dengan sinyal tanpa melatih ulang model bahasanya \parencite{lester2021}.
+Apakah keluaran LLM lebih tepat daripada pencarian kata terdekat pada data yang sama belum diketahui, sehingga hal tersebut diuji dalam tugas akhir ini.
 
-Meski demikian, \textit{imagined speech} berbasis EEG masih menghadapi sejumlah kendala dari sisi sinyal.
-Sinyal EEG saat \textit{imagined speech} memiliki rasio sinyal terhadap gangguan yang rendah, sehingga bagian sinyal yang penting sulit dibedakan dari aktivitas otot, gerakan mata, atau kedipan \parencite{lopezbernal2022}.
-Akibatnya, teknik non-invasif lebih sulit melampaui ambang akurasi sekitar 70\% yang dianggap layak untuk penerapan nyata dibandingkan teknik invasif \parencite{lopezbernal2022}.
-Sinyalnya juga bervariasi tinggi antar orang, sementara kosakata yang digunakan masih kecil dan himpunan data yang tersedia terbatas ukurannya \parencite{duhair2026}.
-Teknik penyeragaman berbasis geometri Riemann yang dapat membantu mengatasi variasi ini pun diuji pada BCI gerakan yang dibayangkan (\textit{motor imagery}) dan jenis BCI lainnya, belum pada \textit{imagined speech} \parencite{zanini2018}.
+Pada penelitian EEG secara umum, perbedaan sinyal antar orang sudah lama dikenal sebagai kendala, sehingga model yang dilatih pada sekelompok orang sering turun kinerjanya pada orang baru.
+Untuk mengatasinya, diperlukan penyeragaman sinyal, yaitu menggeser pola sinyal setiap orang ke titik acuan yang sama sehingga sinyal dari orang yang berbeda lebih mudah dibandingkan.
 
-Kendala lainnya berasal dari pendekatan yang digunakan.
-\textcite{tang2023} mencatat bahwa \textit{decoder} non-invasif sebelumnya hanya mampu mengenali stimulus dari sekumpulan kecil kata atau frasa, dan pada \textit{imagined speech} berbasis EEG pendekatannya masih didominasi oleh klasifikasi ke label kata, belum memanfaatkan representasi makna.
-Pendekatan klasifikasi juga hanya menilai keberhasilan sistem sebagai benar atau salah, sehingga tebakan yang maknanya dekat dengan kata yang dimaksud dihitung sama salahnya dengan tebakan yang melenceng jauh.
-Selain itu, keluaran sistem berhenti pada satu label kata, bukan teks yang langsung dapat dipahami orang di sekitar pengguna.
+Beberapa teknik penyeragaman bekerja pada matriks kovarians sinyal, yaitu matriks yang menunjukkan hubungan antar \textit{channel} (lihat Subbab~\ref{sec:rct}).
+\textit{Euclidean Alignment} (EA) memusatkan sinyal setiap orang dengan rata-rata biasa dari matriks kovarians orang tersebut \parencite{he2020}.
+\textit{Riemannian Procrustes Analysis} (RPA) memusatkan sinyal dengan rata-rata Riemann, yaitu rata-rata yang memperhitungkan bentuk ruang tempat matriks kovarians berada, lalu menambahkan penyamaan sebaran dan koreksi rotasi \parencite{rodrigues2019}.
+\textit{Riemannian Centering Transformation} (RCT) memusatkan sinyal dengan rata-rata Riemann \parencite{zanini2018}.
+\textcite{zanini2018} menunjukkan bahwa RCT membantu model BCI tetap bekerja pada orang yang berbeda.
+Teknik ini telah dipakai pada BCI gerakan yang dibayangkan (\textit{motor imagery}) dan respons potensial otak \parencite{bleuze2022,zanini2018}.
 
-Permasalahan pada studi sebelumnya dapat diatasi dengan memetakan sinyal EEG \textit{imagined speech} ke vektor makna, bukan ke satu label kata.
-Sebelum dipetakan, sinyal EEG setiap orang terlebih dahulu diseragamkan menggunakan \textit{Riemannian Centering Transformation} (RCT) untuk meningkatkan \textit{robustness} model dari sisi subjek pelatihan.
-Dengan cara ini, hasil pemetaan dapat dinilai berdasarkan seberapa dekat maknanya dengan kata yang dimaksud, tidak lagi hanya benar atau salah.
-Vektor makna tersebut kemudian diberikan sebagai konteks kepada LLM, yang bertugas merangkai maksud pengguna menjadi teks utuh yang mudah dipahami.
-Melalui pendekatan ini, diharapkan tercipta sistem komunikasi berbasis EEG yang menghasilkan keluaran yang lebih mudah dimengerti, sehingga dapat menjadi dasar alat bantu komunikasi bagi penderita gangguan bicara seperti afasia.
+RCT dipilih karena matriks kovarians berada pada ruang lengkung, sehingga rata-rata biasa pada EA dapat memperbesar determinannya dan mendistorsi sebaran data (\textit{swelling effect}) \parencite{arsigny2005}, sedangkan rata-rata Riemann menghindari efek tersebut.
+RCT juga hanya terdiri dari satu langkah pemusatan, sedangkan RPA menambahkan penyamaan sebaran dan koreksi rotasi, sehingga RCT lebih sederhana dan pengaruh pemusatannya dapat diuji terpisah.
+
+Meski demikian, \textit{imagined speech} berbasis EEG masih menghadapi sejumlah kendala.
+Sinyal yang berguna sangat lemah dibandingkan gangguan di sekitarnya, sehingga sulit dibedakan dari aktivitas otot, gerakan mata, dan kedipan \parencite{lopezbernal2022}.
+Karena itu, teknik non-invasif lebih sulit mencapai akurasi sekitar 70\%, yaitu batas yang dianggap layak untuk penerapan nyata, dibandingkan teknik invasif \parencite{lopezbernal2022}.
+Sinyal berbeda cukup besar dari satu orang ke orang lain, sementara kosakata yang dipakai masih kecil dan data yang tersedia terbatas \parencite{duhair2026}, sehingga model yang dilatih pada sekelompok orang sulit dipakai pada orang baru.
+
+Berdasarkan hal tersebut, tugas akhir ini mengkaji adaptasi LLM agar dapat membaca makna dari sinyal EEG \textit{imagined speech} dengan generalisasi ke orang yang tidak ada pada data pelatihan.
+Sinyal EEG dipetakan ke vektor makna, lalu vektor tersebut diadaptasikan agar dapat diterima LLM yang bertugas menuliskan kata atau frasa yang dimaksud pengguna.
+Sinyal EEG setiap orang diseragamkan dengan RCT agar model dapat bekerja pada orang yang tidak ada pada data pelatihan.
+Melalui pendekatan ini, diharapkan diperoleh pemahaman tentang kontribusi setiap komponen terhadap hasil pembacaan makna, sehingga dapat menjadi dasar alat bantu komunikasi bagi orang yang masih dapat memikirkan kata yang ingin disampaikan tetapi tidak dapat berbicara.
 
 % --- Rumusan Masalah ---
 \section{Rumusan Masalah}
+\label{sec:rumusan-masalah}
 Berdasarkan latar belakang yang sudah diuraikan, berikut merupakan rumusan masalah untuk tugas akhir ini:
 \begin{enumerate}
-    \item Bagaimana sinyal EEG \textit{imagined speech} dapat dimanfaatkan agar maksud penderita gangguan bicara dapat tersampaikan dalam bentuk teks yang dapat dipahami oleh orang di sekitarnya?
-    \item Bagaimana perbandingan ketepatan pengenalan kata antara pemetaan sinyal EEG \textit{imagined speech} ke vektor makna dan pendekatan klasifikasi ke label kata?
-    \item Apakah penyeragaman sinyal EEG menggunakan \textit{Riemannian Centering Transformation} (RCT) dapat meningkatkan \textit{robustness} model dari sisi subjek pelatihan?
+    \item Bagaimana merancang dan membangun arsitektur \textit{end-to-end} yang menerima sinyal EEG \textit{imagined speech}, mengubahnya menjadi vektor makna, dan menjadikan vektor tersebut masukan LLM untuk menghasilkan deretan kata yang dimaksud?
+    \item Seberapa besar pengaruh modul penyeragaman sinyal EEG dengan \textit{Riemannian Centering Transformation} (RCT) terhadap performa model pada pengujian lintas subjek?
+    \item Bagaimana perbandingan performa arsitektur yang dibangun dengan pendekatan klasifikasi yang umum dipakai pada penelitian \textit{imagined speech} saat ini?
 \end{enumerate}
 
 % --- Tujuan ---
 \section{Tujuan}
+\label{sec:tujuan}
 Berdasarkan uraian latar belakang dan rumusan masalah, tujuan tugas akhir ini adalah sebagai berikut.
 \begin{enumerate}
-    \item Mengembangkan sistem yang memetakan sinyal EEG \textit{imagined speech} ke vektor makna dan merangkainya menjadi teks utuh menggunakan LLM, serta membandingkan ketepatan pengenalan katanya dengan pendekatan klasifikasi ke label kata.
-    \item Menganalisis pengaruh penyeragaman sinyal EEG menggunakan RCT terhadap \textit{robustness} model dari sisi subjek pelatihan.
+    \item Membangun arsitektur \textit{end-to-end} yang menerima sinyal EEG \textit{imagined speech}, mengubahnya menjadi vektor makna, dan menjadikan vektor tersebut masukan LLM untuk menghasilkan deretan kata yang dimaksud.
+    \item Menganalisis pengaruh modul penyeragaman sinyal EEG dengan RCT terhadap performa model pada pengujian lintas subjek, dengan membandingkan model yang memakai dan tidak memakai modul tersebut.
+    \item Menganalisis perbandingan performa arsitektur yang dibangun dengan pendekatan klasifikasi yang umum dipakai pada penelitian \textit{imagined speech} saat ini.
 \end{enumerate}
 
 Adapun keberhasilan tugas akhir ini diukur melalui hal-hal berikut.
 \begin{enumerate}
-    \item Sistem dapat menghasilkan teks dari sinyal EEG \textit{imagined speech}, dan proporsi teks yang dinilai sesuai dengan kata yang dimaksud oleh penilai manusia berada di atas tingkat tebakan acak.
-    \item Akurasi pengenalan kata model vektor makna dan model klasifikasi pada data uji yang sama dilaporkan beserta hasil uji signifikansi perbedaannya.
-    \item Akurasi model dengan dan tanpa RCT pada pengujian lintas subjek dilaporkan beserta hasil uji signifikansi perbedaannya, dengan akurasi model dengan RCT berada di atas tingkat tebakan acak.
+    \item Arsitektur \textit{end-to-end} berhasil dibangun dan menghasilkan deretan kata dari sinyal EEG \textit{imagined speech}, dengan performa yang dilaporkan beserta hasil uji terhadap tingkat tebakan acak.
+    \item Pengaruh RCT diketahui melalui performa pada pengujian lintas subjek dengan dan tanpa RCT, yang dilaporkan beserta hasil uji signifikansi perbedaannya, apa pun arah hasilnya.
+    \item Performa arsitektur yang dibangun dan pendekatan klasifikasi dilaporkan pada bentuk data uji yang sama beserta hasil uji signifikansi perbedaannya, sehingga keduanya dapat dibandingkan.
 \end{enumerate}
 
 % --- Ruang Lingkup, Asumsi, dan Batasan Masalah ---
 \section{Ruang Lingkup, Asumsi, dan Batasan Masalah}
+\label{sec:ruang-lingkup}
 Ruang lingkup tugas akhir ini adalah sebagai berikut:
 \begin{enumerate}
-    \item Sinyal yang diolah adalah sinyal EEG saat seseorang membayangkan mengucapkan kata atau frasa pendek dalam hati (\textit{imagined speech}), bukan kalimat panjang atau pikiran bebas.
-    \item Data yang digunakan berasal dari perekaman data EEG \textit{imagined speech} baru, dengan jumlah kata atau frasa yang terbatas.
-    \item Sistem mencakup tiga bagian: penyeragaman sinyal EEG, pemetaan sinyal ke vektor makna, dan perangkaian vektor makna menjadi teks utuh oleh LLM.
-    \item LLM yang digunakan adalah model sumber terbuka berukuran ringan, yang menerima vektor makna sebagai masukan melalui \textit{adapter}.
-    \item Evaluasi mencakup perbandingan akurasi dengan pendekatan klasifikasi, pengaruh RCT pada pengujian lintas subjek, dan penilaian kesesuaian teks oleh penilai manusia.
-    \item Pengujian dilakukan dalam dua skema, yaitu per orang (model dilatih dan diuji pada data orang yang sama) dan lintas subjek (model diuji pada orang yang datanya tidak digunakan saat pelatihan).
+    \item Sinyal yang diolah adalah sinyal EEG saat seseorang membayangkan mengucapkan kata atau frasa pendek dalam hati, bukan kalimat panjang atau pikiran bebas.
+    \item Data yang digunakan berasal dari perekaman data EEG \textit{imagined speech}, dengan jumlah kata atau frasa yang terbatas.
+    \item Alur adaptasi mencakup penyeragaman sinyal dengan RCT, pemetaan sinyal ke vektor makna, dan penulisan kata atau frasa oleh LLM.
+    \item LLM yang digunakan adalah model sumber terbuka yang dapat dijalankan secara lokal pada perangkat penelitian.
+    \item Evaluasi mencakup performa arsitektur dalam menghasilkan deretan kata dari sinyal EEG, pengaruh RCT pada pengujian lintas subjek, dan perbandingannya dengan pendekatan klasifikasi.
+    \item Pengujian dilakukan dalam dua skema, yaitu per orang dan lintas subjek.
 \end{enumerate}
 
 Asumsi yang digunakan dalam tugas akhir ini adalah sebagai berikut:
 \begin{enumerate}
     \item Sinyal EEG saat \textit{imagined speech} mengandung informasi yang cukup untuk dipetakan ke makna kata yang dibayangkan.
     \item Partisipan pada perekaman data benar-benar membayangkan kata yang diminta sesuai instruksi perekaman.
-    \item Vektor makna dari model bahasa yang sudah dilatih sebelumnya cukup mewakili makna kata yang dibayangkan.
-    \item Pola sinyal EEG \textit{imagined speech} pada orang sehat cukup mewakili pola pada penderita afasia, sehingga hasil tugas akhir ini relevan sebagai dasar alat bantu komunikasi bagi mereka.
+    \item Vektor makna dari model \textit{sentence embedding} yang sudah dilatih sebelumnya cukup mewakili makna kata yang dibayangkan.
+    \item Pola sinyal EEG \textit{imagined speech} pada orang sehat cukup mewakili pola pada penderita anartria, sehingga hasil tugas akhir ini relevan sebagai dasar alat bantu komunikasi bagi mereka.
 \end{enumerate}
 
 Batasan masalah dalam tugas akhir ini adalah sebagai berikut:
 \begin{enumerate}
-    \item Perekaman data baru dilakukan pada orang sehat, dan tugas akhir ini tidak melibatkan pengujian langsung pada penderita afasia.
-    \item Pengujian lintas subjek hanya dilakukan pada partisipan yang datanya direkam dalam tugas akhir ini, dan tidak dimaksudkan untuk menghasilkan sistem yang siap dipakai langsung oleh pasien baru tanpa penyesuaian.
-    \item Tugas akhir ini tidak mencakup pembacaan bayangan visual, hanya kata yang diucapkan dalam hati.
-    \item Teks yang dihasilkan LLM menggunakan bahasa Inggris.
-    \item Pengujian dilakukan pada data rekaman yang sudah ada (\textit{offline}), tidak mencakup penggunaan secara langsung saat orang sedang berpikir (\textit{real-time}).
+    \item Perekaman data baru dilakukan pada orang sehat, dan tugas akhir ini tidak melibatkan pengujian langsung pada penderita anartria.
+    \item Pengujian lintas subjek hanya dilakukan pada partisipan yang datanya direkam dalam tugas akhir ini.
+    \item Pengujian dilakukan pada data rekaman yang sudah ada, tidak mencakup penggunaan secara langsung saat orang sedang berpikir.
 \end{enumerate}
 
 % --- Hipotesis ---
 \section{Hipotesis}
-Hipotesis dalam tugas akhir ini disusun berdasarkan premis-premis berikut:
+\label{sec:hipotesis}
+Hipotesis tugas akhir ini disusun berdasarkan tujuan sebagai berikut.
 \begin{enumerate}
-    \item Sinyal EEG saat \textit{imagined speech} dapat dimanfaatkan sebagai jalur komunikasi bagi orang yang tidak mampu berbicara \parencite{lopezbernal2022}.
-    \item \textit{Decoder} yang memetakan sinyal otak ke representasi makna mampu menghasilkan rangkaian kata yang maknanya sesuai dengan ucapan yang dibayangkan \parencite{tang2023}.
-    \item Dalam representasi makna berbentuk vektor, kata-kata yang maknanya berdekatan memiliki vektor yang berdekatan, sehingga kedekatan makna dapat diukur sebagai nilai berkelanjutan, bukan hanya benar atau salah.
-    \item LLM dapat diarahkan dengan memberikan deretan vektor sebagai masukan tanpa harus menuliskannya dalam bentuk kalimat \parencite{lester2021}.
-    \item Penyeragaman sinyal berbasis geometri Riemann membantu model BCI tetap bekerja pada orang yang berbeda \parencite{zanini2018}.
-\end{enumerate}
-
-Berdasarkan premis-premis tersebut, hipotesis tugas akhir ini adalah sebagai berikut:
-\begin{enumerate}
-    \item Kesesuaian teks yang dihasilkan LLM
+    \item Performa arsitektur terhadap tingkat tebakan acak
     \begin{itemize}
-        \item[$H_0$:] Proporsi teks yang dinilai sesuai dengan kata yang dimaksud oleh penilai manusia tidak berbeda signifikan dengan tingkat tebakan acak.
-        \item[$H_1$:] Proporsi teks yang dinilai sesuai dengan kata yang dimaksud oleh penilai manusia lebih tinggi secara signifikan dibandingkan tingkat tebakan acak.
+        \item[$H_0$:] performa model tidak lebih baik dari tingkat tebakan acak.
+        \item[$H_1$:] performa model lebih baik dari tingkat tebakan acak.
     \end{itemize}
-    \item Akurasi vektor makna dibandingkan klasifikasi
+    \item Pengaruh RCT pada pengujian lintas subjek
     \begin{itemize}
-        \item[$H_0$:] Tidak terdapat perbedaan signifikan antara akurasi pengenalan kata model vektor makna dan model klasifikasi yang dilatih pada data yang sama.
-        \item[$H_1$:] Terdapat perbedaan signifikan antara akurasi pengenalan kata model vektor makna dan model klasifikasi yang dilatih pada data yang sama.
-    \end{itemize}
-    \item Pengaruh RCT terhadap \textit{robustness} model dari sisi subjek pelatihan
-    \begin{itemize}
-        \item[$H_0$:] Tidak terdapat perbedaan signifikan antara akurasi model dengan RCT dan model tanpa RCT pada pengujian lintas subjek.
-        \item[$H_1$:] Terdapat perbedaan signifikan antara akurasi model dengan RCT dan model tanpa RCT pada pengujian lintas subjek.
+        \item[$H_0$:] tidak ada perbedaan performa antara model dengan RCT dan tanpa RCT.
+        \item[$H_1$:] ada perbedaan performa antara model dengan RCT dan tanpa RCT.
     \end{itemize}
 \end{enumerate}
 
-% --- Metodologi Pengerjaan TA ---
+% --- Metodologi ---
 \section{Metodologi}
-Dalam menyelesaikan tugas akhir ini, metodologi penelitian disusun sebagai berikut.
+\label{sec:metodologi}
+Tugas akhir ini mengikuti alur kerja CRISP-DM (\textit{Cross-Industry Standard Process for Data Mining}), kerangka kerja untuk proyek berbasis data yang bergerak dari memahami masalah hingga hasilnya dipakai.
+Kerangka ini terdiri atas enam tahap, yaitu pemahaman masalah, pemahaman data, persiapan data, pemodelan, evaluasi, dan penerapan.
+Pemahaman masalah sudah dikerjakan melalui latar belakang dan kajian literatur pada Bab~\ref{chap:pendahuluan} dan Bab~\ref{chap:studi-literatur} serta analisis masalah pada Bab~\ref{chap:analisis-masalah}.
+Penerapan tidak dikerjakan karena tugas akhir ini berfokus pada pengujian arsitektur.
+Empat tahap lainnya diuraikan berikut ini.
 \begin{enumerate}
-    \item \textbf{Investigasi Permasalahan}\\
-    Investigasi dilakukan dengan mengumpulkan data dan fakta mengenai hilangnya kemampuan komunikasi akibat stroke dan afasia, seperti prevalensi stroke di Indonesia dan proporsi penderita stroke yang mengalami afasia.
-    Selain itu, dikumpulkan pula fakta mengenai keterbatasan sistem \textit{imagined speech} berbasis EEG saat ini, terutama dari sisi akurasi, cara penilaian, dan bentuk keluarannya.
-    Hasil investigasi ini digunakan untuk merumuskan masalah, tujuan, dan hipotesis tugas akhir.
-    \item \textbf{Studi Literatur}\\
-    Studi literatur dilakukan dengan mencari, mengelompokkan, dan menapis sumber dari basis data akademik seperti Google Scholar dan arXiv.
-    Literatur dikelompokkan ke dalam empat kategori, yaitu (a) BCI dan \textit{imagined speech} berbasis EEG, (b) \textit{decoding} sinyal otak menjadi representasi makna, (c) penyampaian konteks kepada LLM dalam bentuk vektor, dan (d) penyeragaman sinyal EEG antar orang.
-    Kata kunci yang digunakan antara lain ``\textit{imagined speech EEG}'', ``\textit{brain-to-text decoding}'', ``\textit{soft prompt}'', dan ``\textit{Riemannian alignment EEG}''.
-    Literatur diprioritaskan pada publikasi yang melaporkan hasil secara terukur, dan hasilnya dijelaskan secara komprehensif di Bab II.
-    \item \textbf{Analisis Kebutuhan}\\
-    Analisis kebutuhan dilakukan melalui kajian literatur dan analisis situasi, belum melalui wawancara langsung dengan pasien atau tenaga medis.
-    Dari hasil ini diidentifikasi masalah pengguna, lalu diturunkan kebutuhan fungsional dan nonfungsional sistem.
-    Selanjutnya dipertimbangkan beberapa alternatif solusi yang disaring dengan syarat wajib yang diturunkan dari kebutuhan, sedangkan pendekatan klasifikasi ke label kata dipertahankan sebagai pembanding.
-    Hasil analisis kebutuhan dijelaskan secara rinci di Bab III.
-    \item \textbf{Perancangan Solusi}\\
-    Perancangan dilakukan secara bertahap dari gambaran umum ke rincian komponen.
-    Pada tingkat umum, sistem digambarkan sebagai alur dari sinyal EEG hingga teks keluaran LLM.
-    Pada tingkat rinci, sistem dipecah menjadi tiga bagian, yaitu (a) prapemrosesan, berupa penyiapan sinyal EEG dan pengubahan label teks menjadi vektor makna menggunakan model \textit{sentence embedding}, (b) pemetaan, berupa penyeragaman sinyal dengan \textit{Riemannian Centering Transformation} (RCT) lalu pemetaan sinyal ke vektor makna menggunakan model regresi, dan (c) perangkaian teks, berupa pemisahan makna yang tercampur menggunakan \textit{Sparse Autoencoder} (SAE), penerjemahan vektor oleh \textit{adapter}, dan perangkaian teks oleh LLM.
-    Model \textit{sentence embedding} dipilih karena sebagian label berupa frasa, sehingga satu label tetap menghasilkan satu vektor.
-    Rancangan digambarkan menggunakan diagram alur (\textit{flowchart}) untuk setiap tingkatan.
-    \item \textbf{Implementasi}\\
-    Sistem diimplementasikan menggunakan bahasa Python.
-    Pengolahan sinyal EEG dilakukan dengan MNE-Python, penyeragaman sinyal dengan pyRiemann, dan pengubahan label teks menjadi vektor makna dengan \textit{library} sentence-transformers menggunakan model all-MiniLM-L6-v2.
-    Model regresi, model klasifikasi pembanding, SAE, dan \textit{adapter} dilatih menggunakan scikit-learn dan PyTorch.
-    LLM yang digunakan adalah Qwen yang dijalankan secara lokal melalui \textit{library} Transformers.
-    Apabila \textit{adapter} saja belum menghasilkan teks yang sesuai, LLM disesuaikan secara ringan menggunakan \textit{Low-Rank Adaptation} (LoRA) melalui \textit{library} PEFT.
-    \item \textbf{Evaluasi}\\
-    Evaluasi dilakukan dalam dua skema pengujian, yaitu per orang, ketika model dilatih dan diuji pada data orang yang sama, dan lintas subjek, ketika model dilatih pada data semua orang kecuali satu lalu diuji pada orang tersebut secara bergantian.
-    Metrik evaluasi mencakup (a) akurasi pengenalan kata model vektor makna dibandingkan dengan model klasifikasi, (b) akurasi model dengan dan tanpa RCT pada pengujian lintas subjek, serta (c) proporsi teks yang dinilai sesuai dengan kata yang dimaksud oleh penilai manusia.
-    Perbandingan (a) dan (b) diuji menggunakan uji Wilcoxon, sedangkan (c) diuji menggunakan uji proporsi.
-    \item \textbf{Penarikan Kesimpulan dan Saran}\\
-    Hasil evaluasi digunakan untuk menjawab ketiga rumusan masalah dan menentukan apakah setiap hipotesis diterima atau ditolak.
-    Kesimpulan disertai saran untuk pengembangan lebih lanjut, misalnya pengujian langsung pada penderita afasia dan perluasan ke kosakata yang lebih besar.
+    \item \textbf{Pemahaman Data}\\
+    Tahap ini bertujuan memahami data yang akan dipakai sebelum diolah lebih lanjut.
+    Kegiatan yang dilakukan meliputi penelaahan struktur data EEG \textit{imagined speech} yang direkam, jumlah subjek, jumlah \textit{channel}, \textit{sampling rate}, jumlah percobaan, dan cara sinyal dipasangkan dengan kata yang dibayangkan.
+    Pemahaman ini mendasari penentuan langkah praproses dan rancangan model.
+    \item \textbf{Persiapan Data}\\
+    Sinyal EEG dipraproses agar siap dipakai untuk pelatihan, meliputi penyaringan frekuensi dan pembuangan \textit{noise}.
+    Label teks diubah menjadi vektor makna menggunakan model \textit{sentence embedding}.
+    Pada pengujian lintas subjek, sinyal setiap orang diseragamkan dengan \textit{Riemannian Centering Transformation} (RCT), dan model tanpa RCT disiapkan sebagai pembanding.
+    \item \textbf{Pemodelan}\\
+    Pada tahap ini, arsitektur \textit{end-to-end} dirancang dan dilatih.
+    Sinyal EEG dipetakan ke vektor makna menggunakan model regresi, lalu ditentukan cara menyesuaikan vektor tersebut agar dapat diterima LLM.
+    Sebagian parameter LLM disesuaikan agar vektor dari sinyal EEG dapat diproses dengan lebih baik.
+    \item \textbf{Evaluasi dan Analisis}\\
+    Model dievaluasi pada data uji yang terpisah dari data latih dalam dua skema, yaitu per orang, ketika model dilatih dan diuji pada data orang yang sama, dan lintas subjek, ketika model dilatih pada data semua orang kecuali satu lalu diuji pada orang tersebut secara bergantian.
+    Performa keluaran berupa kata diukur dengan \textit{balanced accuracy}, dan keluaran berupa deretan kata dengan BERTScore \textit{recall}.
+    Performa dibandingkan dengan tingkat tebakan acak menggunakan uji proporsi, sedangkan perbedaan performa dengan dan tanpa RCT diuji dengan uji Wilcoxon.
+    Hasil juga dilaporkan berdampingan dengan metode klasifikasi pada penelitian terdahulu.
 \end{enumerate}
 
 % --- Sistematika Penulisan ---
 \section{Sistematika Penulisan}
+\label{sec:sistematika}
 Proposal tugas akhir ini disusun dalam lima bab dengan sistematika sebagai berikut.
 \begin{enumerate}
-    \item \textbf{Bab I Pendahuluan} berisi latar belakang mengenai hilangnya kemampuan komunikasi pada penderita gangguan saraf serta keterbatasan sistem \textit{imagined speech} berbasis EEG saat ini, rumusan masalah, tujuan dan ukuran keberhasilan, ruang lingkup dan batasan masalah, hipotesis, metodologi, serta sistematika penulisan.
-    \item \textbf{Bab II Studi Literatur} berisi kajian pustaka mengenai BCI dan \textit{imagined speech} berbasis EEG, \textit{decoding} sinyal otak menjadi representasi makna, penyampaian konteks kepada LLM dalam bentuk vektor, dan penyeragaman sinyal EEG antar orang, beserta hasil-hasil penelitian sebelumnya yang mendukung tugas akhir ini.
-    \item \textbf{Bab III Analisis Masalah} berisi analisis kondisi sistem \textit{imagined speech} berbasis EEG saat ini, analisis kebutuhan yang mencakup identifikasi masalah pengguna serta kebutuhan fungsional dan nonfungsional, serta analisis pemilihan solusi dari beberapa alternatif yang dipertimbangkan.
-    \item \textbf{Bab IV Desain Konsep Solusi} berisi rancangan konsep sistem, mulai dari prapemrosesan sinyal EEG, penyeragaman sinyal dengan RCT, pemetaan sinyal ke vektor makna, hingga perangkaian teks oleh LLM, beserta perbandingannya dengan pendekatan klasifikasi yang digunakan saat ini.
-    \item \textbf{Bab V Rencana Selanjutnya} berisi rencana implementasi beserta alat dan lingkungan yang dibutuhkan, rancangan pengujian untuk ketiga hipotesis, serta analisis risiko dan mitigasinya.
+    \item \textbf{Bab I Pendahuluan} berisi latar belakang mengenai hilangnya kemampuan berbicara pada penderita gangguan saraf serta keterbatasan penelitian \textit{imagined speech} berbasis EEG dan adaptasi LLM saat ini, rumusan masalah, tujuan dan ukuran keberhasilan, ruang lingkup dan batasan masalah, hipotesis, metodologi, serta sistematika penulisan.
+    \item \textbf{Bab II Studi Literatur} berisi kajian pustaka mengenai BCI dan \textit{imagined speech} berbasis EEG, penyeragaman sinyal EEG antar subjek, representasi makna dalam bentuk vektor, \textit{sparse autoencoder}, LLM dan \textit{soft prompt}, serta metrik evaluasi, dilengkapi penelitian terkait yang menjadi dasar tugas akhir ini.
+    \item \textbf{Bab III Analisis Masalah} berisi analisis kondisi saat ini, identifikasi masalah, kebutuhan yang diturunkan dari masalah tersebut, serta analisis alternatif pendekatan dan konfigurasi eksperimen.
+    \item \textbf{Bab IV Desain Konsep Solusi} berisi rancangan konsep eksperimen, mulai dari prapemrosesan sinyal EEG, penyeragaman sinyal dengan RCT, pemetaan sinyal ke vektor makna, hingga penulisan kata oleh LLM, beserta perbandingannya dengan metode pada penelitian terkait.
+    \item \textbf{Bab V Rencana Selanjutnya} berisi rencana implementasi beserta alat dan lingkungan yang dibutuhkan, rancangan pengujian untuk hipotesis, serta analisis risiko dan mitigasinya.
 \end{enumerate}

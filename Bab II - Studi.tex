@@ -2,35 +2,33 @@
 \chapter{STUDI LITERATUR}
 \label{chap:studi-literatur}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X} % kolom rata kiri dengan lebar fleksibel
-Bab ini membahas pustaka yang menjadi dasar pengembangan sistem pembaca maksud pengguna dari sinyal EEG saat \textit{imagined speech}, serta penelitian terkait.
-Pembahasan dimulai dari antarmuka otak-komputer (BCI) beserta alur kerjanya, yaitu perekaman sinyal, pemrosesan sinyal, tantangan, dan aplikasi, lalu \textit{imagined speech}.
-Setelah itu, komponen yang akan digunakan dijelaskan sesuai dengan urutan kerjanya, yaitu EEG beserta \textit{dataset}-nya, penyeragaman sinyal antar subjek, vektor makna, \textit{sparse autoencoder}, serta LLM beserta \textit{soft prompt}, \textit{adapter}, dan LoRA.
-Bab ditutup dengan metrik evaluasi dan penelitian terkait yang menunjukkan celah penelitian.
+
+% Isi bab ini mengikuti Proposal_TA_Konten.docx (revisi 18 November 2026).
 
 % ============================================================================================
 % II.1 BCI
 % ============================================================================================
 \section{\textit{Brain-Computer Interface} (BCI)}
 \label{sec:bci}
-Antarmuka otak-komputer (\textit{brain-computer interface} atau BCI) adalah sistem perangkat keras dan perangkat lunak yang memungkinkan aktivitas otak saja mengendalikan komputer atau perangkat luar \parencite{nicolasalonso2012}.
-BCI menyediakan jalur baru untuk mengirim pesan dan perintah dari otak ke dunia luar tanpa melalui otot \parencite{wolpaw2002}.
-Caranya, sinyal otak diubah menjadi keluaran yang menyampaikan maksud penggunanya \parencite{wolpaw2004}.
-Teknologi ini terutama ditujukan bagi orang dengan gangguan saraf dan otot berat, misalnya ALS dan stroke batang otak, yang kehilangan jalur normal untuk berkomunikasi \parencite{wolpaw2002}.
+\textit{Brain-Computer Interface} atau singkatnya BCI mengubah sinyal otak menjadi keluaran yang menyampaikan maksud penggunanya tanpa melalui otot \parencite{shih2012}.
+Karena tidak bergantung pada otot, BCI berguna bagi orang yang ingin menyampaikan pesan tetapi tidak dapat berbicara maupun bergerak karena otot mereka tidak lagi dapat dikendalikan \parencite{nicolasalonso2012}.
+Pada kondisi ini fungsi kognitif penderita dapat tetap utuh, sehingga mereka masih tahu apa yang ingin disampaikan \parencite{he2026}.
+Hilangnya kemampuan untuk mengartikulasikan ucapan secara total ini disebut anartria \parencite{moses2021}.
+Kondisi ini dapat dijumpai, misalnya, pada ALS dan stroke batang otak \parencite{he2026}.
+Alat bantu komunikasi yang bergantung pada sisa gerakan otot, seperti gerakan mata dan kedipan, umumnya masih dapat dipakai pada \textit{locked-in} klasik, tetapi menjadi tidak andal seiring perkembangan ALS \parencite{canny2023}.
+Karena itu BCI menjadi alternatif yang layak dipertimbangkan.
+Contohnya, \textcite{moses2021} mendekode kata dan kalimat langsung dari aktivitas korteks seseorang dengan anartria akibat stroke batang otak.
+Pendekodean dilakukan saat ia mencoba berbicara, pada kosakata 50 kata, dengan kecepatan median 15,2 kata per menit dan \textit{word error rate} median 25,6 persen.
+Dalam beberapa tahun terakhir, perangkat yang ditanam di korteks juga berhasil dipakai untuk mendekode ucapan menjadi teks dan suara pada pasien yang tidak dapat berbicara \parencite{khan2025}.
+Meski begitu, ada satu kesulitan mendasar, yaitu pada orang yang tidak dapat berbicara, rekaman aktivitas saraf sulit disejajarkan dengan ucapan yang dimaksud karena tidak ada keluaran ucapan sebagai acuan \parencite{moses2021}.
 
 \subsection{Alur Kerja BCI}
 \label{sec:alur-bci}
-Menurut \textcite{nicolasalonso2012}, BCI umumnya bekerja melalui lima langkah berurutan.
+\textcite{nicolasalonso2012} membagi cara kerja BCI menjadi lima langkah berurutan, yaitu akuisisi sinyal, prapemrosesan, ekstraksi fitur, klasifikasi, dan antarmuka kontrol, tetapi kelima langkah ini dapat diringkas menjadi empat tahapan seperti yang ditunjukkan pada Gambar~\ref{fig:bci-flow}.
 Langkah pertama adalah akuisisi sinyal, yaitu merekam aktivitas otak.
-Langkah kedua adalah peningkatan sinyal, yaitu mengurangi artefak (gangguan yang bukan berasal dari aktivitas otak yang dimaksud).
-Langkah ketiga adalah ekstraksi fitur, yaitu mengambil ciri penting dari sinyal.
-Langkah keempat adalah klasifikasi, yaitu menerjemahkan ciri tersebut menjadi perintah atau informasi, dan langkah kelima adalah aplikasi, yaitu perangkat yang menjalankan perintah tersebut.
-
-Pada Gambar~\ref{fig:bci-flow}, langkah-langkah tersebut dikelompokkan menjadi empat bagian.
-Bagian pertama adalah perekaman sinyal (akuisisi sinyal).
-Bagian kedua adalah pemrosesan sinyal (peningkatan sinyal, ekstraksi fitur, dan klasifikasi).
-Bagian ketiga adalah tantangan BCI, yaitu persoalan yang masih dihadapi dan dipilih sebagai fokus penelitian.
-Bagian keempat adalah aplikasi.
-Setiap bagian dijelaskan pada subbab berikut.
+Langkah kedua adalah pemrosesan sinyal dan ekstraksi fitur, yaitu mengurangi \textit{noise} lalu mengambil ciri penting dari sinyal.
+Langkah ketiga adalah tantangan pada BCI, yaitu berbagai persoalan teknis yang masih dihadapi bidang ini.
+Langkah keempat adalah aplikasi pada BCI, yaitu perangkat yang menjalankan perintah tersebut.
 
 \begin{figure}[H]
   \centering
@@ -39,9 +37,14 @@ Setiap bagian dijelaskan pada subbab berikut.
   \label{fig:bci-flow}
 \end{figure}
 
-\subsubsection{Perekaman Sinyal Otak}
-Sinyal otak dapat direkam dengan beberapa metode yang dikelompokkan berdasarkan aktivitas yang diukur, yaitu listrik (EEG dan ECoG), magnetik (MEG), dan metabolik (fMRI dan fNIRS) \parencite{nicolasalonso2012}.
-Perbandingan utamanya ada pada resolusi waktu (seberapa cepat perubahan aktivitas dapat terbaca), resolusi ruang (seberapa tepat lokasi aktivitas dapat ditentukan), risiko bagi pengguna, dan portabilitas.
+\subsubsection{Akuisisi Sinyal}
+\label{sec:akuisisi}
+Sinyal otak dapat direkam dengan beberapa metode, dan metode-metode itu dikelompokkan menurut jenis aktivitas otak yang diukur.
+Elektroensefalografi atau EEG dan elektrokortikografi atau ECoG mengukur aktivitas listrik, magnetoensefalografi atau MEG mengukur aktivitas magnetik, sedangkan \textit{functional magnetic resonance imaging} atau fMRI dan \textit{functional near-infrared spectroscopy} atau fNIRS mengukur aktivitas metabolik \parencite{nicolasalonso2012}.
+Metode-metode ini dibandingkan menurut empat hal.
+Hal pertama adalah resolusi waktu, yaitu seberapa cepat perubahan aktivitas dapat terbaca.
+Hal kedua adalah resolusi ruang, yaitu seberapa tepat lokasi aktivitas dapat ditentukan.
+Hal ketiga adalah risiko bagi pengguna, dan hal keempat adalah portabilitas alatnya.
 Perbandingan ini ditunjukkan pada Tabel~\ref{tab:metode-perekaman}.
 
 \begin{table}[H]
@@ -73,62 +76,64 @@ fMRI sangat teliti dari sisi lokasi, tetapi alatnya berukuran besar, mengeliling
 MEG menangkap perubahan sama cepatnya dengan EEG, tetapi alatnya tidak dapat dipindahkan \parencite{nicolasalonso2012}.
 
 Setiap metode punya kompromi, sehingga pemilihannya bergantung pada kebutuhan.
-Alat bantu bagi penderita gangguan komunikasi perlu dipakai di samping pasien, tanpa operasi, dan dengan biaya yang terjangkau.
+Alat bantu bagi penderita gangguan komunikasi perlu dipakai di samping pasien, tanpa operasi, dan dengan biaya yang terjangkau \parencite{shih2012}.
 EEG memenuhi syarat tersebut karena merekam sinyal dari kulit kepala, dapat dibawa, dan menangkap perubahan sinyal dengan cepat \parencite{nicolasalonso2012}.
 Dibandingkan alat perekam otak lainnya, EEG dinilai memberikan kompromi terbaik antara ketelitian, kepraktisan, dan biaya \parencite{frey2014}.
 
 Kelemahan EEG adalah ketelitian lokasinya yang lebih rendah, yaitu sekitar 10 mm \parencite{nicolasalonso2012}.
-Sinyalnya juga lemah dan mudah tercampur gangguan dari otot dan gerakan mata, sehingga membaca sinyal otak saat \textit{imagined speech} (Subbab~\ref{sec:imagined-speech}) dari EEG masih sulit \parencite{lopezbernal2022}.
-Kelemahan ini diterima karena kebutuhan utamanya adalah kepraktisan bagi pasien, dan akan diatasi melalui pengolahan sinyal dan model yang dijelaskan pada subbab berikutnya.
+Sinyalnya juga lemah dan mudah tercampur gangguan dari otot dan gerakan mata, sehingga membaca sinyal otak saat seseorang membayangkan ucapan atau \textit{imagined speech} dari EEG masih sulit \parencite{lopezbernal2022}.
 
-\subsubsection{Pemrosesan Sinyal}
+\subsubsection{Pemrosesan Sinyal dan Ekstraksi Fitur}
 \label{sec:pemrosesan-sinyal}
 Sinyal EEG mentah mengandung banyak gangguan sehingga perlu dibersihkan sebelum dipakai.
-Gangguan yang umum adalah artefak, yaitu sinyal yang tidak berasal dari aktivitas otak yang dimaksud, misalnya dari kedipan mata dan gerakan otot \parencite{urigue2015}.
-Pra-pemrosesan juga menjadi salah satu fokus utama dalam tinjauan penelitian \textit{imagined speech} berbasis EEG \parencite{lopezbernal2022}.
+Gangguan yang umum adalah \textit{noise}, yaitu sinyal yang tidak berasal dari aktivitas otak yang dimaksud, misalnya dari kedipan mata dan gerakan otot \parencite{urigue2015}.
+Prapemrosesan juga menjadi salah satu fokus utama dalam tinjauan penelitian \textit{imagined speech} berbasis EEG \parencite{lopezbernal2022}.
 
 Selain bersih, data juga harus seragam.
 Model pembelajaran mesin umumnya menerima masukan dengan ukuran tetap, sehingga seluruh rekaman perlu memiliki jumlah \textit{channel}, \textit{sampling rate}, panjang rekaman, dan rentang amplitudo yang sama.
+\textit{Channel} adalah satu rangkaian sinyal yang direkam dari satu elektroda, sedangkan \textit{sampling rate} adalah jumlah titik data yang diambil dalam satu detik.
 Rekaman dari subjek, sesi, atau \textit{dataset} yang berbeda sering kali berbeda dalam hal-hal tersebut, misalnya karena alat perekam yang tidak sama.
-Istilah \textit{channel} dan \textit{sampling rate} dijelaskan pada Subbab~\ref{sec:cara-kerja-eeg}.
 
 \textcite{zhou2025} memakai rangkaian langkah yang umum untuk mencapai keseragaman itu.
-Pertama, \textit{band-pass filter} menahan frekuensi yang terlalu rendah (pergeseran lambat) dan terlalu tinggi (gangguan acak).
-Kedua, \textit{notch filter} membuang dengung listrik dari jaringan listrik.
-Ketiga, sinyal diubah ke \textit{sampling rate} yang sama (\textit{resampling}).
+Pertama, \textit{band-pass filter} menahan frekuensi yang terlalu rendah, yaitu pergeseran sinyal yang lambat, dan frekuensi yang terlalu tinggi, yaitu gangguan acak.
+Kedua, \textit{notch filter} membuang dengung yang berasal dari jaringan listrik.
+Ketiga, sinyal diubah ke \textit{sampling rate} yang sama, yang disebut \textit{resampling}.
 Keempat, amplitudo sinyal diskalakan ke rentang yang sama agar nilainya seragam antar rekaman.
 
 Penyamaan \textit{sampling rate} ke nilai yang lebih rendah perlu didahului \textit{low-pass filter}, yaitu penyaring yang membuang frekuensi tinggi, agar tidak muncul gangguan \textit{aliasing}, yaitu frekuensi tinggi yang terbaca sebagai frekuensi rendah yang palsu \parencite{oppenheim2010}.
 Jumlah \textit{channel} dapat disamakan dengan memilih \textit{channel} yang dimiliki semua rekaman.
-Setelah itu, sinyal dipotong menjadi percobaan (\textit{trial}), yaitu potongan sinyal untuk satu kata, sesuai rentang waktu saat subjek membayangkannya.
-Penyeragaman sinyal antar subjek dibahas pada Subbab~\ref{sec:rct}, dan pemetaan sinyal ke vektor makna dibahas pada Subbab~\ref{sec:vektor-makna}.
+Setelah itu, sinyal dipotong menjadi percobaan atau \textit{trial}, yaitu potongan sinyal untuk satu kata, sesuai rentang waktu saat subjek membayangkannya.
+
+Setelah sinyal bersih dan seragam, ekstraksi fitur mengubahnya menjadi sejumlah angka yang merangkum ciri penting dari sinyal.
+Angka-angka inilah yang kemudian diberikan ke tahap klasifikasi.
 
 \subsubsection{Tantangan BCI}
+\label{sec:tantangan-bci}
 BCI masih memiliki banyak tantangan yang berbeda-beda.
 Kompetisi BCI internasional 2020 mengangkat lima tantangan teknis, masing-masing dengan \textit{dataset}-nya sendiri \parencite{jeong2022}.
 Pertama, \textit{few-shot EEG learning}, yaitu belajar dari data kalibrasi yang sangat sedikit untuk setiap pengguna.
 Kedua, \textit{micro-sleep detection}, yaitu mendeteksi tidur yang sangat singkat dari satu \textit{channel}.
-Ketiga, \textit{imagined speech decoding} untuk komunikasi BCI yang intuitif (\textit{intuitive communication}), yaitu pengguna menyampaikan kata atau frasa utuh secara langsung, bukan mengeja huruf satu per satu.
+Ketiga, \textit{imagined speech decoding} untuk komunikasi BCI yang intuitif (\textit{intuitive communication}), yaitu pengguna menyampaikan kata atau frasa utuh secara langsung.
 Keempat, \textit{cross-session classification} gerakan lengan atas, yaitu menjaga ketepatan model walaupun sinyal direkam pada sesi yang berbeda.
 Kelima, deteksi ERP pada kondisi bergerak (\textit{ambulatory environment}), yaitu perekaman saat pengguna tidak duduk diam di laboratorium.
 
-Dari lima tantangan tersebut, penelitian ini hanya akan berfokus pada komunikasi yang membaca maksud pengguna dari pikirannya tanpa stimulus dari luar.
-Bentuk yang dipilih adalah \textit{imagined speech}, yaitu pengguna membayangkan mengucapkan kata dalam hati.
+Dari lima tantangan tersebut, penelitian ini akan berfokus pada komunikasi intuitif atau \textit{intuitive communication}, yaitu komunikasi yang membaca maksud pengguna dari pikirannya tanpa stimulus dari luar.
+Bentuk komunikasi intuitif yang dipilih adalah \textit{imagined speech}, yaitu pengguna membayangkan mengucapkan kata dalam hati.
 
 \subsubsection{Aplikasi BCI}
+\label{sec:aplikasi-bci}
 Hasil terjemahan sinyal otak diteruskan ke aplikasi, yaitu perangkat yang menjalankan perintah atau menyampaikan informasi dari pengguna \parencite{nicolasalonso2012}.
-Aplikasi BCI beragam, misalnya mengendalikan robot, \textit{drone}, dan perangkat realitas virtual seperti pada Gambar~\ref{fig:bci-flow}.
+Aplikasi BCI beragam, misalnya mengendalikan kursor pada komputer, lengan robot, protesis yaitu anggota tubuh buatan, dan kursi roda \parencite{shih2012}.
 
-Dalam penelitian ini, aplikasi yang dituju adalah alat bantu komunikasi bagi orang yang tidak dapat berbicara.
-Penderita gangguan saraf dan otot berat seperti ALS dan stroke batang otak bisa saja tahu apa yang ingin disampaikan, tetapi kesulitan mengeluarkannya lewat ucapan maupun tulisan \parencite{wolpaw2002}.
-Setelah stroke, hingga 40\% penderita mengalami afasia, yaitu gangguan berbahasa akibat kerusakan jaringan bahasa di otak \parencite{cochrane2025}.
+Salah satu aplikasi BCI adalah alat bantu komunikasi bagi orang yang tidak dapat berbicara.
+Pada aplikasi ini sinyal otak yang berkaitan dengan ucapan diterjemahkan menjadi teks atau suara sintetis, dan sistem seperti ini berpotensi menawarkan kecepatan, privasi, dan kendali pengguna yang lebih baik ketika alat bantu konvensional tidak memadai \parencite{he2026}.
 
 \subsection{\textit{Imagined Speech}}
 \label{sec:imagined-speech}
 \textit{Imagined speech} adalah kondisi ketika seseorang membayangkan mengucapkan sebuah kata dalam hati tanpa menggerakkan mulut atau bersuara, dan sinyal EEG pada saat itu direkam untuk dibaca.
 Sinyal ini dapat menjadi jalur komunikasi baru bagi orang yang tidak mampu berbicara akibat disabilitas motorik atau penyakit saraf \parencite{lopezbernal2022}.
 Pendekatan yang umum digunakan adalah klasifikasi, yaitu model dilatih untuk memilih satu kata dari daftar kata target yang sudah ditentukan sebelumnya \parencite{lopezbernal2022}.
-Selain klasifikasi ke daftar kata tetap, ada pendekatan lain yang memetakan sinyal otak ke representasi makna \parencite{tang2023}, yang dibahas pada Subbab~\ref{sec:vektor-makna}.
+Selain klasifikasi ke daftar kata tetap, ada pendekatan lain yang memetakan sinyal otak ke representasi makna \parencite{tang2023}.
 
 Hasil klasifikasi \textit{imagined speech} sangat bergantung pada jenis tugasnya.
 Menurut \textcite{duhair2026}, tugas dengan dua pilihan sering melaporkan akurasi di atas 80 persen, tetapi pengenalan kata atau fonem dengan banyak pilihan memberikan hasil yang sangat beragam dan peka terhadap rancangan \textit{dataset} serta cara pengujian.
@@ -142,6 +147,7 @@ Ketiga, metode invasif seperti ECoG rata-rata menghasilkan akurasi klasifikasi y
 % II.2 EEG
 % ============================================================================================
 \section{EEG}
+\label{sec:eeg}
 \subsection{Cara Kerja EEG}
 \label{sec:cara-kerja-eeg}
 EEG merekam aktivitas listrik otak lewat elektroda yang ditempelkan di kulit kepala.
@@ -163,25 +169,44 @@ Rekaman EEG berupa deretan angka untuk setiap \textit{channel} pada setiap titik
 
 \subsection{\textit{Dataset} EEG \textit{Imagined Speech}}
 \label{sec:dataset-eeg}
-Salah satu \textit{dataset} publik untuk \textit{imagined speech} adalah BCI Competition 2020-3, yang dirilis dalam kompetisi BCI internasional 2020 \parencite{jeong2022}.
-Sebanyak 15 subjek diminta membayangkan lima kata atau frasa, yaitu \textit{“hello”}, \textit{“help me”}, \textit{“stop”}, \textit{“thank you”}, dan \textit{“yes”}.
+\textit{Dataset} \textit{imagined speech} umumnya berisi rekaman EEG yang diambil saat subjek membayangkan sebuah satuan ucapan, dan setiap rekaman diberi label berupa satuan yang dibayangkan itu.
+Satuan tersebut dapat berupa fonem atau suku kata, kata atau frasa, maupun kalimat.
+Pada tingkat fonem dan suku kata, KARA ONE merekam EEG dari 12 subjek dengan 64 \textit{channel}, dan labelnya adalah tujuh fonem atau suku kata, yaitu /iy/, /uw/, /piy/, /tiy/, /diy/, /m/, dan /n/, serta empat kata yang bunyinya mirip \parencite{zhao2015}.
+3M-CPSEED merekam 20 subjek yang mengucapkan, menggerakkan mulut tanpa suara, dan membayangkan 10 suku kata pinyin bahasa Mandarin, yaitu a, i, u, ü, m, f, j, l, k, dan ch, dengan total 1.800 percobaan yang tervalidasi \parencite{ma2025}.
+Pada tingkat kalimat, Chisco merekam EEG dari tiga subjek sehat dengan 125 \textit{channel} pada 1.000 Hz saat membayangkan lebih dari 6.000 kalimat sehari-hari dalam bahasa Mandarin yang terbagi ke dalam 39 kategori semantik, sehingga total rekamannya melebihi 20.000 kalimat dan EEG tiap subjek melebihi 900 menit \parencite{zhang2024chisco}.
+Pada tingkat kata atau frasa, sinyal EEG untuk satu kata atau satu frasa diberi label berupa kata atau frasa itu sendiri.
+Salah satu contohnya adalah BCI Competition 2020 Track 3, yang dirilis dalam kompetisi BCI internasional 2020 \parencite{jeong2022}.
+Sebanyak 15 subjek diminta membayangkan lima kata atau frasa, yaitu \textit{``hello''}, \textit{``help me''}, \textit{``stop''}, \textit{``thank you''}, dan \textit{``yes''}, dan setiap percobaan diberi label berupa kata atau frasa yang dibayangkan.
 EEG direkam dari 64 \textit{channel} dengan \textit{sampling rate} 256 Hz, dan setiap sampel berupa rekaman selama 3 detik \parencite{zhou2025}.
-
 Pembagian data ditentukan oleh kompetisi.
 Untuk setiap subjek tersedia 60 percobaan per kata untuk pelatihan, 10 untuk validasi, dan 10 untuk pengujian, sehingga totalnya 6.000 percobaan \parencite{jeong2022,zhou2025}.
 
+\textit{Dataset} tingkat kata atau frasa dengan kosakata kecil memiliki beberapa sifat yang memudahkan pengamatan hasil.
+Setiap percobaan hanya berisi satu kata atau satu frasa dengan satu label, sehingga hasil dekode dapat dinilai benar atau salah, dan tingkat tebakan acaknya sama dengan satu dibagi jumlah kata.
+Jika jumlah percobaan sama untuk setiap kata, hasil antar kata dapat dibandingkan tanpa pengaruh ketimpangan data.
+Kata dan frasa yang dipakai juga dapat berupa ungkapan dasar komunikasi sehari-hari, seperti meminta bantuan dan mengucapkan terima kasih, sehingga hasil dekode dapat langsung dibaca sebagai pesan.
+Selain itu, penelitian terbaru sudah melaporkan \textit{balanced accuracy} pada klasifikasi lima kata dengan struktur seperti ini, sehingga hasilnya dapat dibandingkan dengan penelitian lain \parencite{zhou2025}.
+Dengan pertimbangan tersebut, penelitian ini akan difokuskan pada \textit{dataset} dengan struktur seperti ini.
 
 % ============================================================================================
-% II.3 RCT
+% II.3 Penyeragaman sinyal antar subjek
 % ============================================================================================
-\section{Penyeragaman Sinyal Antar Subjek dengan RCT}
+\section{Penyeragaman Sinyal Antar Subjek}
 \label{sec:rct}
 Sinyal EEG untuk kata yang sama berbeda cukup besar dari satu orang ke orang lain \parencite{duhair2026}, sehingga model yang dilatih pada satu orang sulit dipakai pada orang lain.
-Salah satu cara mengatasinya adalah \textit{transfer learning} berbasis geometri Riemann.
-Cara ini merepresentasikan data lewat matriks kovarians spasial, lalu menggeser data setiap subjek ke acuan yang sama agar data antar subjek dapat dibandingkan \parencite{zanini2018}.
-Dalam proposal ini, pemusatan tersebut disebut \textit{Riemannian Centering Transformation} (RCT).
+Salah satu cara mengatasinya adalah penyeragaman antar subjek, yaitu menggeser data setiap orang ke acuan yang sama agar data antar subjek dapat dibandingkan.
+Terdapat beberapa teknik yang bekerja pada matriks kovarians spasial, seperti \textit{Euclidean Alignment} atau EA, \textit{Riemannian Centering Transformation} atau RCT, dan \textit{Riemannian Procrustes Analysis} atau RPA.
+EA memusatkan data dengan rata-rata aritmetika dari matriks kovarians setiap subjek, murah dihitung, dan tidak memerlukan label \parencite{he2020}.
+Rata-rata aritmetika pada matriks kovarians dapat menghasilkan determinan yang lebih besar daripada determinan matriks-matriks asalnya, yang disebut \textit{swelling effect} \parencite{arsigny2005}.
+RCT memusatkan data dengan rata-rata Riemann, yaitu rata-rata yang memperhitungkan bentuk lengkung ruang tempat matriks kovarians berada \parencite{zanini2018}.
+RPA memakai pemusatan pada rata-rata Riemann sebagai langkah pertama, lalu menambahkan penyamaan sebaran dan koreksi rotasi \parencite{rodrigues2019}.
+\textcite{zanini2018} menguji pemusatan Riemann pada BCI gerakan yang dibayangkan atau \textit{motor imagery} dan respons potensial otak atau ERP.
 
-Matriks kovarians spasial adalah tabel berukuran $N \times N$, dengan $N$ jumlah \textit{channel}, yang menunjukkan seberapa kuat setiap pasang \textit{channel} naik dan turun bersamaan.
+RCT merupakan fokus penelitian ini karena dua hal.
+Pertama, RCT memakai rata-rata yang mengikuti kelengkungan ruang matriks kovarians, sehingga tidak mengalami \textit{swelling effect} yang dapat muncul pada rata-rata aritmetika milik EA \parencite{arsigny2005,zanini2018}.
+Kedua, RCT hanya terdiri dari satu langkah pemusatan, sedangkan RPA memerlukan tiga langkah, yaitu pemusatan, penyamaan sebaran, dan koreksi rotasi \parencite{rodrigues2019}, sehingga RCT lebih sederhana dan pengaruh pemusatannya dapat diamati tersendiri.
+
+Cara kerja RCT diawali dengan menghitung matriks kovarians spasial, yaitu tabel berukuran $N \times N$, dengan $N$ jumlah \textit{channel}, yang menunjukkan seberapa kuat setiap pasang \textit{channel} naik dan turun bersamaan.
 Untuk satu percobaan dengan sinyal $X$ berukuran $N$ \textit{channel} $\times$ $T$ titik waktu, matriks ini dihitung dengan Persamaan~\ref{eq:kovarians}.
 Karena waktu sudah diringkas, ukuran matriksnya tetap $N \times N$ berapa pun panjang rekaman.
 \begin{equation}
@@ -191,7 +216,7 @@ C_i = \frac{1}{T-1}\, X_i X_i^{\top}
 \eqcaption{Matriks kovarians spasial}
 
 Matriks kovarians tidak berada pada ruang datar biasa, melainkan pada ruang lengkung yang disebut \textit{manifold} Riemann.
-Karena itu, rata-rata yang tepat adalah rata-rata Riemann (rata-rata geometrik), yaitu matriks yang meminimalkan jumlah kuadrat jarak Riemann ke semua matriks lainnya \parencite{he2020}, seperti pada Persamaan~\ref{eq:rata-riemann}.
+Karena itu, rata-rata yang tepat adalah rata-rata Riemann, yaitu matriks yang meminimalkan jumlah kuadrat jarak Riemann ke semua matriks lainnya \parencite{he2020}, seperti pada Persamaan~\ref{eq:rata-riemann}.
 Pemusatan kemudian dilakukan dengan Persamaan~\ref{eq:pemusatan}, sehingga rata-rata baru setiap subjek menjadi matriks identitas \parencite{zanini2018}.
 \begin{equation}
 \bar{C} = \arg\min_{C \succ 0} \sum_{i=1}^{M} \delta_R^{2}(C, C_i)
@@ -220,17 +245,18 @@ Ilustrasi pemusatan ditunjukkan pada Gambar~\ref{fig:rct}.
 
 Banyak model pembelajaran mesin menerima masukan berupa vektor, sehingga matriks kovarians yang sudah dipusatkan perlu diubah menjadi vektor terlebih dahulu.
 Salah satu caranya adalah memetakan matriks tersebut ke \textit{tangent space}, yaitu ruang datar di sekitar titik acuan \parencite{barachant2012}.
-\textcite{zanini2018} menguji pemusatan ini pada BCI gerakan yang dibayangkan (\textit{motor imagery}) dan respons potensial otak (ERP), sedangkan penerapannya pada \textit{imagined speech} belum ditemukan pada literatur yang ditelaah dalam studi ini.
 
 % ============================================================================================
-% II.4 Vektor makna
+% II.4 Pemetaan EEG ke vektor
 % ============================================================================================
-\section{Vektor Makna dan Pemetaan EEG ke Vektor}
+\section{Pemetaan EEG ke Vektor}
 \label{sec:vektor-makna}
-\subsection{Vektor Makna}
+\subsection{Vektor \textit{Embedding}}
+\label{sec:vektor-embedding}
 Komputer tidak membaca makna dari huruf.
-Cara umum untuk menyampaikan makna ke komputer adalah mengubah data, misalnya kata atau kalimat, menjadi vektor, yaitu deretan angka, yang disebut \textit{embedding}.
+Cara umum untuk menyampaikan makna ke komputer adalah mengubah data, misalnya kata atau kalimat, menjadi vektor, yaitu deretan angka, yang disebut vektor \textit{embedding}.
 Kata atau kalimat yang maknanya dekat mendapat vektor yang berdekatan \parencite{reimers2019}.
+Karena membawa makna, vektor \textit{embedding} dalam proposal ini juga disebut vektor makna.
 \textcite{pereira2018} menyebut ruang tempat vektor-vektor ini berada sebagai ruang semantik, yang dibangun dari kumpulan teks yang sangat besar.
 
 Konsep \textit{embedding} tidak terbatas pada teks.
@@ -254,11 +280,14 @@ Ukuran ini memberi nilai kedekatan yang bertingkat, bukan sekadar benar atau sal
 \end{figure}
 
 \subsection{Model \textit{Sentence Embedding}}
-Vektor makna dihasilkan oleh model \textit{embedding}.
+\label{sec:sentence-embedding}
+Vektor makna dihasilkan oleh model \textit{embedding}, dan terdapat beberapa jenis model.
+\textit{Embedding} kata statis seperti GloVe memberi satu vektor tetap untuk setiap kata \parencite{pennington2014}.
+Model berbasis BERT menghasilkan vektor untuk setiap \textit{token} pada teks masukan, sehingga vektor kalimat yang dapat langsung dibandingkan memerlukan langkah tambahan \parencite{reimers2019}.
 Model \textit{sentence embedding} menghasilkan satu vektor berukuran tetap untuk satu kalimat atau frasa dengan panjang berapa pun, sehingga teks yang berbeda panjang dapat dibandingkan dalam ruang vektor yang sama \parencite{reimers2019}.
+Contoh model \textit{sentence embedding} adalah SBERT, yang dijelaskan berikut ini.
 
-Salah satu pendekatan \textit{sentence embedding} adalah Sentence-BERT (SBERT), yaitu modifikasi dari jaringan BERT yang sudah dilatih sebelumnya.
-BERT sendiri tidak menghasilkan vektor kalimat yang berdiri sendiri, sehingga sulit dipakai untuk mencari kalimat yang maknanya mirip \parencite{reimers2019}.
+\textit{Sentence-BERT} atau SBERT adalah modifikasi dari jaringan BERT yang sudah dilatih sebelumnya.
 SBERT menambahkan operasi \textit{pooling}, misalnya merata-ratakan vektor semua \textit{token} keluaran BERT, untuk mendapat satu vektor berukuran tetap.
 Jaringan itu kemudian dilatih ulang dengan struktur \textit{siamese} dan \textit{triplet}, yaitu dua atau tiga salinan jaringan dengan bobot yang sama yang dipasangkan pada pasangan kalimat, agar kalimat yang maknanya mirip berdekatan dalam ruang vektor dan dapat dibandingkan dengan \textit{cosine similarity} \parencite{reimers2019}.
 Arsitektur SBERT saat menghitung kemiripan dua kalimat ditunjukkan pada Gambar~\ref{fig:sbert}.
@@ -270,11 +299,19 @@ Arsitektur SBERT saat menghitung kemiripan dua kalimat ditunjukkan pada Gambar~\
   \label{fig:sbert}
 \end{figure}
 
+Pendekatan SBERT dipakai dan dikembangkan pada pustaka \textit{sentence-transformers}, dan salah satu modelnya adalah all-MiniLM-L6-v2, yaitu model \textit{sentence embedding} yang tersusun dari tiga modul berurutan \parencite{sentencetransformers}.
+Modul pertama adalah jaringan Transformer bertipe BERT dengan enam lapisan, dimensi tersembunyi 384, dan 12 \textit{attention head}, yang menerima teks hingga 256 \textit{token} dan menghasilkan satu vektor untuk setiap \textit{token}.
+Modul kedua adalah \textit{mean pooling}, yaitu merata-ratakan vektor semua \textit{token} menjadi satu vektor berukuran 384.
+Modul ketiga adalah normalisasi, yang membuat panjang vektor menjadi satu.
+Jaringan Transformer pada modul pertama berasal dari MiniLM, yaitu versi kecil dari Transformer yang dibuat dengan distilasi, di mana model kecil sebagai murid meniru perilaku \textit{self-attention} pada lapisan terakhir model besar sebagai guru \parencite{wang2020minilm}.
+Jaringan tersebut kemudian dilatih ulang dengan tujuan kontrastif, yaitu menghitung \textit{cosine similarity} antara semua pasangan kalimat dalam satu \textit{batch} lalu menerapkan \textit{cross-entropy} terhadap pasangan yang sebenarnya, pada lebih dari satu miliar pasangan kalimat dari banyak sumber \parencite{sentencetransformers}.
+
 \subsection{Pemetaan Sinyal Otak ke Vektor Makna}
+\label{sec:pemetaan-otak}
 \textcite{pereira2018} membangun \textit{decoder} yang memetakan data pencitraan otak ke vektor dalam ruang semantik.
 \textit{Decoder} dilatih dari data konsep tunggal, lalu mampu mengenali makna kalimat baru dengan topik yang tidak muncul saat pelatihan, dan hasilnya menangkap struktur kemiripan makna antar kalimat.
 \textcite{tang2023} melanjutkan arah ini dengan merekonstruksi bahasa secara berkelanjutan, sehingga menghasilkan rangkaian kata yang maknanya sesuai dengan ucapan yang dibayangkan seseorang.
-Kedua penelitian tersebut memakai data pencitraan otak fMRI, bukan EEG.
+Kedua penelitian tersebut memakai data pencitraan otak fMRI.
 
 Pemetaan dari sinyal otak ke vektor makna pada dasarnya adalah masalah regresi, yaitu memprediksi angka-angka penyusun vektor makna dari fitur sinyal.
 Model belajar dari pasangan data berupa fitur sinyal dan vektor makna dari kata yang sedang diproses otak, dengan meminimalkan selisih antara vektor prediksi dan vektor target, seperti pada Persamaan~\ref{eq:regresi}.
@@ -292,6 +329,7 @@ Vektor hasil prediksi dapat diterjemahkan kembali menjadi kata dengan mencari ka
 % II.5 SAE
 % ============================================================================================
 \section{\textit{Sparse Autoencoder} (SAE)}
+\label{sec:sae}
 \textit{Autoencoder} adalah jaringan saraf yang belajar mengubah sebuah vektor menjadi bentuk lain, lalu mengembalikannya sedekat mungkin ke vektor semula.
 Pada \textit{sparse autoencoder} (SAE), bentuk di tengahnya dibuat lebih lebar daripada vektor asli, tetapi hanya sedikit angka yang boleh aktif pada satu waktu \parencite{bricken2023,cunningham2023}.
 Pelatihannya meminimalkan galat rekonstruksi ditambah penalti pada jumlah angka yang aktif, seperti pada Persamaan~\ref{eq:sae}.
@@ -305,7 +343,7 @@ Pada persamaan tersebut, $\mathbf{x}$ adalah vektor masukan, $\mathbf{f}$ adalah
 
 SAE digunakan dalam penelitian interpretabilitas model bahasa karena sebuah dimensi pada vektor sering aktif untuk beberapa makna yang tidak berhubungan, yang disebut polisemantik.
 Salah satu dugaan penyebabnya adalah superposisi, yaitu jaringan menyimpan lebih banyak ciri daripada jumlah dimensinya dengan menempatkannya pada arah-arah yang saling tumpang tindih \parencite{cunningham2023}.
-SAE memisahkan arah-arah ini, dan hasilnya berupa ciri yang lebih mudah ditafsirkan dan lebih bersifat satu makna dibandingkan metode pembanding \parencite{cunningham2023,bricken2023}.
+SAE memisahkan arah-arah ini, dan hasilnya berupa ciri yang lebih mudah ditafsirkan dan lebih bersifat satu makna dibandingkan metode pembanding \parencite{bricken2023,cunningham2023}.
 Penerapan SAE yang dilaporkan pada kedua penelitian tersebut adalah pada aktivasi di dalam model bahasa.
 Struktur SAE ditunjukkan pada Gambar~\ref{fig:sae}.
 
@@ -320,28 +358,81 @@ Struktur SAE ditunjukkan pada Gambar~\ref{fig:sae}.
 % II.6 LLM
 % ============================================================================================
 \section{\textit{Large Language Model} (LLM)}
-Model bahasa \textit{pretrained} (\textit{pretrained language model}) dibangun dengan melatih model Transformer pada kumpulan teks berskala besar, sehingga mampu menyelesaikan berbagai tugas pemrosesan bahasa.
-Istilah \textit{large language model} (LLM) dipakai untuk model \textit{pretrained} yang berukuran besar, misalnya berisi puluhan atau ratusan miliar parameter, yaitu angka-angka yang membentuk model \parencite{zhao2023}.
+\label{sec:llm}
+Model bahasa \textit{pretrained} atau \textit{pretrained language model} dibangun dengan melatih model Transformer pada kumpulan teks berskala besar, sehingga mampu menyelesaikan berbagai tugas pemrosesan bahasa.
+Istilah \textit{large language model} atau LLM dipakai untuk model \textit{pretrained} yang berukuran besar, misalnya berisi puluhan atau ratusan miliar, bahkan triliunan parameter \parencite{zhao2023}.
 
 LLM tidak membaca huruf secara langsung.
-Teks dipecah menjadi \textit{token}, yaitu potongan kata, lalu setiap \textit{token} diubah menjadi vektor sebelum diproses \parencite{mokady2021}.
-Karena itu, apa yang sebenarnya diterima LLM adalah deretan vektor, dan hal inilah yang memungkinkan vektor diberikan langsung tanpa melalui kata.
+Teks dipecah menjadi \textit{token}, yaitu potongan kata atau subkata, lalu setiap \textit{token} diubah menjadi vektor sebelum diproses \parencite{zhao2023}.
+Karena yang diterima LLM adalah deretan vektor, vektor dapat diberikan langsung sebagai masukan.
+
+LLM dapat dibedakan menjadi model \textit{closed source} dan \textit{open source}.
+Pada model \textit{closed source}, bobot model tidak dirilis dan berada di bawah kendali penyedia, sehingga pihak luar sulit memeriksanya \parencite{manchanda2024}.
+Model jenis ini umumnya diakses melalui layanan daring, misalnya GPT dari OpenAI, Claude dari Anthropic, dan Gemini dari Google, dan umumnya memimpin hasil \textit{benchmark} \parencite{manchanda2024}.
+Pada model \textit{open source}, bobot model dirilis sehingga dapat dijalankan, diperiksa, dan disesuaikan sendiri, misalnya LLaMA dan Qwen.
+
+\subsection{Qwen}
+\label{sec:qwen}
+Qwen adalah keluarga model dari Alibaba Cloud.
+Qwen3 dirilis dengan bobot terbuka di bawah lisensi Apache 2.0, yang mengizinkan penggunaan dan penyesuaian sendiri \parencite{qwen2025a}.
+
+Model Qwen3 berupa Transformer kausal yang memprediksi token berikutnya dari token-token sebelumnya, dengan empat komponen utama \parencite{qwen2025a}.
+Komponen pertama adalah \textit{grouped-query attention} atau GQA, yaitu beberapa \textit{query head} yang berbagi satu set \textit{key} dan \textit{value head} sehingga memori yang dibaca saat menghasilkan teks berkurang \parencite{ainslie2023}.
+Komponen kedua adalah fungsi aktivasi SwiGLU pada jaringan \textit{feed-forward}.
+Komponen ketiga adalah \textit{rotary positional embedding} atau RoPE, yaitu cara menyandikan posisi token dengan memutar vektor \textit{query} dan \textit{key}.
+Komponen keempat adalah RMSNorm dengan \textit{pre-normalization}, yaitu normalisasi yang dilakukan sebelum setiap sub-lapis.
+Qwen3 juga menghapus \textit{bias} pada proyeksi \textit{query}, \textit{key}, dan \textit{value} yang dipakai Qwen2, dan menambahkan QK-Norm pada \textit{attention} untuk menjaga kestabilan pelatihan \parencite{qwen2025a}.
+
+Qwen3 juga menyediakan arsitektur \textit{Mixture-of-Experts} atau MoE, yang memiliki arsitektur dasar sama dengan model \textit{dense}, tetapi jaringan \textit{feed-forward}-nya diganti sejumlah \textit{expert} dan hanya sebagian \textit{expert} yang aktif untuk setiap token.
+Pada Qwen3 terdapat 128 \textit{expert} dengan 8 \textit{expert} aktif per token dan tanpa \textit{shared expert} \parencite{qwen2025a}.
+Seluruh model Qwen3 memakai \textit{tokenizer} Qwen, yaitu \textit{byte-level byte-pair encoding} atau BBPE dengan kosakata 151.669 token \parencite{qwen2025a}.
+Qwen3 dilatih pada sekitar 36 triliun token yang mencakup 119 bahasa dan dialek, dan menyatukan mode berpikir untuk penalaran kompleks dengan mode non-berpikir untuk respons cepat dalam satu model \parencite{qwen2025a}.
+Model berukuran kecil memperoleh kemampuannya dari model yang lebih besar melalui distilasi \parencite{qwen2025a}.
+
+Qwen3-Next memperkenalkan susunan hibrida yang menggabungkan \textit{Gated DeltaNet} dan \textit{attention} standar dengan perbandingan 3:1, yaitu 75 persen lapis memakai \textit{Gated DeltaNet} dan 25 persen memakai \textit{attention} standar.
+Susunan ini mengungguli arsitektur yang memakai satu jenis \textit{attention} saja \parencite{qwen2025b}.
+Qwen3-Next juga memperbanyak \textit{expert} pada MoE menjadi 512 \textit{expert}, dengan 10 \textit{expert} yang dipilih dan 1 \textit{shared expert}, serta memakai \textit{Zero-Centered RMSNorm} untuk menjaga kestabilan pelatihan \parencite{qwen2025b}.
+
+\textit{Gated DeltaNet} adalah \textit{linear attention} yang memadukan \textit{gating}, yaitu mekanisme yang memungkinkan memori dihapus dengan cepat, dan aturan delta atau \textit{delta rule}, yaitu mekanisme yang memperbarui memori secara tertarget \parencite{yang2025deltanet}.
+Pada makalah aslinya, \textit{Gated DeltaNet} mengungguli Mamba2 dan DeltaNet pada pemodelan bahasa, penalaran akal sehat, pencarian informasi dalam konteks, dan pemahaman konteks panjang \parencite{yang2025deltanet}.
+\textit{Gated Attention} adalah \textit{softmax attention} biasa yang ditambah gerbang sigmoid khusus untuk tiap \textit{head} setelah keluaran \textit{Scaled Dot-Product Attention} \parencite{qiu2025}.
+Gerbang ini meningkatkan kinerja dan kestabilan pelatihan, mengurangi \textit{attention sink}, yaitu perhatian yang berlebihan pada token awal, dan memperbaiki ekstrapolasi pada konteks panjang \parencite{qiu2025}.
+Gambar~\ref{fig:qwen3-next} menunjukkan susunan tersebut beserta isi kedua jenis lapisan.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.75\textwidth]{images/gambar_II_qwen3_next.png}
+  \caption{Susunan hibrida \textit{Gated DeltaNet} dan \textit{Gated Attention} beserta isi masing-masing lapisan pada Qwen3-Next \parencite[diadaptasi dari][]{qwen2025b}}
+  \label{fig:qwen3-next}
+\end{figure}
+
+Pada \textit{Gated Attention}, \textit{query} dan \textit{key} dinormalkan lalu diberi \textit{rotary position embedding} pada sebagian dimensinya, dan keluaran \textit{attention} dikalikan gerbang sigmoid sebelum proyeksi linear terakhir.
+Pada \textit{Gated DeltaNet}, \textit{query}, \textit{key}, dan \textit{value} melewati konvolusi, dan \textit{Gated Delta Rule} menerima dua masukan gerbang tambahan, yaitu $\alpha$ dan $\beta$ pada gambar.
+
+Hingga saat ini seri model terbuka Qwen telah berkembang melampaui Qwen3, yaitu Qwen3.5 pada Februari 2026, Qwen3.6 pada April 2026, dan Qwen3.8 pada Agustus 2026 \parencite{qwen2026b}.
+Qwen3.5 melanjutkan susunan hibrida tersebut dengan tiga lapis \textit{Gated DeltaNet} untuk setiap satu lapis \textit{Gated Attention} \parencite{qwen35}.
+
+Dari generasi tersebut, Qwen3.5-9B dipilih karena tiga hal.
+Pertama, model terbuka Qwen3.6 dan Qwen3.8 yang dirilis berukuran mulai 27 miliar parameter, sedangkan model terbuka berukuran di bawah 10 miliar pada generasi terbaru tersedia pada seri kecil Qwen3.5, yang terdiri dari model 0,8 miliar, 2 miliar, 4 miliar, dan 9 miliar parameter \parencite{qwen2026b}.
+Kedua, Qwen3.5-9B berukuran sekitar sepertiga dari model 27 miliar parameter sehingga ringan untuk dijalankan secara lokal.
+Ketiga, pada \textit{benchmark} yang dilaporkan \textcite{qwen35}, model ini mencapai 82,5 pada MMLU-Pro yang mengukur pengetahuan luas, 81,7 pada GPQA Diamond yang mengukur penalaran tingkat pascasarjana, dan 91,5 pada IFEval yang mengukur kemampuan mengikuti instruksi.
+Skor MMLU-Pro dan GPQA Diamond tersebut melampaui GPT-OSS-120B yang berukuran sekitar 13 kali lebih besar, yaitu 80,8 dan 80,1 \parencite{qwen35}.
+Qwen3.5-9B memiliki ukuran masukan 4096 dan 32 lapis \parencite{qwen35}.
 
 % ============================================================================================
 % II.7 Soft prompt
 % ============================================================================================
 \section{\textit{Soft Prompt}}
-\textit{Prompt} biasa adalah teks yang diubah menjadi vektor oleh LLM.
-\textit{Soft prompt} adalah deretan vektor yang langsung diberikan kepada LLM di depan masukan, tanpa harus ditulis sebagai kata.
-Pada \textcite{lester2021}, isi vektor ini dilatih supaya LLM yang dibekukan menjalankan tugas tertentu, bukan dipilih dari kata yang ada, sehingga vektor tersebut mewakili tugas.
-Pendekatan serupa, yaitu \textit{prefix-tuning}, menambahkan vektor khusus tugas ke bagian dalam model \parencite{liliang2021}.
+\label{sec:soft-prompt}
+\textit{Prompt} biasa adalah teks yang dipecah menjadi \textit{token} lalu diubah menjadi vektor sebelum diproses LLM.
+\textit{Soft prompt} adalah sejumlah vektor yang diletakkan di depan vektor teks masukan dan langsung dibaca LLM seperti \textit{token}, tanpa harus mewakili kata apa pun.
+Setiap vektor \textit{soft prompt} berukuran sama dengan vektor \textit{token} sehingga dapat digabung dengan vektor teks menjadi satu deretan masukan \parencite{lester2021}.
+Misalnya, tiga vektor \textit{soft prompt} diletakkan di depan vektor tiga \textit{token} teks, sehingga LLM menerima enam vektor berurutan.
 
-Vektor di depan masukan juga dapat dihasilkan oleh jaringan kecil dari masukan lain, sehingga isinya mewakili masukan itu dan bukan hanya tugas, dan isinya berubah pada setiap data \parencite{mokady2021}.
-Dalam proposal ini, istilah \textit{soft prompt} dipakai secara luas untuk kedua bentuk tersebut.
-
-\textcite{lester2021} melaporkan bahwa selisih performa antara \textit{soft prompt} dan \textit{fine-tuning} penuh, yaitu melatih ulang seluruh bobot model, mengecil seiring bertambahnya ukuran model.
-\textit{Soft prompt} juga lebih ringan karena hanya vektor kecil yang disimpan untuk tiap tugas, sedangkan \textit{fine-tuning} penuh menghasilkan salinan model utuh.
-Cara kerja \textit{soft prompt} ditunjukkan pada Gambar~\ref{fig:soft-prompt}.
+Vektor \textit{soft prompt} dilatih dengan membekukan seluruh bobot LLM dan hanya memperbarui vektor itu.
+Pada setiap langkah, keluaran LLM dibandingkan dengan keluaran yang diinginkan, lalu galatnya dialirkan balik ke vektor \textit{soft prompt} hingga LLM menghasilkan keluaran yang sesuai \parencite{lester2021}.
+Dengan cara ini vektor tersebut menjadi \textit{prompt} yang dipelajari dan mewakili tugas yang harus dikerjakan LLM.
+Cara kerja ini ditunjukkan pada Gambar~\ref{fig:soft-prompt}.
 
 \begin{figure}[H]
   \centering
@@ -354,17 +445,34 @@ Cara kerja \textit{soft prompt} ditunjukkan pada Gambar~\ref{fig:soft-prompt}.
 % II.8 Adapter
 % ============================================================================================
 \section{\textit{Adapter}}
-Vektor dari satu model \textit{embedding} tidak berada di ruang yang sama dengan vektor kata di dalam LLM, dan ukurannya pun berbeda.
-\textit{Adapter} adalah jaringan kecil yang menerjemahkan vektor dari satu ruang ke ruang masukan LLM.
-Pada ClipCap, jaringan pemeta ringan mengubah \textit{embedding} gambar menjadi sejumlah vektor yang berukuran sama dengan \textit{embedding} kata, lalu menaruhnya di depan teks sebagai \textit{prefix} untuk GPT-2 \parencite{mokady2021}.
+\label{sec:adapter}
+\textit{Adapter}, yang dalam literatur juga disebut jaringan pemeta (\textit{mapping network}) atau \textit{projector}, adalah jaringan kecil yang mengubah sebuah vektor dari satu ruang menjadi sejumlah vektor di ruang masukan LLM.
+Jaringan ini diperlukan karena ruang vektor model lain, misalnya model gambar, berbeda dari ruang vektor \textit{token} milik LLM, sehingga vektor dari model lain perlu diterjemahkan lebih dahulu ke ruang LLM agar dapat dibaca LLM sebagai \textit{soft prompt} \parencite{mokady2021}.
 
-\textcite{mokady2021} juga melaporkan bahwa metode ini tetap bekerja walaupun hanya jaringan pemeta yang dilatih, sementara model pembuat \textit{embedding} gambar dan model bahasanya dibekukan.
-Hal ini menunjukkan bahwa \textit{embedding} dari satu model dapat dipetakan ke ruang masukan model bahasa lain.
+Salah satu penelitian yang memakai pendekatan ini adalah ClipCap, yaitu penelitian tentang pembuatan keterangan gambar atau \textit{image captioning}, yang bertujuan menuliskan kalimat deskripsi dari sebuah gambar \parencite{mokady2021}.
+ClipCap menggabungkan tiga komponen.
+Komponen pertama adalah CLIP, model yang mengubah gambar menjadi satu vektor yang sudah memuat maknanya karena dilatih bersama teks.
+Komponen kedua adalah GPT-2, model bahasa yang menuliskan kalimat.
+Komponen ketiga adalah jaringan pemeta yang menerjemahkan vektor CLIP menjadi vektor yang dapat dibaca GPT-2 \parencite{mokady2021}.
+
+Jaringan pemeta mengubah \textit{embedding} gambar dari CLIP menjadi awalan, yaitu deretan vektor berjumlah tetap yang digabung dengan vektor teks keterangan gambar lalu diberikan ke GPT-2 \parencite{mokady2021}.
+Jumlah vektor awalan yang dipakai ClipCap adalah $K = 10$ \parencite{mokady2021}.
+Saat inferensi, GPT-2 menuliskan keterangan gambar berdasarkan awalan itu \parencite{mokady2021}.
+Pada \textit{dataset} nocaps dan Conceptual Captions, ClipCap mencapai hasil sebanding dengan metode terbaik pada saat itu dengan waktu pelatihan dan jumlah parameter yang dilatih jauh lebih sedikit \parencite{mokady2021}.
+
+Bentuk jaringan pemeta bergantung pada apakah model bahasa ikut dilatih.
+Jika model bahasa ikut dilatih, jaringan pemeta cukup berupa \textit{multi-layer perceptron} atau MLP, dan hasil yang baik sudah dicapai dengan satu lapis tersembunyi.
+Jika model bahasa dibekukan, jaringan pemeta berupa Transformer yang lebih ekspresif, yang menerima \textit{embedding} gambar dan satu masukan konstanta yang dipelajari \parencite{mokady2021}.
+Dengan varian kedua, metode ini tetap bekerja walaupun hanya jaringan pemeta yang dilatih, sementara CLIP dan model bahasa dibekukan \parencite{mokady2021}.
+
+Pada varian dengan model bahasa yang dibekukan, vektor awalan yang dihasilkan tidak memiliki makna teks dan dioptimalkan untuk mengarahkan model bahasa, dan hasilnya membaik ketika panjang awalan ditambah \parencite{mokady2021}.
+Karena dihasilkan dari masukan, vektor awalan berubah pada setiap data dan mewakili masukan itu.
 
 % ============================================================================================
 % II.9 LoRA
 % ============================================================================================
 \section{\textit{Low-Rank Adaptation} (LoRA)}
+\label{sec:lora}
 \textit{Low-Rank Adaptation} (LoRA) adalah cara menyesuaikan LLM secara ringan tanpa melatih ulang seluruh bobotnya.
 LoRA membekukan bobot LLM dan menyisipkan matriks kecil yang dapat dilatih ke setiap lapisan Transformer \parencite{hu2021}.
 Perubahan bobot dinyatakan sebagai hasil kali dua matriks kecil, seperti pada Persamaan~\ref{eq:lora}.
@@ -388,67 +496,80 @@ Pada GPT-3 175B, LoRA mengurangi jumlah parameter yang dilatih sebanyak 10.000 k
 % ============================================================================================
 % II.10 Metrik evaluasi
 % ============================================================================================
-\section{Metrik Evaluasi dan Uji Statistik}
+\section{Metrik Evaluasi}
+\label{sec:metrik}
+\subsection{\textit{Balanced Accuracy}}
+\label{sec:bacc}
 Akurasi pengenalan kata adalah persentase percobaan yang tebakannya benar.
 Karena jumlah percobaan tiap kata bisa berbeda, \textit{balanced accuracy} memakai rata-rata ketepatan untuk setiap kata, seperti pada Persamaan~\ref{eq:bacc} \parencite{zhou2025}.
-Pada persamaan tersebut, $C$ adalah jumlah kata, $TP_i$ adalah jumlah percobaan kata ke-$i$ yang ditebak benar, dan $FN_i$ adalah jumlah percobaan kata ke-$i$ yang ditebak sebagai kata lain.
+Pada persamaan tersebut, $V$ adalah jumlah kata, $TP_i$ adalah jumlah percobaan kata ke-$i$ yang ditebak benar, dan $FN_i$ adalah jumlah percobaan kata ke-$i$ yang ditebak sebagai kata lain.
 \begin{equation}
-\text{B-Acc} = \frac{1}{C} \sum_{i=1}^{C} \frac{TP_i}{TP_i + FN_i}
+\text{B-Acc} = \frac{1}{V} \sum_{i=1}^{V} \frac{TP_i}{TP_i + FN_i}
 \label{eq:bacc}
 \end{equation}
 \eqcaption{\textit{Balanced accuracy}}
 
-Pada model vektor makna, kata yang ditebak dipilih dari kata dengan \textit{cosine similarity} (Persamaan~\ref{eq:cosine}) tertinggi terhadap vektor prediksi.
-Dengan cara ini, model vektor makna dan model klasifikasi dapat dibandingkan memakai akurasi yang sama.
-Nilai \textit{cosine similarity} juga dapat dilaporkan sebagai tingkat kedekatan antara tebakan dan kata yang dimaksud.
+Pada keluaran LLM, kata yang ditebak adalah kata yang dituliskan LLM, dan percobaan dinyatakan benar bila kata tersebut sama dengan label asli.
+Pada pembanding berupa model klasifikasi, kata yang ditebak adalah kata yang dipilih model dari daftar kata target (Subbab~\ref{sec:imagined-speech}).
+Pada pembanding berupa pencarian kata terdekat, kata yang ditebak dipilih dari kata dengan \textit{cosine similarity} (Persamaan~\ref{eq:cosine}) tertinggi terhadap vektor prediksi.
+Dengan cara ini, keluaran LLM, model klasifikasi, dan pencarian kata terdekat dapat dibandingkan memakai \textit{balanced accuracy} yang sama.
 
-Pengujian dilakukan dalam dua skema.
-Pada skema per subjek, model dilatih dan diuji pada data subjek yang sama.
-Pada skema lintas subjek, model dilatih pada data semua subjek kecuali satu, lalu diuji pada subjek yang tidak dipakai tersebut, dan langkah ini diulang bergantian untuk setiap subjek.
+\textit{Balanced accuracy} dipilih karena ketepatan prediksi setiap kata dihitung lebih dulu, lalu dirata-ratakan, sehingga setiap kata memiliki bobot yang sama dan ketepatan masing-masing kata dapat dilihat.
+Metrik ini juga dipakai \textcite{zhou2025}, sehingga jenis ukurannya sebanding dengan penelitian lain.
 
-Perbandingan antar model diuji dengan uji Wilcoxon \textit{signed-rank}.
-Uji ini membandingkan dua model pada subjek-subjek yang sama dengan melihat selisih hasilnya dan peringkat selisih tersebut, tanpa mengandaikan bahwa selisihnya tersebar normal \parencite{wilcoxon1945}.
-Untuk proporsi teks yang dinilai sesuai oleh penilai manusia, dipakai uji proporsi yang membandingkan persentase yang diamati dengan persentase yang diharapkan bila hanya menebak.
-Perbedaan dianggap signifikan bila nilai $p$ kurang dari 0,05.
+\subsection{BERTScore \textit{Recall}}
+\label{sec:bertscore}
+Keluaran LLM yang berupa kalimat tidak dapat dinilai dengan cocok-persis.
+BERTScore membandingkan teks acuan, yaitu label, dengan teks kandidat, yaitu keluaran LLM, token demi token \parencite{zhang2020bertscore}.
+Kedua teks dipecah menjadi \textit{token}, dan setiap \textit{token} diberi vektor kontekstual oleh BERT.
+\textit{Cosine similarity} dihitung untuk semua pasangan \textit{token} dari kedua teks.
+Setiap \textit{token} pada teks acuan dicocokkan dengan \textit{token} pada teks kandidat yang paling mirip, dan rata-rata nilai kecocokan itu disebut \textit{recall} (Persamaan~\ref{eq:bertscore}).
+\textit{Precision} dihitung dengan arah sebaliknya, dan F1 menggabungkan keduanya \parencite{zhang2020bertscore}.
+\begin{equation}
+R_{\text{BERT}} = \frac{1}{|x|} \sum_{x_i \in x} \max_{\hat{x}_j \in \hat{x}} x_i^{\top} \hat{x}_j
+\label{eq:bertscore}
+\end{equation}
+\eqcaption{BERTScore \textit{recall}}
+
+Pada persamaan tersebut, $x$ adalah \textit{token} teks acuan, $\hat{x}$ adalah \textit{token} teks kandidat, dan vektor \textit{token} dinormalkan sehingga hasil kali titiknya sama dengan \textit{cosine similarity}.
+Bila label hanya terdiri dari satu \textit{token}, \textit{recall} sama dengan \textit{cosine} tertinggi antara \textit{token} label dan \textit{token} mana pun pada keluaran, sehingga kata tambahan pada keluaran tidak menurunkan skor.
+Skor BERTScore bergantung pada model BERT yang dipakai, sehingga model tersebut perlu disebutkan, dan skor keluaran dibandingkan dengan skor pada masukan acak \parencite{yang2026cliplm}.
+
+BERTScore \textit{recall} dipilih karena masukan yang ingin dikenali berupa satu kata, sehingga pertanyaan yang dijawab adalah apakah keluaran kalimat LLM memuat kata tersebut.
+\textit{Recall} menjawabnya dengan mencocokkan setiap \textit{token} label dengan \textit{token} keluaran yang paling mirip.
+Kata tambahan pada keluaran menurunkan \textit{precision} dan F1 tetapi tidak \textit{recall}, sehingga \textit{recall} sesuai untuk label pendek dengan keluaran yang lebih panjang.
+Keluaran yang memuat kata berdekatan makna dapat tetap memperoleh skor yang cukup tinggi, karena kecocokan dihitung dengan kemiripan vektor \textit{token}.
+BERTScore juga sudah dipakai pada \textit{decoding} otak ke teks \parencite{mishra2025,yang2026cliplm}.
 
 % ============================================================================================
 % II.11 Penelitian terkait
 % ============================================================================================
 \section{Penelitian Terkait}
-Penelitian \textit{imagined speech} berbasis EEG sebagian besar memakai klasifikasi ke daftar kata tetap \parencite{lopezbernal2022}.
-Pada \textit{dataset} BCIC2020-3 dengan lima kata, model klasifikasi terbaru yang dilaporkan \textcite{zhou2025} mencapai \textit{balanced accuracy} sekitar 60 persen.
-Hasil untuk pengenalan banyak kata atau fonem secara umum sangat beragam dan peka terhadap rancangan \textit{dataset} \parencite{duhair2026}.
+\label{sec:penelitian-terkait}
+Thought2Text adalah penelitian yang memberikan representasi sinyal EEG kepada LLM untuk menghasilkan teks \parencite{mishra2025}.
+Sinyal EEG direkam saat enam subjek melihat 2.000 gambar dari 40 kategori objek, dengan 128 \textit{channel} selama 0,5 detik untuk setiap gambar.
+Rangsangan berupa gambar dipilih karena tidak melibatkan pemrosesan bahasa seperti membaca \parencite{mishra2025}.
+\textit{Dataset} ini memiliki label objek, yaitu kelas ImageNet untuk setiap gambar, tetapi belum memiliki teks yang menjelaskan isinya, sehingga GPT-4 Omni membuat keterangan satu kalimat untuk tiap gambar sebagai label teks, yaitu kalimat yang harus dituliskan LLM \parencite{mishra2025}.
 
-Di sisi lain, pemetaan sinyal otak ke vektor makna sudah diteliti.
-\textcite{pereira2018} dan \textcite{tang2023} melakukannya pada data fMRI.
-Untuk EEG \textit{imagined speech}, NeuroSpeak \parencite{neurospeak2026}, yang dipresentasikan pada ICLR 2026, menghasilkan kalimat \textit{imagined speech} dari EEG pada korpus CHISCO dengan lebih dari 20.000 kalimat, dan mencapai skor kemiripan semantik 47,70 persen pada evaluasi lintas subjek.
-Ringkasan penelitian terkait ditunjukkan pada Tabel~\ref{tab:penelitian-terkait}.
+Alur Thought2Text terdiri dari tiga tahap seperti ditunjukkan pada Gambar~\ref{fig:thought2text}.
+Pada tahap pertama, \textit{encoder} EEG dilatih untuk mengubah sinyal EEG menjadi vektor 512 dimensi yang mendekati \textit{embedding} gambar dari CLIP, sekaligus memprediksi label objek melalui klasifier \textit{multi-layer perceptron} atau MLP.
+Sinyal EEG disaring dengan \textit{band-pass} 55 sampai 95 Hz dan \textit{notch} 50 Hz sebelum masuk \textit{encoder}.
+Komponen yang menghubungkan vektor dengan LLM disebut \textit{projector} oleh penulisnya, berupa satu lapis linear, dan subbab ini menyebutnya \textit{adapter}.
+Pada tahap kedua, \textit{adapter} dilatih dengan \textit{embedding} gambar CLIP, lalu pada tahap ketiga dilatih lanjut dengan \textit{embedding} EEG.
+Pada kedua tahap itu galat dihitung terhadap label teks dan hanya \textit{adapter} yang dilatih, sedangkan LLM dibekukan.
+Masukan LLM berupa vektor hasil \textit{adapter}, label objek, dan instruksi ``\textit{Describe this in one sentence}'', dan pada pengujian hanya sinyal EEG yang dipakai tanpa gambar \parencite{mishra2025}.
 
-\begin{table}[t]
+\begin{figure}[H]
   \centering
-  \caption{Ringkasan penelitian terkait}
-  \label{tab:penelitian-terkait}
-  \small
-  \begin{tabularx}{\textwidth}{| Y | Y | Y | Y | Y |}
-    \hline
-    \textbf{Penelitian} & \textbf{Sinyal dan tugas} & \textbf{Pendekatan} & \textbf{Catatan hasil} & \textbf{Perbedaan dengan penelitian ini} \\
-    \hline
-    NeuroSpeak (ICLR 2026) & EEG, \textit{imagined speech} tingkat kalimat (CHISCO) & Penyelarasan EEG ke \textit{embedding} bahasa, lalu dekoder teks & Kemiripan semantik 47,70\% pada evaluasi lintas subjek & Penelitian ini memakai kosakata kecil dan membandingkannya langsung dengan klasifikasi \\
-    \hline
-    \textcite{zhou2025} & EEG, klasifikasi \textit{imagined speech} lima kata (BCIC2020-3) & Model fondasi EEG dengan klasifikasi & \textit{Balanced accuracy} 0,6004 & Keluarannya label diskrit, sedangkan penelitian ini memetakan ke vektor makna \\
-    \hline
-    \textcite{tang2023} & fMRI, rekonstruksi bahasa berkelanjutan & \textit{Decoder} berbasis makna dengan model bahasa & Rangkaian kata sesuai dengan makna ucapan yang dibayangkan & Memakai fMRI, bukan EEG \\
-    \hline
-    \textcite{mokady2021} & Gambar, pembuatan keterangan gambar & Jaringan pemeta dari \textit{embedding} CLIP ke \textit{prefix} GPT-2 & Berhasil walaupun hanya jaringan pemeta yang dilatih & Bukan sinyal otak, menjadi dasar penggunaan \textit{adapter} \\
-    \hline
-    \textcite{zanini2018} & EEG, \textit{motor imagery} dan ERP & Pemusatan data berbasis geometri Riemann & Data antar subjek menjadi lebih mudah dibandingkan & Belum diterapkan pada \textit{imagined speech} \\
-    \hline
-    \textcite{pereira2018} & fMRI, makna kalimat & Pemetaan ke ruang semantik & Mengenali makna kalimat baru yang tidak muncul saat pelatihan & Memakai fMRI, bukan EEG \\
-    \hline
-  \end{tabularx}
-\end{table}
+  \input{images/gambar_II_thought2text.tex}
+  \caption{Alur Thought2Text beserta tahap pelatihannya \parencite[digambar ulang dari][]{mishra2025}}
+  \label{fig:thought2text}
+\end{figure}
 
-Berdasarkan penelitian terkait tersebut, terdapat tiga celah yang diangkat dalam proposal ini.
-Pertama, penyeragaman sinyal dengan RCT untuk pemetaan EEG \textit{imagined speech} ke vektor makna lintas subjek belum ditemukan pada literatur yang ditelaah dalam studi ini.
-Kedua, perbandingan langsung antara pemetaan ke vektor makna dan klasifikasi ke label kata pada data dan pembagian data yang sama belum ditemukan pada literatur yang ditelaah.
-Ketiga, penggunaan vektor makna hasil pemetaan EEG sebagai \textit{soft prompt} untuk LLM melalui \textit{adapter}, dengan LoRA sebagai cadangan, belum ditemukan pada literatur yang ditelaah.
+Penulis menguji tiga LLM, yaitu LLaMA-3-8B, Mistral-7B, dan Qwen2.5-7B, dengan BLEU, METEOR, ROUGE, BERTScore, dan penilaian GPT-4 untuk kelancaran dan ketepatan makna.
+Penulis menyimpulkan bahwa konfigurasi lengkap secara konsisten mengungguli konfigurasi pembanding, dengan BLEU-1 sebesar 25,5 persen pada LLaMA-3-8B, 26,0 persen pada Mistral-7B, dan 22,7 persen pada Qwen2.5-7B, yang menurut mereka jauh lebih tinggi daripada skor pembanding tingkat tebakan, serta bahwa tahap kedua berkontribusi pada kualitas teks yang lebih tinggi \parencite{mishra2025}.
+BERTScore konfigurasi lengkap pada ketiga LLM tersebut sebesar 0,88 sampai 0,89 \parencite{mishra2025}.
+
+Penulis melaporkan bahwa EEG memiliki \textit{noise} yang tinggi dan resolusi ruang yang rendah, sehingga objek yang bentuknya mirip dapat salah dikenali dan menghasilkan keluaran yang salah.
+Akurasi klasifikasi objek berbeda antar subjek, dan data yang tersedia terbatas.
+Untuk itu penulis menyarankan model yang dipersonalisasi per subjek dan metode yang meningkatkan generalisasi antar subjek \parencite{mishra2025}.

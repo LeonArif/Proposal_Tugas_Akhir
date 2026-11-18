@@ -1,0 +1,45 @@
+% Diagram alur eksperimen terkait (Thought2Text, Mishra dkk. 2025) yang digambar ulang.
+% Gaya bentuk dan warna ada di diagram_style.tex. Dimuat dengan \input di dalam lingkungan figure.
+\begin{tikzpicture}[dgbase]
+\hyphenpenalty=10000 \exhyphenpenalty=10000 % jangan memenggal kata di dalam node
+% ----- alur inferensi -----
+\node[dgdata]  (eeg) at (0,0)     {Sinyal EEG (128 \textit{channel})};
+\node[dgproc, minimum height=1.4cm, text width=1.85cm]  (pre) at (2.85,0)  {\textit{Preprocess}: \textit{band-pass} 55--95 Hz, \textit{notch} 50 Hz};
+\node[dgmodel, text width=1.65cm] (enc) at (5.8,0)   {Encoder EEG (\mbox{ChannelNet})};
+\node[dgdata, text width=1.75cm]  (vec) at (8.6,0)   {Vektor \textit{embedding} (512 dimensi)};
+\node[dgproc]  (prj) at (11.75,0) {\textit{Projector} (1 lapis linear)};
+
+\node[dgproc]  (mlp) at (5.8,-2.5)   {Klasifikasi objek (MLP)};
+\node[dgdata]  (lbl) at (8.6,-2.5)   {Label objek hasil prediksi};
+\node[dgmodel] (llm) at (11.75,-2.5) {LLM beku};
+\node[dgdata]  (out) at (11.75,-4.7) {Deskripsi satu kalimat};
+
+\draw[dgarr] (eeg) -- (pre);
+\draw[dgarr] (pre) -- (enc);
+\draw[dgarr] (enc) -- (vec);
+\draw[dgarr] (vec) -- (prj);
+\draw[dgarr] (prj) -- (llm);
+\draw[dgarr] (vec.south) -- ++(0,-0.65) -| (mlp.north);
+\draw[dgarr] (mlp) -- (lbl);
+\draw[dgarr] (lbl) -- (llm);
+\draw[dgarr] (llm) -- (out);
+
+% ----- panel pelatihan -----
+\node[dgdata]  (dts) at (0,2.9)     {Dataset EEG dan gambar (6 subjek)};
+\node[dgtrain] (t1)  at (5.8,2.9)   {Latih Encoder EEG};
+\node[dgtrain] (t23) at (11.75,2.9) {Latih \textit{Projector}};
+\begin{scope}[on background layer]
+  \node[dggroup, fit=(dts)(t1)(t23)] (panel) {};
+\end{scope}
+\node[dgtab] at (panel.north west) {Pelatihan};
+\draw[dgarr] (dts) -- (t1);
+\draw[dgarr] (t1) -- (t23);
+\draw[dgarr] (t1.south) -- (enc.north);
+\draw[dgarr] (t23.south) -- (prj.north);
+
+% ----- legenda -----
+\node[dgdata,  minimum width=1.5cm, minimum height=0.55cm, text width=0.9cm, font=\tiny] at (0,-2.0)  {Data};
+\node[dgproc,  minimum width=1.5cm, minimum height=0.55cm, text width=0.9cm, font=\tiny] at (0,-2.85) {Proses};
+\node[dgmodel, minimum width=1.5cm, minimum height=0.6cm,  text width=0.8cm, font=\tiny] at (0,-3.75) {Model};
+\node[dgtrain, minimum width=1.5cm, minimum height=0.5cm,  text width=1.2cm, font=\tiny] at (0,-4.6)  {Pelatihan};
+\end{tikzpicture}

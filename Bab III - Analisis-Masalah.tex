@@ -2,167 +2,210 @@
 \chapter{ANALISIS MASALAH}
 \label{chap:analisis-masalah}
 \newcolumntype{Y}{>{\raggedright\arraybackslash}X} % kolom rata kiri dengan lebar fleksibel
+\newcolumntype{Z}[1]{>{\raggedright\arraybackslash}p{#1}} % kolom rata kiri dengan lebar tetap
+
+% Isi bab ini mengikuti Proposal_TA_Konten.docx (revisi 18 November 2026).
 
 % ============================================================================================
 % III.1 Analisis Kondisi Saat Ini
 % ============================================================================================
 \section{Analisis Kondisi Saat Ini}
 \label{sec:kondisi-saat-ini}
-BCI adalah bidang yang masih berkembang.
-Tujuan jangka pendeknya adalah menyediakan kemampuan komunikasi bagi penyandang disabilitas berat \parencite{nicolasalonso2012}, dan kebutuhan membaca sinyal otak juga muncul di bidang lain, misalnya deteksi \textit{microsleep} yang menjadi salah satu tantangan pada kompetisi BCI 2020 \parencite{jeong2022}.
-Alat perekam sinyal otak sudah tersedia dalam berbagai jenis, tetapi tidak semuanya cocok untuk pemakaian sehari-hari.
-ECoG memerlukan operasi, fMRI dan MEG tidak dapat dipindahkan \parencite{nicolasalonso2012}, dan fMRI serta fNIRS merekam lewat perubahan aliran darah sehingga lambat \parencite{frey2014}.
+Penelitian \textit{imagined speech} berbasis EEG sebagian besar memakai klasifikasi ke daftar kata tetap \parencite{lopezbernal2022}.
+Pada tugas dengan dua pilihan, akurasi di atas 80 persen sering dilaporkan, tetapi untuk banyak pilihan kata hasilnya sangat beragam \parencite{duhair2026}, dan teknik non-invasif lebih sulit melampaui ambang akurasi sekitar 70 persen yang dianggap layak untuk penerapan nyata \parencite{lopezbernal2022}.
 
-Di antara alat tersebut, EEG paling praktis karena tidak memerlukan operasi, dapat dibawa, dan menangkap perubahan sinyal dengan cepat \parencite{nicolasalonso2012}.
-Pembacaan EEG sudah cukup memadai untuk tugas sederhana, misalnya tugas dengan dua pilihan yang sering melaporkan akurasi di atas 80 persen \parencite{duhair2026}.
-Namun untuk \textit{imagined speech} dengan banyak pilihan kata, hasilnya masih beragam \parencite{duhair2026}, dan teknik non-invasif lebih sulit melampaui ambang akurasi sekitar 70 persen yang dianggap layak untuk penerapan nyata \parencite{lopezbernal2022}.
+Eksperimen yang paling dekat dengan arah penelitian ini adalah Thought2Text, yang memberikan representasi sinyal EEG kepada LLM untuk menghasilkan teks \parencite{mishra2025}.
+Rincian data dan alur pelatihannya dibahas pada Subbab~\ref{sec:penelitian-terkait} dan ditunjukkan pada Gambar~\ref{fig:thought2text}.
+Secara garis besar, \textit{adapter} dilatih menghubungkan vektor hasil \textit{encoder} EEG ke LLM yang tidak diubah, dan LLM menuliskan satu kalimat deskripsi dari gambar yang dilihat subjek.
+Penulis melaporkan BERTScore sebesar 0,88 sampai 0,89 pada tiga LLM yang diuji \parencite{mishra2025}.
 
-Di sisi lain, jumlah orang yang kehilangan kemampuan berbicara cukup besar.
-Prevalensi stroke di Indonesia tahun 2018 sekitar 2,1 juta orang \parencite{riskesdas2018}, hingga 40 persen penderita stroke mengalami afasia \parencite{cochrane2025}, dan ALS serta stroke batang otak juga membuat penderitanya sulit berkomunikasi \parencite{wolpaw2002}.
-Dengan jumlah penderita sebesar ini, alat bantu komunikasi harus dapat disediakan dalam jumlah banyak, sehingga alat yang ringan dan tidak memerlukan operasi seperti EEG lebih sesuai dibandingkan alat yang mahal dan berukuran besar.
+Penulis juga melaporkan keterbatasan eksperimennya (Subbab~\ref{sec:penelitian-terkait}), yaitu EEG dengan \textit{noise} tinggi dan resolusi ruang rendah, akurasi klasifikasi objek yang berbeda antar subjek, dan data yang terbatas.
+Untuk itu penulis menyarankan model yang dipersonalisasi per subjek dan metode yang meningkatkan generalisasi antar subjek \parencite{mishra2025}.
 
-Model konseptual sistem \textit{imagined speech} berbasis EEG yang ada saat ini terdiri atas empat komponen yang bekerja berurutan, yaitu perekaman EEG saat pengguna membayangkan sebuah kata, pra-pemrosesan sinyal, ekstraksi fitur, dan klasifikasi yang memilih satu kata dari daftar kata yang sudah ditentukan \parencite{lopezbernal2022}.
-Keluaran sistem berupa satu label kata, dan keberhasilannya dinilai benar atau salah.
-
-Sistem tersebut memiliki tiga masalah.
-Pertama, akurasinya masih rendah karena sinyal EEG saat \textit{imagined speech} memiliki rasio sinyal terhadap gangguan yang rendah, bervariasi antar orang, dan data yang tersedia terbatas \parencite{lopezbernal2022,duhair2026}.
-Kedua, penilaian benar atau salah menganggap tebakan yang maknanya dekat sama salahnya dengan tebakan yang jauh.
-Ketiga, keluarannya berhenti pada satu label kata, sehingga belum berupa teks utuh yang dapat dipahami langsung oleh orang di sekitar pengguna.
+Dari rancangan Thought2Text, terdapat empat hal yang belum terjawab untuk tujuan penelitian ini.
+Pertama, sinyal yang dipakai adalah EEG saat melihat gambar, sehingga belum diketahui apakah alur serupa bekerja pada \textit{imagined speech}.
+Kedua, vektor sinyal dilatih mendekati \textit{embedding} gambar CLIP, sedangkan pada \textit{imagined speech} tidak ada gambar, sehingga targetnya perlu berasal dari teks.
+Ketiga, LLM menerima label objek di samping vektor, sehingga pengaruh vektor sinyal saja terhadap keluaran tidak dapat dilihat terpisah.
+Keempat, alurnya tidak memuat penyeragaman sinyal antar subjek, sehingga saran penulis agar generalisasi antar subjek ditingkatkan belum dijawab oleh eksperimen itu sendiri.
 
 % ============================================================================================
-% III.2 Analisis Kebutuhan
+% III.2 Identifikasi Masalah
 % ============================================================================================
-\section{Analisis Kebutuhan}
-Berdasarkan kondisi tersebut, dibutuhkan alat yang dapat menerjemahkan pikiran seseorang menjadi kata atau bahasa yang dapat dimengerti orang lain, dengan cara menerima sinyal otak pengguna lalu menerjemahkannya.
-Alat ini ditujukan bagi orang yang tidak dapat berbicara, sehingga harus dapat dipakai tanpa operasi dan harus bisa menerjemahkannya dengan cepat karena digunakan untuk komunikasi.
-
-\subsection{Identifikasi Masalah Pengguna}
-Masalah pengguna diidentifikasi dari studi literatur dan analisis situasi, belum dari wawancara langsung dengan pasien atau tenaga medis.
-Masalah tersebut ditunjukkan pada Tabel~\ref{tab:masalah-pengguna}.
+\section{Identifikasi Masalah}
+\label{sec:masalah-penelitian}
+Dari kondisi tersebut, tugas akhir ini mengidentifikasi enam masalah yang ditunjukkan pada Tabel~\ref{tab:masalah-penelitian}.
 
 \begin{table}[H]
   \centering
-  \caption{Identifikasi masalah pengguna}
-  \label{tab:masalah-pengguna}
-  \begin{tabularx}{\textwidth}{| l | Y | Y |}
+  \caption{Identifikasi masalah}
+  \label{tab:masalah-penelitian}
+  \footnotesize
+  \begin{tabularx}{\textwidth}{| l | Z{0.22\textwidth} | Y |}
     \hline
-    ID & Masalah pengguna & Penjelasan \\
+    ID & Masalah & Penjelasan \\
     \hline
-    M01 & Pesan mendesak perlu disampaikan cepat dan spontan & Contohnya pasien di rumah sakit yang ingin meminta ke toilet. Alat bantu komunikasi yang ada hanya mencapai sekitar 5 sampai 15 kata per menit pada pemilihan langsung \parencite{higginbotham2009}, dan sistem harus merespons cepat agar pesan tersampaikan tepat waktu. \\
+    P01 & Data \textit{imagined speech} tingkat kata atau frasa yang tersedia terbatas & Data \textit{imagined speech} yang tersedia hanya berisi sedikit kata, misalnya lima kata atau frasa dari 15 subjek \parencite{jeong2022}, dan data yang tersedia secara umum masih kecil \parencite{duhair2026}. \\
     \hline
-    M02 & Alat harus mudah digunakan & Pengguna memerlukan alat tanpa langkah yang rumit. \\
+    P02 & Klasifikasi ke daftar kata tetap membatasi kata yang dapat dihasilkan & Penelitian \textit{imagined speech} sebagian besar memakai klasifikasi ke daftar kata tetap, sehingga kata yang dikenali terbatas pada daftar tersebut \parencite{lopezbernal2022}. Pemetaan sinyal otak ke representasi makna memungkinkan kata di luar daftar dikenali \parencite{pereira2018,tang2023}. \\
     \hline
-    M03 & Jalur otot terganggu, sehingga alat tidak boleh bergantung pada gerakan & Penderita ALS dan stroke batang otak kesulitan berkomunikasi lewat otot, sehingga BCI dipandang sebagai jalur komunikasi non-otot bagi mereka \parencite{wolpaw2002}. \\
+    P03 & Vektor makna memiliki dimensi dan ruang yang berbeda dengan masukan LLM & Vektor hasil regresi berukuran 384 dimensi, sedangkan masukan Qwen3.5-9B berukuran 4096 dimensi dan berada di ruang vektor yang berbeda dari vektor kata di dalam LLM \parencite{qwen35}. \\
     \hline
-    M04 & Akurasi pembacaan masih kurang baik & Hasil pengenalan banyak kata sangat beragam \parencite{duhair2026}, dan teknik non-invasif lebih sulit melampaui ambang akurasi sekitar 70 persen \parencite{lopezbernal2022}. \\
+    P04 & Sinyal EEG \textit{imagined speech} bervariasi antar subjek & Sinyal EEG untuk kata yang sama berbeda cukup besar dari satu orang ke orang lain \parencite{duhair2026}, sehingga model yang dilatih pada sekelompok orang sulit dipakai pada orang baru. \\
     \hline
-    M05 & Keluaran satu kata sulit dipahami orang di sekitar pengguna & Sistem yang ada hanya mengeluarkan satu label kata, sehingga belum berupa teks utuh yang dapat dipahami langsung, seperti diuraikan pada Subbab~\ref{sec:kondisi-saat-ini}. \\
+    P05 & Vektor makna hasil pemetaan berisi banyak makna yang tercampur & Satu dimensi pada vektor dapat aktif untuk beberapa makna yang tidak berhubungan, dengan dugaan penyebab berupa superposisi, yaitu jaringan menyimpan lebih banyak ciri daripada jumlah dimensinya \parencite{cunningham2023}. Pada vektor 384 dimensi hasil regresi EEG, percampuran ini dapat menyulitkan LLM. \\
+    \hline
+    P06 & Ukuran LLM menentukan kebutuhan memori dan pengaruhnya pada keluaran belum diketahui & LLM tersedia dalam berbagai ukuran, dan model yang lebih besar memerlukan memori GPU yang lebih besar. \\
     \hline
   \end{tabularx}
 \end{table}
 
-\subsection{Kebutuhan Fungsional}
-Kebutuhan fungsional sistem ditunjukkan pada Tabel~\ref{tab:kebutuhan-fungsional}.
+% ============================================================================================
+% III.3 Kebutuhan
+% ============================================================================================
+\section{Analisis Kebutuhan}
+\label{sec:kebutuhan-penelitian}
+Kebutuhan dirumuskan untuk \textit{pipeline} eksperimen, yaitu rangkaian langkah dari pembacaan data sampai penilaian hasil, dan seluruhnya diturunkan dari masalah pada Tabel~\ref{tab:masalah-penelitian}.
+Analisis kebutuhan dibagi menjadi dua, yaitu kebutuhan fungsional dan kebutuhan nonfungsional.
+Kebutuhan fungsional menjelaskan kemampuan yang harus tersedia pada \textit{pipeline}, sedangkan kebutuhan nonfungsional menjelaskan karakteristik kualitas dan batasan yang perlu dipenuhi oleh pelaksanaan eksperimen.
 
-\begin{table}[H]
-  \centering
-  \caption{Kebutuhan fungsional}
-  \label{tab:kebutuhan-fungsional}
-  \begin{tabularx}{\textwidth}{| l | Y | l |}
+\subsection{Kebutuhan Fungsional}
+Kebutuhan fungsional ditunjukkan pada Tabel~\ref{tab:kebutuhan-fungsional}.
+
+{\footnotesize
+\begin{longtable}{| l | Z{0.68\textwidth} | l |}
+    \caption{Kebutuhan fungsional} \label{tab:kebutuhan-fungsional} \\
     \hline
     ID & Kebutuhan fungsional & Menjawab \\
     \hline
-    F01 & Sistem dapat menerima sinyal EEG saat pengguna membayangkan kata atau frasa. & M04 \\
+    \endfirsthead
+    \multicolumn{3}{l}{\tablename\ \thetable\ (lanjutan)} \\
     \hline
-    F02 & Sistem dapat membersihkan dan menyeragamkan sinyal EEG antar orang dengan RCT. & M04 \\
+    ID & Kebutuhan fungsional & Menjawab \\
     \hline
-    F03 & Sistem dapat memetakan sinyal EEG menjadi vektor makna. & M04 \\
+    \endhead
+    F01 & \textit{Pipeline} mampu membaca dan memvalidasi data EEG \textit{imagined speech} sesuai skema yang ditentukan. & P01 \\
     \hline
-    F04 & Sistem dapat memisahkan makna yang tercampur pada vektor makna dengan SAE. & M05 \\
+    F02 & \textit{Pipeline} mampu menyaring frekuensi dan membuang \textit{noise} pada sinyal EEG. & P01 \\
     \hline
-    F05 & Sistem dapat memberikan vektor makna kepada LLM sebagai \textit{soft prompt}. & M05 \\
+    F03 & \textit{Pipeline} mampu memisahkan data latih, validasi, dan uji sesuai rancangan eksperimen, baik untuk skema per subjek maupun lintas subjek, tanpa terjadi kebocoran data. & P04 \\
     \hline
-    F06 & Sistem dapat menghasilkan teks yang sesuai dengan maksud pengguna. & M04, M05 \\
+    F04 & \textit{Pipeline} mampu mengubah label kata atau frasa pada data latih menjadi vektor makna berukuran 384 dengan all-MiniLM-L6-v2. & P02 \\
     \hline
-    F07 & Hasil sistem dapat dinilai, yaitu lewat akurasi pengenalan kata dan penilaian kesesuaian teks oleh penilai manusia. & M04 \\
+    F05 & \textit{Pipeline} mampu menghitung matriks kovarians spasial setiap percobaan dan memetakannya ke \textit{tangent space} sebagai fitur masukan model regresi. & P02 \\
     \hline
-  \end{tabularx}
-\end{table}
+    F06 & \textit{Pipeline} mampu melatih model regresi yang memetakan fitur EEG menjadi vektor makna berukuran 384. & P02 \\
+    \hline
+    F07 & \textit{Pipeline} mampu menyeragamkan sinyal EEG antar subjek dengan RCT, dan mampu dijalankan juga tanpa RCT. & P04 \\
+    \hline
+    F08 & \textit{Pipeline} mampu melatih SAE terpisah dari data EEG menggunakan \textit{embedding} teks, dan mampu dijalankan juga tanpa SAE. & P05 \\
+    \hline
+    F09 & \textit{Pipeline} mampu melatih \textit{adapter} yang menerjemahkan vektor menjadi $K$ vektor berukuran 4096. & P03 \\
+    \hline
+    F10 & \textit{Pipeline} mampu menjalankan LLM untuk menuliskan kata atau frasa dari $K$ vektor tersebut, dengan LoRA ditambahkan bila \textit{adapter} saja belum cukup. & P03 \\
+    \hline
+    F11 & \textit{Pipeline} mampu menjalankan konfigurasi K1 sampai K4 (Tabel~\ref{tab:konfigurasi}) pada data dan pembagian data yang sama. & P04, P05 \\
+    \hline
+    F12 & \textit{Pipeline} mampu menghitung performa keluaran LLM, yaitu \textit{balanced accuracy} untuk keluaran berupa kata dan BERTScore \textit{recall} untuk keluaran berupa deretan kata, beserta tingkat tebakan acak sebagai pembanding. & P02, P03 \\
+    \hline
+    F13 & \textit{Pipeline} mampu menguji performa terhadap tingkat tebakan acak dan menguji perbedaan performa dengan dan tanpa RCT per subjek uji. & P04 \\
+    \hline
+    F14 & \textit{Pipeline} mampu menjalankan LLM sumber terbuka pada perangkat penelitian, dengan ukuran keluaran \textit{adapter} mengikuti ukuran masukan LLM yang dipakai. & P06 \\
+    \hline
+    F15 & \textit{Pipeline} mampu melatih dan menjalankan pembanding berupa model klasifikasi ke daftar kata yang sama, serta pencarian kata terdekat dari vektor hasil regresi, pada data dan pembagian data yang sama, beserta uji perbedaan performanya dengan keluaran LLM. & P02 \\
+    \hline
+\end{longtable}
+}
 
 \subsection{Kebutuhan Nonfungsional}
-Kebutuhan nonfungsional sistem ditunjukkan pada Tabel~\ref{tab:kebutuhan-nonfungsional}.
+Kebutuhan nonfungsional ditunjukkan pada Tabel~\ref{tab:kebutuhan-nonfungsional}.
+
+{\footnotesize
+\begin{longtable}{| l | Z{0.2\textwidth} | Z{0.46\textwidth} | l |}
+    \caption{Kebutuhan nonfungsional} \label{tab:kebutuhan-nonfungsional} \\
+    \hline
+    ID & Karakteristik & Kebutuhan nonfungsional & Menjawab \\
+    \hline
+    \endfirsthead
+    \multicolumn{4}{l}{\tablename\ \thetable\ (lanjutan)} \\
+    \hline
+    ID & Karakteristik & Kebutuhan nonfungsional & Menjawab \\
+    \hline
+    \endhead
+    NF01 & \textit{Reproducibility} & \textit{Pipeline} memberikan keluaran yang konsisten pada konfigurasi yang identik, yaitu data, pembagian data, dan benih acak yang sama menghasilkan performa yang sama. & P04, P05 \\
+    \hline
+    NF02 & \textit{Traceability} & Konfigurasi, versi \textit{library}, benih acak, dan hasil setiap percobaan dicatat sehingga eksperimen dapat diulang. & P04, P05 \\
+    \hline
+    NF03 & Validitas (bebas kebocoran data) & Pada pengujian lintas subjek, data dan label subjek yang diuji tidak dipakai untuk melatih model regresi, SAE, \textit{adapter}, maupun LoRA. Pada RCT, rata-rata subjek yang diuji dihitung hanya dari rekamannya sendiri. & P04 \\
+    \hline
+    NF04 & Validitas pemilihan parameter & Nilai $K$, lebar SAE, jenis model regresi, dan jenis model klasifikasi pembanding dipilih dengan data validasi tanpa memakai data uji. & P02, P03, P05 \\
+    \hline
+    NF05 & Keterbandingan & Semua konfigurasi dan pembanding dinilai pada data uji, pembagian data, dan metrik yang sama. & P02, P04, P05 \\
+    \hline
+    NF06 & Kecukupan data & Perekaman memuat 10 subjek dan 10 kata atau frasa, dengan jumlah percobaan per kata yang cukup untuk uji statistik. & P01 \\
+    \hline
+    NF07 & Batasan perekaman & Perekaman memakai EEG non-invasif agar hasil relevan untuk alat bantu yang dapat dipakai di samping pasien. & P01 \\
+    \hline
+    NF08 & Batasan sumber daya & LLM berupa model sumber terbuka yang dapat dijalankan secara lokal pada perangkat keras yang tersedia. & P03 \\
+    \hline
+    NF09 & Efisiensi sumber daya & Ukuran LLM, presisi atau kuantisasi, penggunaan memori GPU, dan waktu pelatihan dicatat, sehingga kebutuhan sumber daya \textit{pipeline} dapat dilaporkan. & P06 \\
+    \hline
+\end{longtable}
+}
+
+% ============================================================================================
+% III.4 Analisis Alternatif Pendekatan
+% ============================================================================================
+\section{Analisis Alternatif Pendekatan dan Konfigurasi Eksperimen}
+\label{sec:alternatif-pendekatan}
+Untuk setiap masalah dipertimbangkan beberapa alternatif, lalu dipilih satu beserta alasannya.
+Alternatif yang masih perlu dibuktikan dibandingkan sebagai konfigurasi eksperimen.
+Hasilnya ditunjukkan pada Tabel~\ref{tab:alternatif-pendekatan}.
+
+{\footnotesize
+\begin{longtable}{| l | Z{0.30\textwidth} | Z{0.52\textwidth} |}
+    \caption{Alternatif pendekatan untuk setiap masalah} \label{tab:alternatif-pendekatan} \\
+    \hline
+    Masalah & Alternatif & Solusi \\
+    \hline
+    \endfirsthead
+    \multicolumn{3}{l}{\tablename\ \thetable\ (lanjutan)} \\
+    \hline
+    Masalah & Alternatif & Solusi \\
+    \hline
+    \endhead
+    P01 & (a) Memakai data publik yang sudah ada, (b) merekam data baru dengan kosakata terkontrol & Dipilih (b), karena data publik hanya berisi sedikit kata \parencite{jeong2022} dan rekaman baru dapat dirancang dengan 10 subjek dan 10 kata atau frasa. \\
+    \hline
+    P02 & (a) Klasifikasi ke daftar kata tetap \parencite{lopezbernal2022}, (b) regresi ke vektor makna dari \textit{embedding} kata statis \parencite{pereira2018}, (c) regresi ke vektor makna dari model \textit{sentence embedding} \parencite{pereira2018,tang2023} & Dipilih (c) dengan model all-MiniLM-L6-v2 berukuran 384, karena sebagian label berupa frasa dan satu label harus menjadi satu vektor. Jenis model regresi dipilih dengan data validasi. Klasifikasi (a) tetap dijalankan sebagai pembanding, bersama pencarian kata terdekat dari vektor hasil regresi. \\
+    \hline
+    P03 & (a) \textit{Fine-tuning} penuh LLM, (b) \textit{prompt tuning} \parencite{lester2021}, (c) \textit{adapter} \parencite{mokady2021} ditambah LoRA \parencite{hu2021} & Dipilih (c), yaitu \textit{adapter} yang menghasilkan $K$ vektor berukuran 4096, dengan $K$ ditentukan melalui \textit{tuning} dan $K = 10$ sebagai nilai awal \parencite{mokady2021}. LoRA ditambahkan bila \textit{adapter} saja belum cukup. \\
+    \hline
+    P04 & (a) Tanpa penyeragaman, (b) \textit{Euclidean Alignment} \parencite{he2020}, (c) \textit{Riemannian Procrustes Analysis} \parencite{rodrigues2019}, (d) \textit{Riemannian Centering Transformation} \parencite{zanini2018} & Dipilih (d), karena memakai rata-rata Riemann yang menghindari \textit{swelling effect} pada EA \parencite{arsigny2005} dan mudah diuji terpisah dibanding RPA. Tanpa penyeragaman dipakai sebagai konfigurasi pembanding. \\
+    \hline
+    P05 & (a) Tanpa SAE, (b) dengan SAE \parencite{bricken2023,cunningham2023} & Dipilih membandingkan dengan dan tanpa SAE sebagai konfigurasi. Lebar SAE ditentukan melalui \textit{tuning}. \\
+    \hline
+    P06 & (a) Qwen3.5 seri kecil, berukuran 0,8 sampai 4 miliar parameter \parencite{qwen2026b}, (b) Qwen3.5-9B \parencite{qwen35}, (c) Qwen3.6 dan Qwen3.8 berukuran mulai 27 miliar parameter \parencite{qwen2026b} & Dipilih (b) karena dapat dijalankan secara lokal pada perangkat penelitian \parencite{qwen35}. Model berukuran mulai 27 miliar parameter tidak dipilih karena kebutuhan memorinya melebihi perangkat tersebut. \\
+    \hline
+\end{longtable}
+}
+
+Dari tabel tersebut, RCT dan SAE diperlakukan sebagai konfigurasi eksperimen yang masing-masing dapat dipakai atau tidak dipakai.
+Kombinasinya ditunjukkan pada Tabel~\ref{tab:konfigurasi}, dan semuanya dievaluasi pada pengujian lintas subjek.
 
 \begin{table}[H]
   \centering
-  \caption{Kebutuhan nonfungsional}
-  \label{tab:kebutuhan-nonfungsional}
-  \begin{tabularx}{\textwidth}{| l | Y | l |}
+  \caption{Konfigurasi eksperimen}
+  \label{tab:konfigurasi}
+  \begin{tabularx}{\textwidth}{| l | l | l | Y |}
     \hline
-    ID & Kebutuhan nonfungsional & Menjawab \\
+    Konfigurasi & RCT & SAE & Keterangan \\
     \hline
-    NF01 & Sistem dapat dipakai kapan saja dan di mana saja, sehingga perekamannya harus non-invasif dan portabel. & M01, M03 \\
+    K1 & Tidak & Tidak & Dasar tanpa komponen tambahan \\
     \hline
-    NF02 & Sistem menghasilkan teks dengan cepat. & M01 \\
+    K2 & Ya & Tidak & Menguji pengaruh RCT saja \\
     \hline
-    NF03 & Sistem mudah digunakan dan dapat dipelajari dengan beberapa tahapan saja. & M02 \\
+    K3 & Tidak & Ya & Menguji pengaruh SAE saja \\
     \hline
-  \end{tabularx}
-\end{table}
-
-% ============================================================================================
-% III.3 Analisis Pemilihan Solusi
-% ============================================================================================
-\section{Analisis Pemilihan Solusi}
-\subsection{Alternatif Solusi}
-Terdapat beberapa alternatif solusi yang dipertimbangkan.
-\begin{enumerate}
-  \item \textbf{Alat bantu komunikasi (\textit{augmentative and alternative communication} atau AAC)}.
-  Pengguna memilih huruf atau kata lewat gerakan.
-  Kecepatannya sekitar 5 sampai 15 kata per menit pada pemilihan langsung dan 2 sampai 7 kata per menit pada pemindaian, atau 15 sampai 25 kali lebih lambat daripada ucapan \parencite{higginbotham2009}.
-  Kelambatan ini disebut membatasi kesempatan pendidikan dan pekerjaan penggunanya \parencite{higginbotham2009}.
-  \item \textbf{BCI invasif}.
-  Teknik invasif seperti ECoG rata-rata menghasilkan akurasi yang lebih tinggi dan lebih mudah melampaui ambang 70 persen \parencite{lopezbernal2022}, tetapi memerlukan operasi \parencite{nicolasalonso2012}.
-  \item \textbf{BCI dengan fMRI, MEG, atau fNIRS}.
-  fMRI, MEG, atau fNIRS memiliki ketelitian yang lebih baik dibandingkan EEG yaitu sekitar 1 mm untuk fMRI dan 5 mm untuk MEG dan fNIRS, tetapi fMRI dan MEG tidak dapat dipindahkan, sedangkan fMRI dan fNIRS lambat karena merekam lewat perubahan aliran darah \parencite{nicolasalonso2012,frey2014}.
-  \item \textbf{EEG dengan klasifikasi ke label kata}.
-  Ini pendekatan yang umum pada \textit{imagined speech} \parencite{lopezbernal2022}.
-  Keluarannya satu label kata dan penilaiannya benar atau salah.
-  \item \textbf{EEG dengan pemetaan ke vektor makna dan LLM}.
-  Pengguna membayangkan sebuah kata atau frasa, dan sinyal otaknya direkam dengan perangkat EEG portabel, misalnya Emotiv EPOC.
-  Sinyal EEG diseragamkan dengan RCT, lalu model regresi yang sudah dilatih memetakannya ke vektor makna yang menyerupai keluaran model \textit{sentence embedding}.
-  Makna yang tercampur pada vektor tersebut dipisahkan dengan \textit{Sparse Autoencoder} (SAE).
-  Vektor hasil pemisahan diterjemahkan oleh \textit{adapter}, dengan LoRA sebagai cadangan, menjadi \textit{soft prompt} bagi LLM, dan LLM menghasilkan teks.
-\end{enumerate}
-
-Pada alternatif kelima terdapat tiga pilihan rancangan yang dipertimbangkan.
-Pertama, vektor dapat diubah dulu menjadi teks sebelum diberikan ke LLM, atau diberikan langsung sebagai \textit{soft prompt}.
-Kedua, LLM dapat disesuaikan dengan LoRA, atau cukup dibantu \textit{adapter}.
-Ketiga, sinyal dapat diproses dengan atau tanpa RCT.
-
-\subsection{Analisis Penentuan Solusi}
-Penentuan solusi dilakukan dengan menyaring alternatif memakai tiga syarat wajib yang diturunkan dari kebutuhan, yaitu dapat dipakai tanpa operasi dan portabel (NF01), tidak bergantung pada otot (M03), dan menghasilkan keluaran berupa teks utuh (F06).
-Hasil penyaringan ditunjukkan pada Tabel~\ref{tab:penyaringan-solusi}.
-
-\begin{table}[H]
-  \centering
-  \caption{Penyaringan alternatif solusi}
-  \label{tab:penyaringan-solusi}
-  \begin{tabularx}{\textwidth}{| Y | Y | Y | Y | Y |}
-    \hline
-    Alternatif & Tanpa operasi dan portabel & Tidak bergantung pada otot & Keluaran berupa teks utuh & Hasil \\
-    \hline
-    1. AAC & Terpenuhi & Tidak & Terpenuhi & Gugur \\
-    \hline
-    2. BCI invasif & Tidak & Terpenuhi & Tidak dinilai & Gugur \\
-    \hline
-    3. fMRI, MEG, fNIRS & Tidak (fNIRS portabel tetapi lambat) & Terpenuhi & Tidak dinilai & Gugur \\
-    \hline
-    4. EEG dan klasifikasi & Terpenuhi & Terpenuhi & Tidak & Tidak dipilih sebagai solusi, dipertahankan sebagai pembanding \\
-    \hline
-    5. EEG, vektor makna, dan LLM & Terpenuhi & Terpenuhi & Terpenuhi & Dipilih \\
+    K4 & Ya & Ya & Keduanya dipakai \\
     \hline
   \end{tabularx}
 \end{table}
-
-Alternatif 5 dipilih karena satu-satunya yang memenuhi ketiga syarat.
-Alternatif 4 tetap dipakai sebagai pembanding pada evaluasi (Hipotesis 2).
